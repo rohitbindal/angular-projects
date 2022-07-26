@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { faker } from '@faker-js/faker';
 
@@ -8,6 +8,7 @@ import { faker } from '@faker-js/faker';
   styleUrls: ['./recipe-list.component.css'],
 })
 export class RecipeListComponent implements OnInit {
+  @Output() recipeSelectedFromList = new EventEmitter<Recipe>();
   recipes: Recipe[] = [
     new Recipe(
       'A test recipe',
@@ -15,12 +16,16 @@ export class RecipeListComponent implements OnInit {
       'https://source.unsplash.com/random/?food'
     ),
     new Recipe(
-      'A test recipe',
-      'This is a test recipe.',
-      'https://source.unsplash.com/random/?food'
+      'Another test recipe',
+      'This is another test recipe.',
+      'https://source.unsplash.com/random/?food,chinese'
     ),
   ];
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  onRecipeSelected(recipe: Recipe) {
+    this.recipeSelectedFromList.emit(recipe);
+  }
 }
