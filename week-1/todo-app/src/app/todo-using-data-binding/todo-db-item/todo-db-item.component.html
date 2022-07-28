@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <p class="createdAt">{{ todo.createdAt }}</p>
+    <p [ngClass]="todoStatus">{{ todoStatus }}</p>
+  </div>
+  <div class="row">
+    <p class="text">{{ todo.text }}</p>
+  </div>
+  <div class="row">
+    <div class="row-end">
+      <label for="status-selector">Change Status</label>
+      <select id="status-selector" [(ngModel)]="todoStatus">
+        <option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </option>
+      </select>
+    </div>
+    <div class="row-end">
+      <button class="delete-todo" type="button">Delete</button>
+      <button class="edit-todo" type="button">Edit</button>
+    </div>
+  </div>
+</div>

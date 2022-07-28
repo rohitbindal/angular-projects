@@ -1,4 +1,4 @@
-import { STATUS, TODO } from "./todo.model";
+import { STATUS, TODO } from "../todo.model";
 
 export class TodoService {
   private todos: TODO[] = [

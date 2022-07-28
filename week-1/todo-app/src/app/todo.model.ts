@@ -1,6 +1,6 @@
 export enum STATUS {
   PENDING = 'Pending',
-  INPROGRESS = 'In Progress',
+  INPROGRESS = 'InProgress',
   COMPLETED = 'Completed'
 }
 export class TODO {
