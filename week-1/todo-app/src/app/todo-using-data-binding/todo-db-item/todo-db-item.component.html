@@ -1,23 +1,49 @@
 <div class="container">
+  <!-- Top Row: Contains status and date of creation. -->
   <div class="row">
-    <p class="createdAt">{{ todo.createdAt }}</p>
-    <p [ngClass]="todoStatus">{{ todoStatus }}</p>
+    <small class="createdAt">{{ todo.createdAt }}</small>
+    <small
+      [ngClass]="[todoStatus, 'status']"
+      [title]="'Status: ' + todoStatus"
+    ></small>
   </div>
+  <hr />
+  <!-- Middle Row: Contains the Todo text. -->
   <div class="row">
-    <p class="text">{{ todo.text }}</p>
+    <input
+      type="text"
+      name="todo-text-input"
+      id="todo-text-input"
+      [ngClass]="{ active: isEditable, inactive: !isEditable, input: true }"
+      [disabled]="!isEditable"
+      [(ngModel)]="todo.text"
+      [value]="todo.text"
+      [title]="isEditable ? 'Edit Todo Text' : 'Todo Text'"
+    />
   </div>
+  <hr />
+  <!-- Bottom Row -->
   <div class="row">
+    <!-- Change the status of TODO using a dropdown -->
     <div class="row-end">
-      <label for="status-selector">Change Status</label>
-      <select id="status-selector" [(ngModel)]="todoStatus">
+      <select
+        id="status-selector"
+        [(ngModel)]="todoStatus"
+        [disabled]="!isEditable"
+      >
         <option *ngFor="let status of statusOptions" [value]="status">
           {{ status }}
         </option>
       </select>
     </div>
+    <!-- Delete and Edit Todo buttons -->
     <div class="row-end">
-      <button class="delete-todo" type="button">Delete</button>
-      <button class="edit-todo" type="button">Edit</button>
+      <button class="delete-todo" type="button" (click)="onDeleteClicked()">
+        Delete
+      </button>
+      <button class="edit-todo" type="button" (click)="onEditClicked()">
+        {{ isEditable ? "Save" : "Edit" }}
+      </button>
     </div>
   </div>
 </div>

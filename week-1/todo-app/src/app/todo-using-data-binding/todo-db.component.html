@@ -1,6 +1,11 @@
 <!-- If there are no todos, show the Create Todo Element -->
 <ng-container *ngIf="todos; else addTodo">
-  <app-todo-db-item *ngFor="let todo of todos" [todo]="todo"></app-todo-db-item>
+  <app-todo-db-item
+    *ngFor="let todo of todos"
+    [todo]="todo"
+    (deleteTodo)="onTodoDelete($event)"
+    (updateTodo)="onTodoUpdated($event)"
+  ></app-todo-db-item>
 </ng-container>
 <!-- Create Todo Element -->
 <ng-template #addTodo>

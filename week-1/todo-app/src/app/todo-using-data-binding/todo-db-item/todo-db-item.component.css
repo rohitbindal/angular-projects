@@ -8,20 +8,48 @@
 .row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-
 .row-end {
   display: block;
 }
-
+/********************************************************************/
+/* Classes to style status */
 .pending {
   background-color: orange;
 }
-
 .completed {
   background-color: green;
 }
-
 .inprogress {
   background-color: blue;
+}
+/* Common styles for Status */
+.status {
+  color: #fff;
+  padding: 2px;
+  border-radius: 15px;
+  height: 15px;
+  width: 15px;
+}
+
+/********************************************************************/
+/* Classes for input */
+
+/* Common Styles */
+.input {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* When the todo is being is edited */
+.active {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+/* Default */
+.inactive {
+  border: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: #fff;
 }
