@@ -1,7 +1,7 @@
 export enum STATUS {
-  PENDING = 'Pending',
-  INPROGRESS = 'InProgress',
-  COMPLETED = 'Completed'
+  PENDING = 'PENDING',
+  INPROGRESS = 'INPROGRESS',
+  COMPLETED = 'COMPLETED'
 }
 export class TODO {
   constructor(public text: string,

@@ -3,7 +3,7 @@
   <div class="row">
     <small class="createdAt">{{ todo.createdAt }}</small>
     <small
-      [ngClass]="[todoStatus, 'status']"
+      [ngClass]="[todoStatus.toLowerCase(), 'status']"
       [title]="'Status: ' + todoStatus"
     ></small>
   </div>
@@ -32,7 +32,7 @@
         [disabled]="!isEditable"
       >
         <option *ngFor="let status of statusOptions" [value]="status">
-          {{ status }}
+          {{ status.toLowerCase() }}
         </option>
       </select>
     </div>

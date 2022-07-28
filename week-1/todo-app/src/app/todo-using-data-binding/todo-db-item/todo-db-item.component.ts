@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { TODO } from "src/app/todo.model";
+import { STATUS, TODO } from "src/app/todo.model";
 
 @Component({
   selector: "app-todo-db-item",
@@ -18,9 +18,9 @@ export class TodoDataBindingItemComponent implements OnInit {
   @Output() updateTodo = new EventEmitter<TODO>();
   @Output() deleteTodo = new EventEmitter<TODO>();
 
-  todoStatus = 'pending';
+  todoStatus!: STATUS;
   // An array to store different status to be used in a <select> element.
-  statusOptions: [string, string, string] = ['pending', 'inprogress', 'completed'];
+  statusOptions: [string, string, string] = ['PENDING', 'INPROGRESS', 'COMPLETED'];
   // Set the default selector as 'pending'
   statusSelected: string = this.statusOptions[0];
   // Activate Edit mode
@@ -30,13 +30,14 @@ export class TodoDataBindingItemComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize the todoStatus
-    this.todoStatus = this.todo.status.toLowerCase();
+    this.todoStatus = this.todo.status;
   }
 
   onEditClicked() {
     // If there is a change update the todo list.
     if (this.isEditable) {
       // Emit an updateTodo event to notify the parent component that a todo has been updated/edited.
+      this.todo.status = this.todoStatus;
       this.updateTodo.emit(this.todo);
     }
     this.isEditable = !this.isEditable;

@@ -1,13 +1,30 @@
-<!-- If there are no todos, show the Create Todo Element -->
-<ng-container *ngIf="todos; else addTodo">
-  <app-todo-db-item
-    *ngFor="let todo of todos"
-    [todo]="todo"
-    (deleteTodo)="onTodoDelete($event)"
-    (updateTodo)="onTodoUpdated($event)"
-  ></app-todo-db-item>
-</ng-container>
-<!-- Create Todo Element -->
-<ng-template #addTodo>
-  <div class="create-todo">Add a todo</div>
-</ng-template>
+<div class="container">
+  <!-- Filters -->
+  <div class="filters">
+    <button class="btn btn-completed" (click)="onFilterClicked('ALL')">
+      All
+    </button>
+    <button class="btn btn-completed" (click)="onFilterClicked('INPROGRESS')">
+      In Progress
+    </button>
+    <button class="btn btn-pending" (click)="onFilterClicked('PENDING')">
+      Pending
+    </button>
+    <button class="btn btn-finished" (click)="onFilterClicked('COMPLETED')">
+      Completed
+    </button>
+  </div>
+  <!-- If there are no todos, show the Create Todo Element -->
+  <ng-container *ngIf="todos; else addTodo">
+    <app-todo-db-item
+      *ngFor="let todo of todos"
+      [todo]="todo"
+      (deleteTodo)="onTodoDelete($event)"
+      (updateTodo)="onTodoUpdated($event)"
+    ></app-todo-db-item>
+  </ng-container>
+  <!-- Create Todo Element -->
+  <ng-template #addTodo>
+    <div class="create-todo">Add a todo</div>
+  </ng-template>
+</div>
