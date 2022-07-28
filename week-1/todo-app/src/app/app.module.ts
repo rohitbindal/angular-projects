@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { TodoComponent } from './todo/todo.component';
-import { TodoItemComponent } from './todo/todo-item/todo-item.component';
+import { TodoComponent } from './todo-using-services/todo.component';
+import { TodoItemComponent } from './todo-using-services/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
