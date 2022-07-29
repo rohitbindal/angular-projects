@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { STATUS, TODO } from "src/app/todo.model";
+import { STATUS, TODO } from "../../todo.model";
 
 @Component({
   selector: "app-todo-db-item",
@@ -8,7 +8,7 @@ import { STATUS, TODO } from "src/app/todo.model";
 })
 export class TodoDataBindingItemComponent implements OnInit {
   /**
-  * Get the todo passed from the parent component using @Input decorator.
+  * Get the todo passed from the parent component using decorator.
   * Since we are checking for empty todo beforehand, it can be said that the
   * 'todo' will not be undefined.
   */

@@ -1,0 +1,56 @@
+<div class="content">
+  <div class="input-container">
+    <!-- Input fields -->
+    <form (submit)="onSubmit($event)">
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Username"
+        title="Username"
+        pattern="[\w]{6,30}"
+        [value]="newUser.username"
+        oninvalid="this.setCustomValidity('Username must not contain any spaces.')"
+        oninput="this.setCustomValidity('')"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
+        title="Email"
+        oninvalid="this.setCustomValidity('Please enter a valid email.')"
+        oninput="this.setCustomValidity('')"
+        [value]="newUser.email"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Password"
+        title="Password"
+        pattern="(?=.*[\d])(?=.*[!@#$%^&*])(?=.*[\w])[\w!@#$%^&*]{7,40}"
+        oninvalid="this.setCustomValidity('Password must be 8-40 characters long and a mixture of alpahbets, numbers and other symbols.')"
+        oninput="this.setCustomValidity('')"
+        [value]="newUser.password"
+        required
+        #passwordInput
+      />
+      <input
+        type="password"
+        name="confirm-password"
+        id="confirm-password"
+        placeholder="Confirm Password"
+        title="Confirm Password"
+        pattern="(?=.*[\d])(?=.*[!@#$%^&*])(?=.*[\w])[\w!@#$%^&*]{7,40}"
+        oninvalid="this.setCustomValidity('Passwords do not match')"
+        oninput="this.setCustomValidity('')"
+        [value]="newUser.confirmPassword"
+        required
+      />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
