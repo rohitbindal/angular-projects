@@ -1,56 +1,111 @@
 <div class="content">
-  <div class="input-container">
-    <!-- Input fields -->
-    <form (submit)="onSubmit($event)">
+  <!-- Input fields -->
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="userFormGroup"
+    class="form-container"
+  >
+    <div class="input-container">
       <input
         type="text"
         name="username"
         id="username"
         placeholder="Username"
         title="Username"
-        pattern="[\w]{6,30}"
-        [value]="newUser.username"
-        oninvalid="this.setCustomValidity('Username must not contain any spaces.')"
-        oninput="this.setCustomValidity('')"
-        required
+        formControlName="username"
+        [ngClass]="{
+          input: true,
+          'input-error':
+            username?.invalid && (username?.dirty || username?.touched),
+          'input-success': !username?.invalid
+        }"
       />
+      <!-- Error Messages based on Input ******************************************************************-->
+      <div
+        class="error username-error"
+        *ngIf="username?.invalid && (username?.dirty || username?.touched)"
+      >
+        <!-- If the input is invalid -->
+        <div *ngIf="username?.value">
+          {{ helper.USERNAME.invalid }}
+        </div>
+        <!-- If the input is empty -->
+        <div *ngIf="username?.errors?.['required']">
+          {{ helper.USERNAME.required }}
+        </div>
+      </div>
+      <!-- *************************************************************************************** -->
+    </div>
+    <div class="input-container">
       <input
-        type="email"
         name="email"
         id="email"
         placeholder="Email"
         title="Email"
-        oninvalid="this.setCustomValidity('Please enter a valid email.')"
-        oninput="this.setCustomValidity('')"
-        [value]="newUser.email"
-        required
+        formControlName="email"
+        [ngClass]="{
+          input: true,
+          'input-error': email?.invalid && (email?.dirty || email?.touched),
+          'input-success': !email?.invalid
+        }"
       />
+      <!-- Error Messages based on Input ******************************************************************-->
+      <div
+        class="error email-error"
+        *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+      >
+        <!-- If the email is invalid -->
+        <div *ngIf="email?.value">
+          {{ helper.EMAIL.invalid }}
+        </div>
+        <!-- If the email is empty -->
+        <div *ngIf="email?.errors?.['required']">
+          {{ helper.EMAIL.required }}
+        </div>
+      </div>
+      <!-- *************************************************************************************** -->
+    </div>
+    <div class="input-container">
       <input
         type="password"
         name="password"
         id="password"
         placeholder="Password"
         title="Password"
-        pattern="(?=.*[\d])(?=.*[!@#$%^&*])(?=.*[\w])[\w!@#$%^&*]{7,40}"
-        oninvalid="this.setCustomValidity('Password must be 8-40 characters long and a mixture of alpahbets, numbers and other symbols.')"
-        oninput="this.setCustomValidity('')"
-        [value]="newUser.password"
-        required
-        #passwordInput
+        formControlName="password"
+        [ngClass]="{
+          input: true,
+          'input-error':
+            password?.invalid && (password?.dirty || password?.touched),
+          'input-success': !password?.invalid
+        }"
       />
-      <input
-        type="password"
-        name="confirm-password"
-        id="confirm-password"
-        placeholder="Confirm Password"
-        title="Confirm Password"
-        pattern="(?=.*[\d])(?=.*[!@#$%^&*])(?=.*[\w])[\w!@#$%^&*]{7,40}"
-        oninvalid="this.setCustomValidity('Passwords do not match')"
-        oninput="this.setCustomValidity('')"
-        [value]="newUser.confirmPassword"
-        required
-      />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+      <!-- Error Messages based on Input ******************************************************************-->
+      <div
+        class="error password-error"
+        *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+      >
+        <!-- If the password is invalid -->
+        <div *ngIf="password?.value">
+          {{ helper.PASSWORD.invalid }}
+        </div>
+        <!-- If the password is empty -->
+        <div *ngIf="password?.errors?.['required']">
+          {{ helper.PASSWORD.required }}
+        </div>
+      </div>
+      <!-- *************************************************************************************** -->
+    </div>
+    <button
+      [ngClass]="{
+        disabled: !userFormGroup.valid,
+        enabled: userFormGroup.valid,
+        btn: true
+      }"
+      [disabled]="!userFormGroup.valid"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
 </div>
