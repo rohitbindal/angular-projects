@@ -50,7 +50,8 @@ export class SignupComponent implements OnInit {
       ]],
       email: [this.newUser.email, [
         Validators.required,
-        Validators.email
+        // Validators.email => This works but recognizes 'rohit@an' as a valid email address
+        Validators.pattern(this.helper.EMAIL_VALIDATOR)
       ]],
       password: [this.newUser.password, [
         Validators.required,
@@ -71,6 +72,12 @@ export class SignupComponent implements OnInit {
   }
   // Method to handle submit event.
   onSubmit() {
-    console.log(this.userFormGroup.value)
+    // Create an alert
+    const user = {
+      username: this.username!.value,
+      email: this.email!.value,
+      password: this.password!.value
+    }
+    alert(`Hello ${user.username} !. You account has been created and a verification mail has been to ${user.email}`)
   }
 }
