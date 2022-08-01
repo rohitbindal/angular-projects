@@ -1,9 +1,14 @@
 .container {
   display: block;
   max-width: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  /* border: 1px solid rgba(0, 0, 0, 0.3); */
   margin-block: 10px;
   padding: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 4px 0px;
+}
+select {
+  padding: 5px;
 }
 .row {
   display: flex;
@@ -11,7 +16,9 @@
   align-items: center;
 }
 .row-end {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 /********************************************************************/
 /* Classes to style status */
@@ -31,6 +38,7 @@
   border-radius: 15px;
   height: 15px;
   width: 15px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 4px 0px;
 }
 
 /********************************************************************/
@@ -52,4 +60,15 @@
   border: none;
   border: 1px solid rgba(0, 0, 0, 0);
   background-color: #fff;
+}
+
+/* Delete and Edit buttons */
+.delete-todo-button {
+  background-color: rgba(250, 0, 0, 0.8);
+  color: #eee;
+}
+
+.edit-todo-button {
+  background-color: rgba(0, 0, 150, 0.8);
+  color: #eee;
 }
