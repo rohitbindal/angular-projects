@@ -1,1 +1,23 @@
-<p>App is working</p>
+<app-header></app-header>
+
+<!-- Buttons to change the active component/screen -->
+<button (click)="onStatusChange('binding')">
+  Attribute and Property Binding
+</button>
+<button (click)="onStatusChange('services')">Services</button>
+<button (click)="onStatusChange('dependencyInjection')">
+  Dependency Injection
+</button>
+<button (click)="onStatusChange('observables')">Observables</button>
+<button (click)="onStatusChange('errorHandling')">Error Handling</button>
+
+<!-- Components -->
+<app-binding *ngIf="currentScreen['binding'].status"></app-binding>
+<app-services *ngIf="currentScreen['services'].status"></app-services>
+<app-dependency-injection
+  *ngIf="currentScreen['dependencyInjection'].status"
+></app-dependency-injection>
+<app-observables *ngIf="currentScreen['observables'].status"></app-observables>
+<app-error-handling
+  *ngIf="currentScreen['errorHandling'].status"
+></app-error-handling>
