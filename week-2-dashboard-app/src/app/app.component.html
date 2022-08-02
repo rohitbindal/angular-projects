@@ -1,16 +1,22 @@
 <app-header></app-header>
 
-<!-- Buttons to change the active component/screen -->
-<button (click)="onStatusChange('binding')">
-  Attribute and Property Binding
-</button>
-<button (click)="onStatusChange('services')">Services</button>
-<button (click)="onStatusChange('dependencyInjection')">
-  Dependency Injection
-</button>
-<button (click)="onStatusChange('observables')">Observables</button>
-<button (click)="onStatusChange('errorHandling')">Error Handling</button>
-
+<div class="nav-buttons">
+  <!-- Buttons to change the active component/screen -->
+  <button class="btn" (click)="onStatusChange('binding')">
+    Attribute and Property Binding
+  </button>
+  <button class="btn" (click)="onStatusChange('services')">Services</button>
+  <button class="btn" (click)="onStatusChange('dependencyInjection')">
+    Dependency Injection
+  </button>
+  <button class="btn" (click)="onStatusChange('observables')">
+    Observables
+  </button>
+  <button class="btn" (click)="onStatusChange('errorHandling')">
+    Error Handling
+  </button>
+</div>
+<hr />
 <!-- Components -->
 <app-binding *ngIf="currentScreen['binding'].status"></app-binding>
 <app-services *ngIf="currentScreen['services'].status"></app-services>

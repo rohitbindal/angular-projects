@@ -8,6 +8,9 @@ import { DependencyInjectionComponent } from './dependency-injection/dependency-
 import { BindingComponent } from './binding/binding.component';
 import { ServicesComponent } from './services-component/services.component';
 import { HeaderComponent } from './header/header.component';
+import { PropertyBindingComponent } from './binding/property-binding/property-binding.component';
+import { AttributeBindingComponent } from './binding/attribute-binding/attribute-binding.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,10 +20,13 @@ import { HeaderComponent } from './header/header.component';
     ErrorHandlingComponent,
     DependencyInjectionComponent,
     BindingComponent,
-    HeaderComponent
+    HeaderComponent,
+    PropertyBindingComponent,
+    AttributeBindingComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

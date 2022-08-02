@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  margin-block: 30px;
+  gap: 30px;
+}
+.content {
+  max-width: 60vw;
+  padding: none;
+}
+input {
+  margin-inline-end: 10px;
+  max-width: 200px;
+}
+
+button {
+  max-width: 200px;
+}
+
+.prop-text {
+  margin-block-start: 0;
+}
+
+.image-container {
+  width: 30%;
+}
+.image {
+  max-width: 40vw;
+  max-height: 40vh;
+  min-width: 150px;
+  background-size: contain;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column-reverse;
+    max-height: fit-content;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+}

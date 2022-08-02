@@ -4,6 +4,33 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
-/* body {
-  margin: 0 auto;
-} */
+body {
+  margin: 5vh;
+}
+
+/* Default button styles. */
+.btn {
+  height: 3em;
+  border-radius: 5px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 1px 1px;
+}
+
+.btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0px;
+  transition: 0.3s;
+}
+
+.input {
+  height: 3em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin-block-start: 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 1px 1px;
+  padding-inline: 10px;
+}
+
+hr {
+  opacity: 0.4;
+}
