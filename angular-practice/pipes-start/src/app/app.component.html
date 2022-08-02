@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <input type="text" [(ngModel)]="filteredStatus" />
+      <br />
+      <button class="btn btn-primary" (click)="onAddServer()">
+        Add Server
+      </button>
+      <br /><br />
+      <!-- 'async' pipe can be used to print the data received from a Promise
+        resolution or Observable
+       -->
+      <h3>App Status: {{ appStatus | async }}</h3>
+      <hr />
+      <ul class="list-group">
+        <!-- Pipes can also be used in directives -->
+        <li
+          class="list-group-item"
+          *ngFor="
+            let server of servers
+              | filter: filteredStatus:'status'
+              | sortByName: 'name'
+          "
+          [ngClass]="getStatusClasses(server)"
+        >
+          <span class="badge">
+            {{ server.status }}
+          </span>
+          <!-- A ':' is used to add parameters to the pipes that support them
+            parameters can be chained using ':', eg => shorten:5:'AnotherParameter'
+           -->
+          <strong>{{ server.name | shorten: 50 }}</strong> |
+          {{ server.instanceType | uppercase | reverse }} |
+          {{ server.started | date: "fullDate" | uppercase }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
