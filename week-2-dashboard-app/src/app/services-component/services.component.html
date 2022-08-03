@@ -1,1 +1,27 @@
-<p>services works!</p>
+<div class="container">
+  <div class="input-container">
+    <strong>My name is {{ _name }}</strong>
+    <input
+      class="input"
+      type="text"
+      name="nameInput"
+      id="nameInput"
+      title="Name"
+      [value]="_name"
+      ngModel
+      #nameInput="ngModel"
+    />
+    <button class="btn" type="submit" (click)="changeName(nameInput.value)">
+      Change Name
+    </button>
+  </div>
+  <div class="logs">
+    <div class="log" *ngFor="let log of logs">
+      <span>
+        - Name changed from "{{ log.oldName }}" to "{{ log.newName }}" at
+        {{ log.changeTime }}
+        <br />
+      </span>
+    </div>
+  </div>
+</div>

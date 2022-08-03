@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.logs {
+  flex: 2;
+  border-left: 1px dashed black;
+  padding-left: 20px;
+}
+.log {
+  border-bottom: 1px dashed black;
+  margin-block: 5px;
+  padding-bottom: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
