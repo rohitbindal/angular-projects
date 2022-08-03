@@ -11,15 +11,21 @@
       ngModel
       #nameInput="ngModel"
     />
-    <button class="btn" type="submit" (click)="changeName(nameInput.value)">
+    <button
+      [disabled]="!nameInput.value"
+      class="btn"
+      type="submit"
+      (click)="changeName(nameInput.value)"
+    >
       Change Name
     </button>
   </div>
   <div class="logs">
     <div class="log" *ngFor="let log of logs">
       <span>
-        - Name changed from "{{ log.oldName }}" to "{{ log.newName }}" at
-        {{ log.changeTime }}
+        - {{ log.changeTime }}: Name changed from "{{ log.oldName }}" to "{{
+          log.newName
+        }}".
         <br />
       </span>
     </div>

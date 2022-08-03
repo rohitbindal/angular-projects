@@ -21,6 +21,9 @@ body {
   box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0px;
   transition: 0.3s;
 }
+.btn:disabled:hover {
+  box-shadow: none;
+}
 
 .input {
   height: 3em;

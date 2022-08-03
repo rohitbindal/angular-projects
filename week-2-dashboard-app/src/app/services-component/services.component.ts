@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Log } from './log.model';
 import { LoggerService } from './logger.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.css'],
-  providers: [LoggerService]
+  providers: [UserService, LoggerService]
 })
 export class ServicesComponent implements OnInit {
   logs: Log[] = [];
-  _name = 'Anonymous';
-  constructor(private logger: LoggerService) { }
+  _name = '';
+  constructor(private userService: UserService, private logger: LoggerService) { }
 
   ngOnInit(): void {
     this.logs = this.logger.getLogs();
+    this._name = this.userService.getUser().name;
   }
 
-  // Method to use the logger service to log the name change.
+  // Method to use the userService to update and log the values.
   changeName(nameInput: string) {
-    this.logger.nameChanged(nameInput, this._name);
+    this.userService.updateUser(nameInput, this._name);
     this._name = nameInput;
   }
 
