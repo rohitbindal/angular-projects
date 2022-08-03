@@ -30,7 +30,6 @@ body {
   border-radius: 5px;
   border: none;
   outline: none;
-  margin-block-start: 10px;
   padding-inline: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
