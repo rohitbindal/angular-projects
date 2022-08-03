@@ -7,9 +7,13 @@ import { Form } from '@angular/forms';
   styleUrls: ['./attribute-binding.component.css']
 })
 export class AttributeBindingComponent implements OnInit {
+  colSpanned = false;
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+  onColSpanChanged() {
+    this.colSpanned = !this.colSpanned;
   }
 }
