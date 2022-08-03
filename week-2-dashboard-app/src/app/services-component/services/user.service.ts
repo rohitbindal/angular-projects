@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { LoggerService } from "./logger.service";
-import { User } from "./user.model";
+import { User } from "../user.model";
 
 @Injectable()
 export class UserService {

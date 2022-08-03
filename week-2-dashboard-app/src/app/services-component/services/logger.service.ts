@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Log } from "./log.model";
+import { Log } from "../log.model";
 
 // Not providing the service in root since we only need it in Service Component.
 @Injectable()

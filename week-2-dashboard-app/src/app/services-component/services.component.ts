@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from './log.model';
-import { LoggerService } from './logger.service';
-import { UserService } from './user.service';
+import { LoggerService } from './services/logger.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-services',
