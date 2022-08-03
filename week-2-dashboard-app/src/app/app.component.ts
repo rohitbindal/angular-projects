@@ -21,7 +21,7 @@ export class AppComponent {
     this.currentScreen =
     {
       'binding': {
-        status: true
+        status: false
       },
       'services': {
         status: false,
@@ -30,7 +30,7 @@ export class AppComponent {
         status: false,
       },
       'errorHandling': {
-        status: false,
+        status: true,
       }
     }
   }

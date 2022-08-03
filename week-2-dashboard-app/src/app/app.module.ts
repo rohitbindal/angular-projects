@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { PropertyBindingComponent } from './binding/property-binding/property-binding.component';
 import { AttributeBindingComponent } from './binding/attribute-binding/attribute-binding.component';
 import { FormsModule } from '@angular/forms';
+import { ErrorService } from './error-handling/error.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: ErrorHandler, useClass: ErrorService
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
