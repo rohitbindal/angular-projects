@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { TODO } from "../todo.model";
+import { STATUS, TODO } from "../todo.model";
 import { TODO_DATA } from "./todos.data";
 
 @Component({
@@ -12,7 +12,8 @@ export class TodoDataBindingComponent implements OnInit {
   todos: TODO[] | undefined;
   // Variable to store the original copy of array, used as a backup for filters.
   todosOriginal: TODO[] | undefined;
-
+  // Store todo input
+  todoInput: string = '';
   constructor() { }
 
   ngOnInit(): void {
@@ -34,6 +35,20 @@ export class TodoDataBindingComponent implements OnInit {
   // This function is triggered when a updateTodo event is fired on the child component
   onTodoUpdated(event: TODO) {
     this.todosOriginal?.splice(this.todos!.indexOf(event), 1, event);
+    this.todos = this.todosOriginal;
+  }
+
+  // Create a new todo
+  createTodo() {
+    // Creating a TODO Object
+    const newTodo: TODO = {
+      text: this.todoInput,
+      id: Math.floor(Math.random() * 324),
+      status: STATUS.PENDING,
+      createdAt: new Date().toDateString()
+    }
+    // Updating the existing todos list.
+    this.todosOriginal?.unshift(newTodo);
     this.todos = this.todosOriginal;
   }
 

@@ -38,10 +38,18 @@
     </div>
     <!-- Delete and Edit Todo buttons -->
     <div class="row-end">
-      <button class="delete-todo" type="button" (click)="onDeleteClicked()">
+      <button
+        class="btn delete-todo-button"
+        type="button"
+        (click)="onDeleteClicked()"
+      >
         Delete
       </button>
-      <button class="edit-todo" type="button" (click)="onEditClicked()">
+      <button
+        class="btn edit-todo-button"
+        type="button"
+        (click)="onEditClicked()"
+      >
         {{ isEditable ? "Save" : "Edit" }}
       </button>
     </div>

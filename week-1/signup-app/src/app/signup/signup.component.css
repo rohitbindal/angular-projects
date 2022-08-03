@@ -1,0 +1,72 @@
+.content {
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 250px;
+}
+
+label {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: smaller;
+}
+/* Default input styles */
+.input {
+  width: 100%;
+  height: 3em;
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  padding-inline: 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0px;
+  outline: none;
+  margin-block-start: 5px;
+}
+/* Error and success style for input */
+.input-error {
+  border: 2px solid rgba(250, 0, 0, 0.5);
+}
+.input-success {
+  border: 2px solid rgba(0, 250, 0, 0.5);
+}
+/* Error Styles */
+.error {
+  font-size: 0.5em;
+  color: #fff;
+  position: absolute;
+  background-color: #ff0000;
+  z-index: 10000000;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 5px;
+}
+/* Default button styles. */
+.btn {
+  width: 100%;
+  height: 3em;
+  border-radius: 5px;
+  border: none;
+  color: #eeeeee;
+  background-color: #aeaeae;
+  margin-block-start: 10px;
+}
+/* Change the cursor if the button is disabled. */
+.btn:disabled:hover {
+  cursor: not-allowed;
+}
+
+.btn:enabled:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0px;
+  transition: 0.3s;
+}
+
+/* Classes to handle button style based on status */
+.enabled {
+  color: #eeeeee;
+  background-color: #495c83;
+}

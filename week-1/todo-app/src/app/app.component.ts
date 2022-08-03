@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'todo-app';
-  // Flag to update the way todos are displayed ,i.e, using Services or just Data Binding
-  useServices = false;
 }

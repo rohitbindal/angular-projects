@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+body {
+  margin-inline: 5vw;
+  margin-block: 5vh;
+  /* margin: 0 auto; */
+}
+
+.btn {
+  font-size: 0.8em;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 4px 0px;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0px;
+  transition: 0.3s;
+}
+
+hr {
+  opacity: 0.3;
+}
