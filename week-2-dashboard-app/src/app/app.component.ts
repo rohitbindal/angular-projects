@@ -21,13 +21,16 @@ export class AppComponent {
     this.currentScreen =
     {
       'binding': {
-        status: false
+        status: true
       },
       'services': {
-        status: true,
+        status: false,
       },
       'observables': {
         status: false,
+      },
+      'pipes': {
+        status: false
       },
       'errorHandling': {
         status: false,

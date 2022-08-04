@@ -23,6 +23,9 @@
   >
     Observables
   </button>
+  <button class="btn" (click)="onStatusChange('pipes')" title="Pipes">
+    Pipes
+  </button>
   <button
     class="btn"
     (click)="onStatusChange('errorHandling')"
@@ -39,3 +42,4 @@
 <app-error-handling
   *ngIf="currentScreen['errorHandling'].status"
 ></app-error-handling>
+<app-pipes *ngIf="currentScreen['pipes'].status"></app-pipes>

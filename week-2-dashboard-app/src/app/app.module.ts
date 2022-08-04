@@ -11,6 +11,8 @@ import { PropertyBindingComponent } from './binding/property-binding/property-bi
 import { AttributeBindingComponent } from './binding/attribute-binding/attribute-binding.component';
 import { FormsModule } from '@angular/forms';
 import { ErrorService } from './error-handling/error.service';
+import { PipesComponent } from './pipes-component/pipes.component';
+import { SearchPipe } from './pipes-component/search.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ErrorService } from './error-handling/error.service';
     BindingComponent,
     HeaderComponent,
     PropertyBindingComponent,
-    AttributeBindingComponent
+    AttributeBindingComponent,
+    PipesComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

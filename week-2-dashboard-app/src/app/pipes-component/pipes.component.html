@@ -1,0 +1,24 @@
+<div class="container">
+  <h3>Creating a search feature using Custom Pipe</h3>
+  <div class="content">
+    <div class="input-container">
+      <label for="searchInput">Search the data based on status:</label>
+      <input
+        type="search"
+        name="searchInput"
+        class="input"
+        [(ngModel)]="filteredStatus"
+      />
+    </div>
+    <div
+      class="server-wrapper"
+      *ngFor="let server of serverData | search: filteredStatus.trim():'status'"
+    >
+      <div class="server server-name">Name: {{ server.name }}</div>
+      <div class="server server-time">Created At: {{ server.createdAt }}</div>
+      <div [ngClass]="[server.status, 'server', 'status']">
+        STATUS: {{ server.status }}
+      </div>
+    </div>
+  </div>
+</div>
