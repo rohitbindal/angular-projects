@@ -24,13 +24,13 @@ export class AppComponent {
         status: false
       },
       'services': {
-        status: false,
+        status: true,
       },
       'observables': {
         status: false,
       },
       'errorHandling': {
-        status: true,
+        status: false,
       }
     }
   }

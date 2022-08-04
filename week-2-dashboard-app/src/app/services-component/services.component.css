@@ -3,6 +3,7 @@
   flex-direction: row;
   gap: 20px;
   justify-content: space-between;
+  margin-block: 20px;
 }
 .input-container {
   display: flex;

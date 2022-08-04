@@ -12,7 +12,7 @@ export class ErrorHandlingComponent implements OnInit {
   ngOnInit(): void {
   }
   onThrowError() {
-    throw new Error('This error was caught by ErrorHandler Service created manually.')
+    throw new Error('Error Thrown.')
   }
 
 }
