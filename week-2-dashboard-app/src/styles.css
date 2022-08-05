@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+body {
+  margin: 5vh;
+}
+
+/* Default button styles. */
+.btn {
+  height: 3em;
+  border-radius: 5px;
+  border: none;
+  padding-inline: 10px;
+  /* box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 1px 1px; */
+}
+
+.btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 0px;
+  transition: 0.3s;
+}
+.btn:disabled:hover {
+  box-shadow: none;
+}
+
+.input {
+  height: 3em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding-inline: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.input:focus {
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 10px 1px;
+  transition: 0.3s;
+}
+
+hr {
+  opacity: 0.4;
+}

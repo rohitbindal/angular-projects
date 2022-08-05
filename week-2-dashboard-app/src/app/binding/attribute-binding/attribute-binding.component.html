@@ -1,0 +1,30 @@
+<h3>Attribute Binding</h3>
+<div class="container">
+  <button class="btn" type="button" (click)="onColSpanChanged()">
+    Change Column Span
+  </button>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Table Header</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td [attr.colspan]="colSpanned ? 2 : ''">Rohit</td>
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td>Bindal</td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td>Jaipur</td>
+      </tr>
+      <tr>
+        <td>Country</td>
+        <td>India</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

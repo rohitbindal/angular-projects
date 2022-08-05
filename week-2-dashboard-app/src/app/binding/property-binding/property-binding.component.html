@@ -1,0 +1,25 @@
+<h3>Property Binding</h3>
+<div class="container">
+  <div class="content">
+    <p class="prop-text">
+      An example of Property Binding, try changing the image url.
+    </p>
+    <label for="imageUrlInput">Url </label>
+    <input
+      class="input"
+      type="url"
+      name="imageUrlInput"
+      id="imageUrlInput"
+      placeholder="Image Url"
+      title="Image Url"
+      ngModel
+      #urlInput
+    />
+    <button class="btn" type="submit" (click)="onSubmit(urlInput)">
+      Change Image
+    </button>
+  </div>
+  <div class="image-container">
+    <img [src]="imageUrl" alt="image" class="image" />
+  </div>
+</div>

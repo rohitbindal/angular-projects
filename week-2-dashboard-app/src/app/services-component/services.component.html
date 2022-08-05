@@ -1,0 +1,35 @@
+<h4>Services and Dependency Injection</h4>
+<p>A logger service that logs the name updates.</p>
+<div class="container">
+  <div class="input-container">
+    <strong>My name is {{ _name }}</strong>
+    <input
+      class="input"
+      type="text"
+      name="nameInput"
+      id="nameInput"
+      title="Name"
+      [value]="_name"
+      ngModel
+      #nameInput="ngModel"
+    />
+    <button
+      [disabled]="!nameInput.value"
+      class="btn"
+      type="submit"
+      (click)="changeName(nameInput.value)"
+    >
+      Change Name
+    </button>
+  </div>
+  <div class="logs">
+    <div class="log" *ngFor="let log of logs">
+      <span>
+        - {{ log.changeTime }}: Name changed from "{{ log.oldName }}" to "{{
+          log.newName
+        }}".
+        <br />
+      </span>
+    </div>
+  </div>
+</div>
