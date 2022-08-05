@@ -18,7 +18,7 @@ const routes: Route[] = [
     path: 'users', component: UserListComponent
   },
   {
-    path: 'details', component: DetailsComponent
+    path: 'users/:id', component: DetailsComponent
   },
   {
     // If the path is invalid or not found, Show the Page Not Found Component.
