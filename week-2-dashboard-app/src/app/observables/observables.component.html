@@ -1,0 +1,34 @@
+<div class="container">
+  <h4>Counter using a custom Observable</h4>
+  <div class="content">
+    <div class="text">
+      <p>Counter: {{ count }}</p>
+    </div>
+    <div class="actions">
+      <button
+        class="btn"
+        type="button"
+        title="Start Counter"
+        (click)="onStartCounter()"
+      >
+        Start Counter
+      </button>
+      <button
+        class="btn"
+        type="button"
+        title="Stop Counter"
+        (click)="onStopCounter()"
+      >
+        Stop Counter
+      </button>
+      <button
+        class="btn"
+        type="button"
+        title="Throw an Error"
+        (click)="onThrowError()"
+      >
+        Throw an error
+      </button>
+    </div>
+  </div>
+</div>

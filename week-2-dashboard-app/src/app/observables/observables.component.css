@@ -1,0 +1,26 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+/* Different colors for the actions: Start, Stop, Throw Error */
+.actions :first-child {
+  background-color: rgba(0, 120, 0, 0.8);
+  color: #eee;
+}
+.actions :nth-child(2) {
+  background-color: rgba(120, 0, 0, 0.8);
+  color: #eee;
+}
+.actions :last-child {
+  background-color: rgba(250, 0, 0, 0.8);
+  color: #eee;
+}
+
+@media screen and (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
