@@ -30,7 +30,7 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
   canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
     // If the user is not allowed to edit, let the user leave
     if (!this.allowEdit) {
-      return false;
+      return true;
     }
     // If the user is allowed to edit, there are any changes, or unsaved changes
     // ask for confirmation
