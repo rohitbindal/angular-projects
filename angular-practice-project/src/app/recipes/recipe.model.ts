@@ -1,4 +1,4 @@
-import { Ingredient } from "../shared/ingredient.model";
+import { Ingredient } from '../shared/ingredient.model';
 
 /**
  * Recipe Model
@@ -8,11 +8,19 @@ export class Recipe {
   public description: string;
   public imagePath: string;
   public ingredients: Ingredient[];
+  public id: number;
 
-  constructor(name: string, description: string, imagePath: string, ingredients: Ingredient[]) {
+  constructor(
+    name: string,
+    description: string,
+    imagePath: string,
+    ingredients: Ingredient[],
+    id: number
+  ) {
     this.name = name;
     this.description = description;
     this.imagePath = imagePath;
     this.ingredients = ingredients;
+    this.id = id;
   }
 }
