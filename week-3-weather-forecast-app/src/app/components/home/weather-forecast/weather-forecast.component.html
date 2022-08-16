@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row p-3 justify-content-center">
+    <div class="col" *ngFor="let forecastDay of forecastData">
+      <div class="row justify-content-center">
+        <p class="text-center">
+          {{ forecastDay.date | date }}
+        </p>
+        <img
+          [src]="forecastDay.day.condition.icon"
+          [alt]="forecastDay.day.condition.text"
+          [title]="forecastDay.day.condition.text"
+          style="max-height: 64px; max-width: 64px"
+        />
+      </div>
+      <div class="row justify-content-center">
+        {{ forecastDay.day.avgtemp_c }} &#8451;
+      </div>
+    </div>
+  </div>
+</div>
