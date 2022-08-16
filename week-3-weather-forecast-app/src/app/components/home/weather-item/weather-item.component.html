@@ -1,0 +1,60 @@
+<div class="col-sm-12 clickable">
+  <div
+    [ngClass]="{
+      day: weatherData.current.is_day === 1,
+      night: weatherData.current.is_day === 0,
+      card: true
+    }"
+  >
+    <div class="card-header d-flex flex-row">
+      <div class="col-sm-8">
+        {{ weatherData.location.name }}
+      </div>
+      <div class="col-sm-4 d-flex justify-content-end">
+        <!-- TODO: Add a refresh button -->
+      </div>
+    </div>
+    <div class="row p-5 card-body">
+      <div
+        class="col-sm-6 d-flex justify-content-center align-items-center fs-3"
+      >
+        <h1>{{ weatherData.current.temp_c }} &#8451;</h1>
+      </div>
+      <div class="col-sm-6">
+        <div class="row d-flex flex-column align-items-center">
+          <div
+            class="col-sm-6 mb-5 d-flex align-items-center justify-content-center"
+          >
+            <img
+              [src]="weatherData.current.condition.icon"
+              alt="Weather Icon"
+              class="img"
+            />
+            <p class="card-text fw-semibold">
+              {{ weatherData.current.condition.text }}
+            </p>
+          </div>
+
+          <div
+            class="col-sm-6 align-items-center justify-content-center text-center"
+          >
+            <p class="card-text">
+              Wind: {{ weatherData.current.wind_kph }} KM/H
+            </p>
+            <p class="card-text">
+              Humidity: {{ weatherData.current.humidity }}%
+            </p>
+            <p class="card-text">
+              Local Time:
+              {{ weatherData.location.localtime.split(" ")[1] }}
+            </p>
+            <p class="card-text">
+              Last Updated:
+              {{ weatherData.current.last_updated.split(" ")[1] }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
