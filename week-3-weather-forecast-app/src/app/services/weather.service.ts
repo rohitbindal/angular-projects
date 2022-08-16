@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CurrentWeatherResponse } from '../models/current-weather.model';
+import { WeatherForecast } from '../models/forecast.model';
 import { TransformationService } from './data-transform.service';
 
 enum REQUEST_TYPE {
@@ -44,5 +46,16 @@ export class WeatherService {
     return this._http.get<CurrentWeatherResponse>(requestURL);
   }
   searchCity(location: string) {}
-  forecast(city: string) {}
+  forecast(location: string) {
+    // Build a URL
+    const requestURL =
+      this.buildURL(REQUEST_TYPE.FORECAST, location) + '&days=5&alerts=no';
+    // Request the data from Weather API
+    return this._http.get<WeatherForecast>(requestURL).pipe(
+      map((response: WeatherForecast) => {
+        // Return the forecast array
+        return response.forecast.forecastday;
+      })
+    );
+  }
 }
