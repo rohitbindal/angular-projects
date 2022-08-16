@@ -1,4 +1,4 @@
-<div class="col-sm-12 clickable">
+<div class="col-sm-12 mb-5">
   <div
     [ngClass]="{
       day: weatherData.current.is_day === 1,
@@ -8,13 +8,13 @@
   >
     <div class="card-header d-flex flex-row">
       <div class="col-sm-8">
-        {{ weatherData.location.name }}
+        Today: {{ weatherData.current.last_updated | date }}
       </div>
       <div class="col-sm-4 d-flex justify-content-end">
-        <!-- TODO: Add a refresh button -->
+        {{ weatherData.location.name }}
       </div>
     </div>
-    <div class="row p-5 card-body">
+    <div class="row p-3 card-body">
       <div
         class="col-sm-6 d-flex justify-content-center align-items-center fs-3"
       >
@@ -27,7 +27,8 @@
           >
             <img
               [src]="weatherData.current.condition.icon"
-              alt="Weather Icon"
+              [alt]="weatherData.current.condition.text"
+              [title]="weatherData.current.condition.text"
               class="img"
             />
             <p class="card-text fw-semibold">
@@ -56,5 +57,9 @@
         </div>
       </div>
     </div>
+    <hr />
+    <app-weather-forecast
+      [location]="weatherData.location.name"
+    ></app-weather-forecast>
   </div>
 </div>

@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 import { WeatherItemComponent } from './components/home/weather-item/weather-item.component';
 import { AppRoutingModule } from './router/app-routing.module';
+import { WeatherForecastComponent } from './components/home/weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AppRoutingModule } from './router/app-routing.module';
     HomeComponent,
     PageNotFoundComponent,
     WeatherItemComponent,
+    WeatherForecastComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

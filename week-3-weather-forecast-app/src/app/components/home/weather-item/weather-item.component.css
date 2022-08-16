@@ -2,13 +2,6 @@
   box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 10px 1px;
 }
 
-.clickable {
-  cursor: pointer;
-}
-.card:hover {
-  box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 5px 0px;
-  transition: 0.3s;
-}
 .day {
   background: #005c97; /* fallback for old browsers */
   background: -webkit-linear-gradient(

@@ -54,7 +54,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.weatherData = undefined;
     this.getWeatherData(this.searchLocation);
   }
-
+  getForecast() {
+    if (this.searchLocation) {
+      this._weatherService.forecast(this.searchLocation);
+    } else {
+      this._weatherService.forecast(CONSTANTS.DEFAULT_LOCATION);
+    }
+  }
   private updateProperties(type: string) {
     // If there is an error, update the flags accordingly.
     if (type === this.UPDATE_FLAGS_META.error) {
