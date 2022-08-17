@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { exhaustMap, map, take, tap } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { Recipe } from '../recipes/recipe.model';
 import { RecipeService } from '../recipes/recipe.service';
 
@@ -12,7 +13,8 @@ export class DataStorageService {
     'https://ng-course-recipe-book-4f738-default-rtdb.asia-southeast1.firebasedatabase.app';
   constructor(
     private _httpClient: HttpClient,
-    private _recipeService: RecipeService
+    private _recipeService: RecipeService,
+    private _authService: AuthService
   ) {}
 
   storeRecipes() {
