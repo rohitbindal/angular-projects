@@ -45,4 +45,8 @@ export class AuthComponent {
     });
     form.reset();
   }
+
+  handleOnModalClose() {
+    this.error = null;
+  }
 }
