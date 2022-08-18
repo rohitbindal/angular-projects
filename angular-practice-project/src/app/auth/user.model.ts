@@ -6,6 +6,9 @@ export class User {
     private _tokenExpirationDate: Date
   ) {}
 
+  /**
+   * Getter method to get the private Authentication property of the user.
+   */
   get token() {
     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate)
       return null;

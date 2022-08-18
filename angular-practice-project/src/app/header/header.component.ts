@@ -17,16 +17,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.userSubscription = this._authService.user.subscribe((user) => {
+    this.userSubscription = this._authService.userSubject.subscribe((user) => {
       this.isAuthenticated = !!user; // --> If user exists, true else false.
     });
   }
+
+  /**
+   * Method to save data to the Firebase Database
+   */
   onSaveData() {
     this._dataStorageService.storeRecipes();
   }
+
+  /**
+   * Method to fetch data from the Firebase Database
+   */
   onFetchData() {
     this._dataStorageService.fetchRecipes().subscribe();
   }
+
+  /**
+   * Method to logout the user
+   */
   onLogoutClick() {
     this._authService.logout();
   }

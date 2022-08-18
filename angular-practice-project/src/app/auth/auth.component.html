@@ -1,13 +1,18 @@
+<!-- *Loading Dynamic component using a Custom Directive -->
+<ng-template appPlaceholder></ng-template>
+
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
     <!-- <div class="alert alert-danger" *ngIf="error">
       <p>{{ error }}</p>
     </div> -->
-    <app-alert
+
+    <!-- *Loading Dynamic Component using ngIf -->
+    <!-- <app-alert
       [message]="error"
       *ngIf="error"
       (modalClosed)="handleOnModalClose()"
-    ></app-alert>
+    ></app-alert> -->
     <div *ngIf="isLoading" class="text-center">
       <app-loading-spinner></app-loading-spinner>
     </div>

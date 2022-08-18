@@ -16,6 +16,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { PlaceholderDirective } from './shared/placeholder-directive/placeholder.directive';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingService } from './shopping-list/shopping-list.service';
@@ -36,6 +37,7 @@ import { ShoppingService } from './shopping-list/shopping-list.service';
     AuthComponent,
     LoadingSpinnerComponent,
     AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,
