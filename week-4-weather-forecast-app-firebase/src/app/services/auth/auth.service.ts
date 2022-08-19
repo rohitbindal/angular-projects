@@ -96,6 +96,7 @@ export class AuthService {
    */
   logout() {
     //  TODO: Logout logic
+    console.log('Logout')
   }
 
   /**

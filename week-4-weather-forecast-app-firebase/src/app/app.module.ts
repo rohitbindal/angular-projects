@@ -11,6 +11,7 @@ import {AuthenticationModule} from "./modules/authentication/authentication.modu
 import {WeatherModule} from "./modules/weather/weather.module";
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HeaderComponent } from './components/header/header.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HeaderComponent } from './components/header/header.component';
     BrowserModule,
     AuthenticationModule,
     WeatherModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
