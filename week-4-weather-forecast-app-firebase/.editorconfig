@@ -10,6 +10,7 @@ trim_trailing_whitespace = true
 
 [*.ts]
 quote_type = single
+ij_typescript_method_parameters_wrap = split_into_lines
 
 [*.md]
 max_line_length = off

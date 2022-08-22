@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="container container-fluid">
+  <div class="row">
+    <!-- Loader  -->
+    <div class="text-center" *ngIf="isLoading">
+      <app-loader></app-loader>
+    </div>
+
+    <!-- Input Form   -->
+    <form #authForm="ngForm"
+          (ngSubmit)="onSubmit(authForm)"
+          *ngIf="!isLoading">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="email"
+          id="email"
+          name="email"
+          ngModel
+          email
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="password"
+          id="password"
+          name="password"
+          minlength="6"
+          ngModel
+          required
+        >
+      </div>
+    </form>
+  </div>
+</div>
