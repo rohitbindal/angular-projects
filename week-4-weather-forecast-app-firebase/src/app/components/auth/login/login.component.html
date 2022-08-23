@@ -1,7 +1,7 @@
-<div class="container container-fluid">
+<div class="container container-fluid mt-5">
   <div class="row">
     <!-- Loader  -->
-    <div class="text-center" *ngIf="isLoading">
+    <div *ngIf="isLoading" class="text-center">
       <app-loader></app-loader>
     </div>
 
@@ -12,29 +12,40 @@
       <div class="form-group">
         <label for="email">E-mail</label>
         <input
-          type="email"
           class="form-control"
-          placeholder="email"
+          email
           id="email"
           name="email"
           ngModel
-          email
+          placeholder="email"
           required
+          type="email"
         >
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input
-          type="password"
           class="form-control"
-          placeholder="password"
           id="password"
-          name="password"
           minlength="6"
+          name="password"
           ngModel
+          placeholder="password"
           required
+          type="password"
         >
       </div>
+      <div class="form-group">
+        <!--      <button [disabled]="authForm.invalid" class="btn btn-primary"-->
+        <!--              type="submit">Login-->
+        <!--      </button>-->
+        <button class="btn btn-primary"
+                type="submit">Login
+        </button>
+      </div>
     </form>
+    <button (click)="onSignupClicked()" class="btn btn-outline-primary">Sign
+      Up
+    </button>
   </div>
 </div>

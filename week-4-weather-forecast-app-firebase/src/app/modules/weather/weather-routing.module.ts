@@ -1,26 +1,23 @@
-import {NgModule} from "@angular/core";
-import {RouterModule, Routes} from "@angular/router";
-import {
-  WeatherComponent
-} from "../../components/weather/weather.component";
-import {APP_ROUTES} from "../../shared/constants/Routes";
-import {AuthGuard} from "../../guards/auth.guard";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { WeatherComponent } from '../../components/weather/weather.component';
+import { AuthGuard } from '../../guards/auth.guard';
+import { APP_ROUTES } from '../../shared/constants/Routes';
 
 const weatherRoutes: Routes = [
   {
-    path: APP_ROUTES.relative.WEATHER,
+    path: APP_ROUTES.DEFAULT,
     component: WeatherComponent,
     canActivate: [AuthGuard],
-    children: [
+    // children: [
     // Details Component
-      // {path: ':location'}
-    ]
-  }
-]
+    //   {path: ':location'}
+    // ]
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(weatherRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class WeatherRoutingModule {
-}
+export class WeatherRoutingModule {}

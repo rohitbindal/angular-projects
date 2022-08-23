@@ -1,1 +1,49 @@
-<p>signup works!</p>
+<div class="container container-fluid mt-5">
+  <div class="row">
+    <!-- Loader  -->
+    <div *ngIf="isLoading" class="text-center">
+      <app-loader></app-loader>
+    </div>
+
+    <!-- Input Form   -->
+    <form #signUpForm="ngForm"
+          (ngSubmit)="onSubmit(signUpForm)"
+          *ngIf="!isLoading">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          class="form-control"
+          email
+          id="email"
+          name="email"
+          ngModel
+          placeholder="email"
+          required
+          type="email"
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          class="form-control"
+          id="password"
+          minlength="6"
+          name="password"
+          ngModel
+          placeholder="password"
+          required
+          type="password"
+        >
+      </div>
+      <div class="form-group">
+        <button [disabled]="signUpForm.invalid" class="btn btn-primary"
+                title="Sign Up"
+                type="submit">Sign Up
+        </button>
+      </div>
+    </form>
+    <button (click)="onLoginClicked()" class="btn btn-outline-primary"
+            title="Go to Login Page">Login
+    </button>
+  </div>
+</div>

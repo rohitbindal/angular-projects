@@ -19,7 +19,7 @@ export class AuthService {
    * , i.e, the latest user state emitted to subscribers, it can
    * be null or of type User.
    */
-  USER_SUBJECT = new BehaviorSubject<User | null>(null);
+  USER_SUBJECT: BehaviorSubject<User | null>;
   /* Firebase REST API endpoint for login using email and password */
   private LOGIN_ENDPOINT = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_KEY}`;
   /* Firebase REST API endpoint for sing-up using email and password */
@@ -31,7 +31,9 @@ export class AuthService {
     private _transformationService: DataTransformationService,
     private _http: HttpClient,
     private _router: Router
-  ) {}
+  ) {
+    this.USER_SUBJECT = new BehaviorSubject<User | null>(null);
+  }
 
   /**
    * Method to log in a user using email and password.
@@ -45,7 +47,17 @@ export class AuthService {
         password,
         returnSecureToken: true,
       })
-      .pipe(catchError(this.handleErrors), tap(this.handleAuthentication));
+      .pipe(
+        catchError(this.handleErrors),
+        tap((response) =>
+          this.handleAuthentication({
+            email: response.email,
+            idToken: response.idToken,
+            expiresIn: response.expiresIn,
+            localId: response.localId,
+          })
+        )
+      );
   }
 
   /**
@@ -61,7 +73,17 @@ export class AuthService {
         password,
         returnSecureToken: true,
       })
-      .pipe(catchError(this.handleErrors), tap(this.handleAuthentication));
+      .pipe(
+        catchError(this.handleErrors),
+        tap((response) =>
+          this.handleAuthentication({
+            email: response.email,
+            idToken: response.idToken,
+            expiresIn: response.expiresIn,
+            localId: response.localId,
+          })
+        )
+      );
   }
 
   /**
@@ -73,7 +95,7 @@ export class AuthService {
       email: string;
       uid: string;
       token: string;
-      expirationDate: string;
+      tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('user')!);
     // If the user does not exist, return
     if (!loadedUser) return;
@@ -83,7 +105,7 @@ export class AuthService {
       loadedUser.email,
       loadedUser.uid,
       loadedUser.token,
-      new Date(loadedUser.expirationDate)
+      new Date(loadedUser.tokenExpirationDate)
     );
 
     // If the user token exists
@@ -136,7 +158,14 @@ export class AuthService {
    * @private
    * @param userResponse An object of response received from Firebase
    */
-  private handleAuthentication(userResponse: UserResponse) {
+  private handleAuthentication(userResponse: {
+    email: string;
+    idToken: string;
+    expiresIn: string;
+    localId: string;
+  }) {
+    if (!userResponse) return;
+
     const expiresIn: number = +userResponse.expiresIn * 1000;
     const expirationDate = new Date(new Date().getTime() + expiresIn);
 
@@ -148,11 +177,17 @@ export class AuthService {
       expirationDate
     );
 
-    /*Using the USER_SUBJECT to emit the new user to any active*/
+    /* Using the USER_SUBJECT to emit the new user to any active subscribers */
     this.USER_SUBJECT.next(user);
 
     /*Store the user data locally*/
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        ...user,
+        tokenExpirationDate: expirationDate.getTime(),
+      })
+    );
 
     /*Setup Auto Logout side effect*/
     this.autoLogout(expiresIn);
