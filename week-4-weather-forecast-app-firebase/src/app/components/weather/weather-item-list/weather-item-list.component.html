@@ -1,0 +1,21 @@
+<div class="search-bar-container">
+  <div class="input-group">
+    <input [(ngModel)]="searchLocation" class="form-control"
+           minlength="3"
+           type="search">
+    <button (click)="getWeatherOnClick()"
+            [disabled]="searchLocation.length < 3"
+            class="btn btn-outline-secondary">
+      Search
+    </button>
+  </div>
+</div>
+<!--   TODO: Error Handling   -->
+<div class="content mt-2">
+  <div *ngIf="!LOADING && weatherData" class="weather-item">
+    <app-weather-item [weatherData]="weatherData"></app-weather-item>
+  </div>
+  <div *ngIf="LOADING" class="loader">
+    <app-loader></app-loader>
+  </div>
+</div>

@@ -59,9 +59,9 @@ export class WeatherService {
         this.weatherForecastData = response;
         // Remove the forecast for the current day --> Sounds Bad, but will be
         // fixed in the next version
-        response.forecast.forecastday.splice(0, 1);
+        // response.forecast.forecastday.splice(0, 1);
         // Return the forecast array
-        return response.forecast.forecastday;
+        return response;
       })
     );
   }

@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div [routerLink]="[weatherData.location.name.toLowerCase()]" class="card"
+         style="cursor: pointer">
+      <!--   Header Row     -->
+      <div class="card-header text-secondary">
+        <div class="row">
+          <div class="col-md-12 d-flex justify-content-between">
+            <div class="location-name">
+              <small>
+                {{weatherData.location.name + ', ' + weatherData.location.country}}
+              </small>
+            </div>
+
+            <div class="last-updated text-end">
+              <small>
+                {{weatherData.current.last_updated | date}}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div
+            class="col-sm-6 d-flex align-items-center justify-content-center">
+            <div class="weather-status text-center">
+              <div class="icon">
+                <img [alt]="weatherData.current.condition.text"
+                     [src]="weatherData.current.condition.icon"
+                     [title]="weatherData.current.condition.text">
+              </div>
+              <div class="text">
+                {{weatherData.current.condition.text}}
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-sm-6 d-flex align-items-center justify-content-center">
+            <div class="temperature">
+              <strong>{{weatherData.current.temp_c}}&deg;C</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

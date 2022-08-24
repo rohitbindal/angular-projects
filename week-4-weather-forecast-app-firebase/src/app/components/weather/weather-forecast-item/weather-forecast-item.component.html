@@ -1,1 +1,15 @@
-<p>weather-forecast-item works!</p>
+<div [ngClass]="{'selected': selectedIndex === index, 'forecast-day':true}">
+  <div class="week-day">
+    {{weekDay}}
+  </div>
+  <hr>
+  <img [src]="forecastItem.day.condition.icon" alt="" style="max-width: 32px">
+  <div class="temp-container row">
+    <h5>{{forecastItem.day.maxtemp_c}}&deg;
+    </h5>
+    <p class="text-muted">{{forecastItem.day.mintemp_c}}&deg;</p>
+  </div>
+  <small>
+    {{forecastItem.day.condition.text}}
+  </small>
+</div>
