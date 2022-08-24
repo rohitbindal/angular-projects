@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { APP_PROPS } from '../../../shared/constants/app-props';
-import { Forecastday } from '../../../shared/forecast.model';
+import { APP_PROPS } from '../../../../shared/constants/app-props';
+import { Forecastday } from '../../../../shared/forecast.model';
 
 @Component({
   selector: 'app-weather-forecast-item',

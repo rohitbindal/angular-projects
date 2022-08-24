@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WeatherDailyForecastDetailComponent } from '../../components/weather/weather-detail/weather-daily-forecast-detail/weather-daily-forecast-detail.component';
 import { WeatherDetailComponent } from '../../components/weather/weather-detail/weather-detail.component';
-import { WeatherForecastItemComponent } from '../../components/weather/weather-forecast-item/weather-forecast-item.component';
+import { WeatherForecastItemComponent } from '../../components/weather/weather-detail/weather-forecast-item/weather-forecast-item.component';
 import { WeatherItemListComponent } from '../../components/weather/weather-item-list/weather-item-list.component';
 import { WeatherItemComponent } from '../../components/weather/weather-item-list/weather-item/weather-item.component';
 import { WeatherComponent } from '../../components/weather/weather.component';
