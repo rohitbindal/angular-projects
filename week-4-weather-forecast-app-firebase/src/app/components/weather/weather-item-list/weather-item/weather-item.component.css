@@ -1,0 +1,26 @@
+.card-para {
+  margin-bottom: unset;
+}
+
+.weather-card {
+  box-shadow: 1px 4px 8px 2px rgba(117, 192, 230, 0.5);
+
+}
+
+.day {
+  box-shadow: 2px 4px 8px 4px rgba(117, 192, 230, 0.5);
+}
+
+.night {
+  box-shadow: 2px 4px 8px 4px rgba(44, 83, 100, 0.5);
+}
+
+.weather-card.day:hover {
+  box-shadow: 0 1px 1px 0 rgba(117, 192, 230, 0.5);
+  transition: .3s;
+}
+
+.weather-card.night:hover {
+  box-shadow: 0 1px 1px 0 rgba(44, 83, 100, 0.5);
+  transition: .3s;
+}

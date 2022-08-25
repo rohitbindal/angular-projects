@@ -1,0 +1,49 @@
+<div class="forecast-day-details ">
+  <hr>
+  <div class="row mb-3">
+    <span>
+      Max temperature during the day may reach upto {{forecastDetail.day.maxtemp_c}}&deg;.
+    </span>
+    <span>
+      During night the temperature may drop as low as {{forecastDetail.day.mintemp_c}}&deg;.
+    </span>
+  </div>
+  <div class="row mb-3">
+    <div class="col mt-3">
+      <h5>Sunrise</h5>
+      {{forecastDetail.astro.sunrise}}
+    </div>
+    <div class="col mt-3">
+      <h5>Sunset</h5>
+      {{forecastDetail.astro.sunset}}
+    </div>
+    <div class="col mt-3">
+      <h5>Moonrise</h5>
+      {{forecastDetail.astro.moonrise}}
+    </div>
+    <div class="col mt-3">
+      <h5>Moon Set</h5>
+      {{forecastDetail.astro.moonset}}
+    </div>
+  </div>
+  <hr>
+  <div class="row mb-3 d-flex flex-md-wrap">
+    <div class="col mt-3">
+      <h5>Chance of Rain</h5>
+      {{forecastDetail.day.daily_chance_of_rain}}
+      %
+    </div>
+    <div class="col  mt-3">
+      <h5>Precipitation</h5>
+      {{forecastDetail.day.totalprecip_mm}}
+    </div>
+    <div class="col mt-3">
+      <h5>Avg. Humidity</h5>
+      {{forecastDetail.day.avghumidity}}
+    </div>
+    <div class="col mt-3">
+      <h5>Max Wind Speed</h5>
+      {{forecastDetail.day.maxwind_kph}}km/h
+    </div>
+  </div>
+</div>

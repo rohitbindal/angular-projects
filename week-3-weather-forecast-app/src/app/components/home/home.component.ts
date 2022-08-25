@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Flag for Error elements in HTML template
   HAS_ERROR = false;
   // An object to hold the string flags to update the flags above.
-  UPDATE_FLAGS_META = {
+  RESPONSE_TYPE = {
     success: 'success',
     error: 'error',
   };
@@ -34,7 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getWeatherData(CONSTANTS.DEFAULT_LOCATION);
   }
 
-  // Method to use the Weather Service to get the current Weather.
+  /**
+   *
+   * @param location Name of the City
+   * @Description Method to use the Weather Service to get the current Weather.
+   */
   getWeatherData(location: string) {
     this.LOADING = true;
     this.weatherSubscription = this._weatherService
@@ -42,28 +46,32 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           this.weatherData = response;
-          this.updateProperties(this.UPDATE_FLAGS_META.success);
+          // Calling updateProperties() method with success as a response
+          this.updateProperties(this.RESPONSE_TYPE.success);
         },
         error: (error: HttpErrorResponse) => {
-          this.updateProperties(this.UPDATE_FLAGS_META.error);
+          // Calling updateProperties() method with error as a response
+          this.updateProperties(this.RESPONSE_TYPE.error);
         },
       });
   }
-  // Call the getWeatherData method when the search button is clicked
+  /**
+   * Method to call the getWeatherData method when the search button is clicked
+   */
   getWeatherOnClick() {
     this.weatherData = undefined;
     this.getWeatherData(this.searchLocation);
   }
-  getForecast() {
-    if (this.searchLocation) {
-      this._weatherService.forecast(this.searchLocation);
-    } else {
-      this._weatherService.forecast(CONSTANTS.DEFAULT_LOCATION);
-    }
-  }
+
+  /**
+   *
+   * @param type A string representing the response from getWeatherData() method.
+   * @Description Method to update LOADING, HAS_ERROR and bad_location properties based on the
+   * response from getWeatherData() method.
+   */
   private updateProperties(type: string) {
     // If there is an error, update the flags accordingly.
-    if (type === this.UPDATE_FLAGS_META.error) {
+    if (type === this.RESPONSE_TYPE.error) {
       this.LOADING = false;
       this.HAS_ERROR = true;
       this.badLocation = this.searchLocation;

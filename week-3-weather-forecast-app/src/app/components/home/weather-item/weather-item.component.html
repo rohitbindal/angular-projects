@@ -60,6 +60,7 @@
     <hr />
     <app-weather-forecast
       [location]="weatherData.location.name"
+      (forecastIndex)="onForecastClicked($event)"
     ></app-weather-forecast>
   </div>
 </div>
