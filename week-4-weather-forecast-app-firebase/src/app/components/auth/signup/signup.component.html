@@ -57,6 +57,13 @@
           </div>
         </form>
       </div>
+      <div class="row">
+        <div *ngIf="error"
+             class="alert alert-danger mt-4">
+          <p>{{ error }}</p>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

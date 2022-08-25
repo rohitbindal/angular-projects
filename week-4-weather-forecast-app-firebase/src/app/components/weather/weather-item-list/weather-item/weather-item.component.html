@@ -2,10 +2,10 @@
   <div class="col-sm-12">
     <div
       [ngClass]="{'card weather-card': true, 'day': weatherData.current.is_day, 'night': !weatherData.current.is_day}"
-      [routerLink]="[weatherData.location.name.toLowerCase()]"
       class="card weather-card"
       style="cursor: pointer">
-      <div class="card-body">
+      <div [routerLink]="[weatherData.location.name.toLowerCase()]"
+           class="card-body">
         <div class="row">
           <div class="col-8">
             <!--    Weather Status   -->

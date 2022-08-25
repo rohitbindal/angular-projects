@@ -10,7 +10,7 @@
     </button>
   </div>
 </div>
-<!--   TODO: Error Handling   -->
+
 <div class="content mt-3">
   <div *ngIf="!LOADING && weatherData" class="weather-item">
     <div *ngFor="let weather of weatherData; let i = index">
@@ -20,5 +20,8 @@
   </div>
   <div *ngIf="LOADING" class="loader">
     <app-loader></app-loader>
+  </div>
+  <div *ngIf="HAS_ERROR" class="alert alert-danger">
+    <p>{{ badLocation }} not found.</p>
   </div>
 </div>
