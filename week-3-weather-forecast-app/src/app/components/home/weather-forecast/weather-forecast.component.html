@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row p-3 justify-content-center">
-    <div class="col" *ngFor="let forecastDay of forecastData">
-      <div class="row justify-content-center">
+    <div class="col" *ngFor="let forecastDay of forecastData; let i = index">
+      <div class="row justify-content-center" (click)="onForecastClicked(i)">
         <p class="text-center">
           {{ forecastDay.date | date }}
         </p>

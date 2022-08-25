@@ -20,6 +20,7 @@ enum REQUEST_TYPE {
 export class WeatherService {
   // Weather API Key
   private API_KEY = environment.API_KEY;
+  private weatherForecastData?: WeatherForecast;
   constructor(
     private _http: HttpClient,
     private _transformationService: TransformationService
@@ -45,17 +46,49 @@ export class WeatherService {
     // Request the data from Weather API
     return this._http.get<CurrentWeatherResponse>(requestURL);
   }
-  searchCity(location: string) {}
+
+  /**
+   *
+   * @param location Name of the city
+   * @returns An Observable Array of objects of type ForecastDay
+   */
   forecast(location: string) {
     // Build a URL
     const requestURL =
-      this.buildURL(REQUEST_TYPE.FORECAST, location) + '&days=5&alerts=no';
+      this.buildURL(REQUEST_TYPE.FORECAST, location) + '&days=6&alerts=no';
     // Request the data from Weather API
     return this._http.get<WeatherForecast>(requestURL).pipe(
       map((response: WeatherForecast) => {
+        // Creating a local data state.
+        this.weatherForecastData = response;
+        // Remove the forecast for the current day --> Sounds Bad, but will be fixed in the next version
+        response.forecast.forecastday.splice(0, 1);
         // Return the forecast array
         return response.forecast.forecastday;
       })
     );
+  }
+  /**
+   *
+   * @param index Index of the forecast
+   * @returns An Object of type CurrentWeatherResponse
+   */
+  getForecastForIndex(index: number) {
+    // Get forecast data for the day using the index.
+    const currentForecastForTheDay =
+      this.weatherForecastData?.forecast.forecastday[index].day!;
+    // Creating a Current object using the forecast data.
+    const currentForecastData =
+      this._transformationService.transformForecastDataToCurrentWeatherData(
+        currentForecastForTheDay,
+        this.weatherForecastData!.current.last_updated
+      );
+    // Create a new object to store the forecasted data and location
+    const newWeatherData: CurrentWeatherResponse = {
+      current: currentForecastData,
+      location: this.weatherForecastData!.location,
+    };
+    // Return the updated data with the forecast.
+    return newWeatherData;
   }
 }
