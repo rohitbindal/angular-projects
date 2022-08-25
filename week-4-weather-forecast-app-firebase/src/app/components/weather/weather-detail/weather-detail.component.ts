@@ -51,12 +51,12 @@ export class WeatherDetailComponent implements OnInit {
     const observer: Observer<WeatherForecast> = {
       next: (response: WeatherForecast) => {
         this.weather = response;
-        console.log(this.weather);
+
         this.isLoading = false;
       },
       error: (error) => {
         this.error = error;
-        console.log(error);
+
         this.isLoading = false;
       },
       complete: () => {

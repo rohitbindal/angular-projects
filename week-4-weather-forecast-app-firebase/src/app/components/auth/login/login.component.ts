@@ -60,14 +60,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     // An observer with the next and error callbacks
     const observer = {
       next: (response: UserResponse) => {
-        console.log(response);
         this.updateLoader(false);
         this._router.navigate([APP_ROUTES.absolute.WEATHER]).then(null);
       },
       error: (error: Error) => {
         this.error = error.message;
         this.updateLoader(false);
-        console.log(error);
       },
     };
 

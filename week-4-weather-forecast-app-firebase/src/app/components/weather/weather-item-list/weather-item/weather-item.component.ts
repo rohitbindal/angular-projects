@@ -19,9 +19,7 @@ export class WeatherItemComponent implements OnInit {
     private _dataStorage: DataStorageService
   ) {}
 
-  ngOnInit(): void {
-    // console.log(this.weatherData);
-  }
+  ngOnInit(): void {}
 
   onCardClick() {
     const location = this.weatherData.location.name.toLowerCase();
