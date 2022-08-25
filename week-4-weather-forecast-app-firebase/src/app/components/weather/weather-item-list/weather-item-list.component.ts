@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { from, map, Subscription } from 'rxjs';
+import { DataStorageService } from '../../../services/data-storage/data-storage.service';
 import { WeatherService } from '../../../services/weather/weather.service';
 import { CurrentWeatherResponse } from '../../../shared/common.model';
 import { APP_PROPS } from '../../../shared/constants/app-props';
@@ -12,8 +13,9 @@ import { APP_PROPS } from '../../../shared/constants/app-props';
 })
 export class WeatherItemListComponent implements OnInit, OnDestroy {
   weatherSubscription?: Subscription;
-  weatherData?: CurrentWeatherResponse;
   searchLocation: string = '';
+  weatherData: CurrentWeatherResponse[] = [];
+  fromFirebase = false;
 
   // Store the searchLocation value if the given location is not found
   badLocation: string = '';
@@ -27,26 +29,45 @@ export class WeatherItemListComponent implements OnInit, OnDestroy {
     error: 'error',
   };
 
-  constructor(private _weatherService: WeatherService) {}
+  constructor(
+    private _weatherService: WeatherService,
+    private _dataStorage: DataStorageService
+  ) {}
 
   ngOnInit(): void {
-    // Get the weather for a specified location when the application is
-    // launched.
-    this.getWeatherData(APP_PROPS.DEFAULT_LOCATION);
+    this.getDataFromFirebase();
   }
 
-  /**
-   *
-   * @param location Name of the City
-   * @Description Method to use the Weather Service to get the current Weather.
+  getDataFromFirebase() {
+    this._dataStorage.fetchData().subscribe((response) => {
+      if (response.length) {
+        from(response)
+          .pipe(
+            map((city) => {
+              this.getWeatherData(city, true);
+            })
+          )
+          .subscribe();
+      } else {
+        this.fromFirebase = false;
+        this.getWeatherData(APP_PROPS.DEFAULT_LOCATION, this.fromFirebase);
+      }
+    });
+  }
+
+  /**]
+   *  Method to use the Weather Service to get the current Weather.
+   * @param {string} location
+   * @param {boolean} firebase
    */
-  getWeatherData(location: string) {
+  getWeatherData(location: string, firebase: boolean) {
     this.LOADING = true;
     this.weatherSubscription = this._weatherService
       .getCurrentWeather(location)
       .subscribe({
         next: (response) => {
-          this.weatherData = response;
+          this.weatherData.push(response);
+          this.fromFirebase = firebase;
           // Calling updateProperties() method with success as a response
           this.updateProperties(this.RESPONSE_TYPE.success);
         },
@@ -61,8 +82,8 @@ export class WeatherItemListComponent implements OnInit, OnDestroy {
    * Method to call the getWeatherData method when the search button is clicked
    */
   getWeatherOnClick() {
-    this.weatherData = undefined;
-    this.getWeatherData(this.searchLocation);
+    this.weatherData = [];
+    this.getWeatherData(this.searchLocation, false);
   }
 
   ngOnDestroy(): void {

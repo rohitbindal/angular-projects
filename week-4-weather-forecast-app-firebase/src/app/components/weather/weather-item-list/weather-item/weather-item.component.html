@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-5">
   <div class="col-sm-12">
     <div
       [ngClass]="{'card weather-card': true, 'day': weatherData.current.is_day, 'night': !weatherData.current.is_day}"
@@ -37,6 +37,16 @@
                  [src]="weatherData.current.condition.icon"
                  [title]="weatherData.current.condition.text">
           </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group">
+          <button (click)="onSave()" *ngIf="!firebase"
+                  class="btn btn-outline-primary">Save
+          </button>
+          <button (click)="onDelete()" *ngIf="firebase"
+                  class="btn btn-outline-danger">Delete
+          </button>
         </div>
       </div>
     </div>

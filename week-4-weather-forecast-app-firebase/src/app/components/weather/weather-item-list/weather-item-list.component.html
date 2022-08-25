@@ -13,7 +13,10 @@
 <!--   TODO: Error Handling   -->
 <div class="content mt-3">
   <div *ngIf="!LOADING && weatherData" class="weather-item">
-    <app-weather-item [weatherData]="weatherData"></app-weather-item>
+    <div *ngFor="let weather of weatherData; let i = index">
+      <app-weather-item [fromFirebase]="fromFirebase" [index]="i"
+                        [weatherData]="weather"></app-weather-item>
+    </div>
   </div>
   <div *ngIf="LOADING" class="loader">
     <app-loader></app-loader>
