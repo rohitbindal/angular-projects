@@ -1,0 +1,61 @@
+<!-- *Loading Dynamic component using a Custom Directive -->
+<ng-template appPlaceholder></ng-template>
+
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <!-- <div class="alert alert-danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </div> -->
+
+    <!-- *Loading Dynamic Component using ngIf -->
+    <!-- <app-alert
+      [message]="error"
+      *ngIf="error"
+      (modalClosed)="handleOnModalClose()"
+    ></app-alert> -->
+    <div *ngIf="isLoading" class="text-center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Email"
+          id="email"
+          name="email"
+          ngModel
+          email
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          id="password"
+          name="password"
+          minlength="6"
+          ngModel
+          required
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? "Login" : "Sign up" }}
+        </button>
+        |
+        <button type="button" (click)="onSwitchMode()" class="btn btn-primary">
+          Switch to {{ !isLoginMode ? "Login" : "Sign up" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

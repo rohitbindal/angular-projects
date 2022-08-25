@@ -1,0 +1,80 @@
+<div *ngIf="isLoading" class="row">
+  <div class="col-sm-12">
+    <app-loader></app-loader>
+  </div>
+</div>
+
+<div *ngIf="weather && !isLoading">
+  <div class="current-weather-container">
+    <div class="col-sm-12 lead">
+      <div class="current-weather text-center mb-3">
+        {{weather.location.name + ', ' + weather.location.country}}
+        <br/>
+        <div class="row">
+          <p
+            class="display-6 d-flex mt-2 row align-items-center justify-content-center">
+            <img [src]="weather.current.condition.icon"
+                 [title]="weather.current.condition.text"
+                 alt=""
+                 style="max-width: 64px;">
+            {{weather.current.temp_c}}&deg;C
+          </p>
+        </div>
+        <p class="fw-bold">{{weather.current.condition.text}}</p>
+      </div>
+      <hr>
+      <div
+        class="current-weather-details d-flex flex-wrap gap-3 justify-content-evenly small">
+        <div>
+          <small>
+            Feels Like &nbsp;{{weather.current.feelslike_c}}&deg;
+          </small>
+        </div>
+        <div>
+          <small>
+            Wind &nbsp;{{weather.current.wind_kph}} km/h
+          </small>
+        </div>
+        <div>
+          <small>
+            Barometer &nbsp;{{weather.current.pressure_mb}} mb
+          </small>
+        </div>
+        <div>
+          <small>
+            Visibility &nbsp;{{weather.current.vis_km}} km
+          </small>
+        </div>
+        <div>
+          <small>
+            Humidity &nbsp; {{weather.current.humidity}}%
+          </small>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div
+      class="forecast-weather-container mt-4 mb-3">
+      <div class="row">
+        <h4>Daily</h4>
+      </div>
+      <div class="row">
+        <div
+          (click)="changeDetails(i, details)"
+          *ngFor="let forecast of weather.forecast.forecastday; let i = index"
+          [ngClass]="{'forecast-item col':true}">
+          <app-weather-forecast-item
+            [forecast]="forecast" [index]="i"
+            [selectedIndex]="selectedIndex"
+            [selected]="isSelected"></app-weather-forecast-item>
+        </div>
+
+        <!--   Details     -->
+        <div #details class="forecast-details">
+          <app-weather-daily-forecast-detail
+            [forecastDetails]="weather.forecast.forecastday[detailsIndex]"></app-weather-daily-forecast-detail>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

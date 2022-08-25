@@ -1,0 +1,71 @@
+<div class="container container-fluid mt-5">
+  <div class="row">
+    <!-- Loader  -->
+    <div *ngIf="isLoading" class="text-center">
+      <app-loader></app-loader>
+    </div>
+
+    <!-- Input Form   -->
+    <div *ngIf="!isLoading"
+         class="col-sm-6 offset-sm-3 col-md-6 offset-md-3 col-lg-4 offset-lg-4"
+    >
+      <div class="row">
+        <h1 class="display-6 text-center mb-4">Login</h1>
+      </div>
+      <div class="row">
+        <form #authForm="ngForm"
+              (ngSubmit)="onSubmit(authForm)"
+        >
+          <div class="form-floating row">
+            <input
+              class="form-control"
+              email
+              id="email"
+              name="email"
+              ngModel
+              placeholder="email"
+              required
+              type="email"
+            >
+            <label for="email">E-mail</label>
+          </div>
+          <div class="form-floating row mt-2">
+            <input
+              class="form-control"
+              id="password"
+              minlength="6"
+              name="password"
+              ngModel
+              placeholder="password"
+              required
+              type="password"
+            >
+            <label for="password">Password</label>
+          </div>
+          <div class="row mt-3">
+            <div class="btn-group">
+              <button [disabled]="authForm.invalid" class="btn btn-primary"
+                      title="Login"
+                      type="submit">Login
+              </button>
+              <button (click)="onSignupClicked()"
+                      class="btn btn-outline-primary"
+                      title="Go to Sign Up"
+                      type="button">
+                Sign
+                Up
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div *ngIf="error"
+             class="alert alert-danger mt-4">
+          <p>{{ error }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
