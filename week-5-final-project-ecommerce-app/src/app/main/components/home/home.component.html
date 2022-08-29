@@ -1,1 +1,13 @@
-<p>home works!</p>
+<!-- Outlet for the children components  -->
+<app-header></app-header>
+<div class="container btn-group">
+  <a routerLink="electronics" routerLinkActive="active">
+    Electronics
+  </a>
+  <a routerLink="men's clothing" routerLinkActive="active">
+    Men's Clothing
+  </a>
+</div>
+<!--<a routerLink="electronics">Women's Clothing</a>-->
+
+<router-outlet></router-outlet>

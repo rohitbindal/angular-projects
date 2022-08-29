@@ -1,0 +1,23 @@
+<div [ngClass]="{'card h-100 p-3': true, 'opacity-50': !product.stock}">
+  <div class="image-container d-flex justify-content-center">
+    <img [src]="product.image" alt=""
+         class="card-img-top product-image align-self-center"
+    >
+  </div>
+  <div class="card-body d-flex flex-column justify-content-end">
+    <p [title]="product.title"
+       class="card-title text-truncate lead">{{product.title}}</p>
+    <h6 class="card-subtitle mb-2 text-muted">Rs. {{product.price}}/-</h6>
+    <!--    TODO: Change the color of text based on the stock status   -->
+    <p
+      [ngClass]="{'card-subtitle mb-2 small':true, 'in-stock': product.stock, 'out-of-stock': !product.stock}">
+      {{product.stock ? 'In Stock' : 'Out of Stock'}}
+    </p>
+    <span class="rating">
+      {{product.rating.rate}}
+      <i class="bi bi-star-half"></i>
+      &nbsp;
+      <small>({{product.rating.count}})</small>
+    </span>
+  </div>
+</div>

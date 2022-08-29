@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   },
   {
     path: APP_ROUTES.default,
-    redirectTo: APP_ROUTES.absolute.store.home,
+    redirectTo: APP_ROUTES.absolute.main.home,
     pathMatch: 'full',
   },
   { path: APP_ROUTES.relative.pageNotFound, component: PageNotFoundComponent },

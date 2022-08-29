@@ -8,10 +8,11 @@ export const APP_ROUTES = {
       home: '/home',
       login: '/login',
     },
-    store: {
+    main: {
       home: '/home',
       login: '/login',
       sign_up: '/sign-up',
+      detail: '/detail',
     },
   },
   relative: {
@@ -26,6 +27,12 @@ export const APP_ROUTES = {
       home: 'home',
       login: 'login',
       sign_up: 'sign-up',
+      products: {
+        list: ':category',
+        detail: ':id',
+      },
+      checkout: 'checkout',
+      wishlist: 'wishlist',
     },
   },
 };
