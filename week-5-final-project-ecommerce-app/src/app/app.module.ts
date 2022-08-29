@@ -4,18 +4,11 @@ import { AdminModule } from './admin/admin.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { FirebaseModule } from './shared/firebase/firebase.module';
-import { StoreModule } from './store/store.module';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AdminModule,
-    StoreModule,
-    FirebaseModule,
-    AppRoutingModule,
-  ],
+  imports: [BrowserModule, MainModule, AdminModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })
