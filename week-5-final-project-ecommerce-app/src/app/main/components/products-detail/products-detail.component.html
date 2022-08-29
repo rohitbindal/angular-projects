@@ -1,0 +1,57 @@
+<!-- Header -->
+<app-header></app-header>
+
+<!-- Loader -->
+<app-loader *ngIf="!product"></app-loader>
+
+<!-- Content Container -->
+<div *ngIf="product" class="container-fluid col-10 offset-1 mb-5">
+  <div class="details-header">
+    <div class="row d-flex flex-md-row flex-lg-row flex-column gap-4">
+      <!-- Details Header - Image Container  -->
+      <div class="col-12 col-md-4 col-lg-4 d-flex align-items-center"
+      >
+        <img [src]="product.image" alt="" class="img-fluid"
+        >
+      </div>
+      <!--  Details Header - Description Container  -->
+      <div class="col-12 col-md-7 col-lg-7"
+      >
+        <!--   Product Name     -->
+        <h3 class="display-6">{{product.title}}</h3>
+        <!--   Description - truncated     -->
+        <div class="lead text-truncate text-truncate-2">
+          {{product.description}}
+        </div>
+        <div class="row d-flex flex-column">
+          <!--     Price and Delivery info     -->
+          <div class="price col mt-3">
+            <div class="display-6 price">
+              &#8377;<strong>{{product.price}}/-</strong>
+            </div>
+            <small class="small lead">Inclusive of all taxes</small>
+
+            <small class="small lead">Free Delivery by <strong>Tomorrow
+              7pm </strong></small>
+          </div>
+          <!--     Actions     -->
+          <div
+            class="d-flex flex-column justify-content-evenly gap-2 col-sm-6 col-md-8 col-lg-6 mt-3">
+            <!-- TODO: Handle Cart add action -->
+            <button class="btn btn-outline-info" title="Add to Cart">Add to
+              Cart
+            </button>
+            <!--     TODO: Handle Buy Now Action       -->
+            <button class="btn btn-dark" title="Buy Now">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+  <div class="details-container">
+    <div class="lead">
+      {{product.description}}
+    </div>
+  </div>
+</div>
