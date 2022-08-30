@@ -8,7 +8,6 @@
     <p [title]="product.title"
        class="card-title text-truncate lead">{{product.title}}</p>
     <h6 class="card-subtitle mb-2 text-muted">Rs. {{product.price}}/-</h6>
-    <!--    TODO: Change the color of text based on the stock status   -->
     <p
       [ngClass]="{'card-subtitle mb-2 small':true, 'in-stock': product.stock, 'out-of-stock': !product.stock}">
       {{product.stock ? 'In Stock' : 'Out of Stock'}}

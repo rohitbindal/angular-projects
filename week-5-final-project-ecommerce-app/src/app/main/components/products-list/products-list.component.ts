@@ -14,6 +14,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] | null;
   category: string | '';
   helpers = HELPERS;
+  stock = false;
 
   private productList$: Subscription | null;
 
@@ -27,7 +28,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.productList$ = this._route.params.subscribe((params) => {
+    this._route.params.subscribe((params) => {
       this.category = params['category'];
       this.updateUi();
     });
@@ -36,12 +37,19 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   updateUi() {
     // TODO: replace the locally stored products with the products fetched from firebase.
     setTimeout(() => {
-      this._product.getProductsByCategory(this.category).subscribe((data) => {
-        this.products = data;
-        this.products.sort((x, y) => +y.stock - +x.stock);
-      });
-    }, 4000);
+      this.productList$ = this._product
+        .getProductsByCategory(this.category)
+        .subscribe((data) => {
+          this.products = data;
+          if (!this.stock) this.products.sort((x, y) => +y.stock - +x.stock);
+          else this.products = this.products.filter((product) => product.stock);
+        });
+    }, 1000);
     // Sort the products based on stock
+  }
+
+  onStockChange() {
+    this.updateUi();
   }
 
   ngOnDestroy() {
