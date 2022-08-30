@@ -29,18 +29,27 @@
             <div class="display-6 price">
               &#8377;<strong>{{product.price}}/-</strong>
             </div>
-            <small class="small lead">Inclusive of all taxes</small>
-
-            <small class="small lead">Free Delivery by <strong>Tomorrow
-              7pm </strong></small>
+            <div>
+              <small class="small lead">Inclusive of all taxes</small>
+            </div>
+            <div>
+              <small class="small lead">Free Delivery by <strong>Tomorrow
+                7pm </strong></small>
+            </div>
           </div>
           <!--     Actions     -->
           <div
             class="d-flex flex-column justify-content-evenly gap-2 col-sm-6 col-md-8 col-lg-6 mt-3">
-            <!-- TODO: Handle Cart add action -->
-            <button class="btn btn-outline-info" title="Add to Cart">Add to
-              Cart
-            </button>
+            <div class="btn-group">
+              <!-- TODO: Handle Cart add action -->
+              <button class="btn btn-outline-info" title="Add to Cart">Add
+                to
+                Cart
+              </button>
+              <!-- TODO: Handle Wishlist Action -->
+              <button class="btn btn-outline-danger"><i class="bi bi-heart"></i>
+              </button>
+            </div>
             <!--     TODO: Handle Buy Now Action       -->
             <button class="btn btn-dark" title="Buy Now">Buy Now</button>
           </div>
