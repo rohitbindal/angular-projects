@@ -15,6 +15,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   category: string | '';
   helpers = HELPERS;
   stock = false;
+  rating = 0;
+  price = [0, 0];
+  sort = ['', ''];
 
   private productList$: Subscription | null;
 
@@ -41,18 +44,39 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .getProductsByCategory(this.category)
         .subscribe((data) => {
           this.products = data;
+
+          // Filter out the products based on stack
           if (!this.stock) this.products.sort((x, y) => +y.stock - +x.stock);
           else this.products = this.products.filter((product) => product.stock);
+
+          // Filter out the products with appropriate rating
+          if (this.rating)
+            this.products = this.products.filter(
+              (product) => product.rating.rate >= this.rating
+            );
+
+          // Filter out the products with appropriate price
+          // index 0, 1 --> lower and upper limit respectively
+          if (this.price[1])
+            this.products = this.products.filter(
+              (product) =>
+                product.price < this.price[1] && product.price >= this.price[0]
+            );
+
+          // Sorting
+          if (this.sort[0]) this.sortProducts();
         });
     }, 1000);
     // Sort the products based on stock
   }
 
-  onStockChange() {
+  onChange() {
     this.updateUi();
   }
 
   ngOnDestroy() {
     this.productList$?.unsubscribe();
   }
+
+  private sortProducts() {}
 }
