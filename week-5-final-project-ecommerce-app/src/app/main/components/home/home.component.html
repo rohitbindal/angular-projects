@@ -1,17 +1,16 @@
-<!-- Outlet for the children components  -->
 <app-header></app-header>
-<div class="container btn-group">
-  <a
-    [routerLink]="[helpers.routing.categoryRouteRelative, helpers.routing.productCategories.electronics]"
-    routerLinkActive="active">
-    Electronics
-  </a>
-  <a
-    [routerLink]="[ helpers.routing.categoryRouteRelative, helpers.routing.productCategories.menClothing ]"
-    routerLinkActive="active">
-    Men's Clothing
-  </a>
-</div>
-<!--<a routerLink="electronics">Women's Clothing</a>-->
+<!--<div class="container btn-group">-->
+<!--  <a-->
+<!--    [routerLink]="[helpers.routing.categoryRouteRelative, helpers.routing.productCategories.electronics]"-->
+<!--    routerLinkActive="active">-->
+<!--    Electronics-->
+<!--  </a>-->
+<!--  <a-->
+<!--    [routerLink]="[ helpers.routing.categoryRouteRelative, helpers.routing.productCategories.menClothing ]"-->
+<!--    routerLinkActive="active">-->
+<!--    Men's Clothing-->
+<!--  </a>-->
+<!--</div>-->
 
+<!-- Outlet for the children components  -->
 <router-outlet></router-outlet>

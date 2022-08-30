@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { HELPERS } from '../../../shared/constants/helpers';
 import { Product } from '../../../shared/constants/product.model';
 import { ProductService } from '../../../shared/services/product.service';
@@ -9,10 +10,12 @@ import { ProductService } from '../../../shared/services/product.service';
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.css'],
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] | null;
   category: string | '';
   helpers = HELPERS;
+
+  private productList$: Subscription | null;
 
   constructor(
     private _product: ProductService,
@@ -20,10 +23,11 @@ export class ProductsListComponent implements OnInit {
   ) {
     this.products = null;
     this.category = '';
+    this.productList$ = null;
   }
 
   ngOnInit(): void {
-    this._route.params.subscribe((params) => {
+    this.productList$ = this._route.params.subscribe((params) => {
       this.category = params['category'];
       this.updateUi();
     });
@@ -31,8 +35,16 @@ export class ProductsListComponent implements OnInit {
 
   updateUi() {
     // TODO: replace the locally stored products with the products fetched from firebase.
-    this.products = this._product.getProductsByCategory(this.category);
+    setTimeout(() => {
+      this._product.getProductsByCategory(this.category).subscribe((data) => {
+        this.products = data;
+        this.products.sort((x, y) => +y.stock - +x.stock);
+      });
+    }, 4000);
     // Sort the products based on stock
-    this.products.sort((x, y) => +y.stock - +x.stock);
+  }
+
+  ngOnDestroy() {
+    this.productList$?.unsubscribe();
   }
 }

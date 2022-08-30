@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 import { Product, PRODUCTS } from '../constants/product.model';
 
 @Injectable({
@@ -22,18 +23,18 @@ export class ProductService {
   /**
    * Returns products based on a certain category.
    * @param {string} category
-   * @returns {Product[]}
+   * @returns {Observable<Product[]>}
    */
   getProductsByCategory(category: string) {
-    return this.products.filter((product) => product.category === category);
+    return of(this.products.filter((product) => product.category === category));
   }
 
   /**
    * Returns a specific product based in id.
    * @param {number} id
-   * @returns {Product}
+   * @returns {Observable<Product>}
    */
   getProductById(id: number) {
-    return this.products.filter((product) => product.id == id)[0];
+    return of(this.products.filter((product) => product.id == id)[0]);
   }
 }

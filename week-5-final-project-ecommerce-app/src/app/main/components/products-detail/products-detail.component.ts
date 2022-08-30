@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes';
 import { Product } from '../../../shared/constants/product.model';
 import { ProductService } from '../../../shared/services/product.service';
@@ -9,8 +10,10 @@ import { ProductService } from '../../../shared/services/product.service';
   templateUrl: './products-detail.component.html',
   styleUrls: ['./products-detail.component.css'],
 })
-export class ProductsDetailComponent implements OnInit {
+export class ProductsDetailComponent implements OnInit, OnDestroy {
   product: Product | null;
+
+  private productDetail$: Subscription | null;
 
   constructor(
     private _products: ProductService,
@@ -18,13 +21,25 @@ export class ProductsDetailComponent implements OnInit {
     private _router: Router
   ) {
     this.product = null;
+    this.productDetail$ = null;
   }
 
   ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
-    this.product = this._products.getProductById(id);
-    if (!this.product) {
-      this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
-    }
+    // TODO: replace the locally stored product with the product fetched from firebase.
+    this.productDetail$ = this._products
+      .getProductById(id)
+      .subscribe((response) => {
+        setTimeout(() => {
+          this.product = response;
+          if (!this.product) {
+            this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
+          }
+        }, 4000);
+      });
+  }
+
+  ngOnDestroy() {
+    this.productDetail$?.unsubscribe();
   }
 }
