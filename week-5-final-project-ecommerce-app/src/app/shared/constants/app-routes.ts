@@ -12,7 +12,12 @@ export const APP_ROUTES = {
       home: '/home',
       login: '/login',
       sign_up: '/sign-up',
-      detail: '/detail',
+      products: {
+        list: '/c/:category',
+        detail: '/d/:id',
+      },
+      checkout: '/checkout',
+      wishlist: '/wishlist',
     },
   },
   relative: {
@@ -28,8 +33,8 @@ export const APP_ROUTES = {
       login: 'login',
       sign_up: 'sign-up',
       products: {
-        list: ':category',
-        detail: ':id',
+        list: 'c/:category',
+        detail: 'd/:id',
       },
       checkout: 'checkout',
       wishlist: 'wishlist',

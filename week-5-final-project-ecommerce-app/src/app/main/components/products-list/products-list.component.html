@@ -32,7 +32,7 @@
                class="products-list-container col mb-4">
             <app-product-item
               [product]="product"
-              [routerLink]="['/detail', {id: product.id}]"></app-product-item>
+              [routerLink]="[helpers.routing.detailsRouteAbsolute, product.id]"></app-product-item>
           </div>
         </div>
       </div>

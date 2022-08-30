@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { APP_ROUTES } from '../../../shared/constants/app-routes';
 import { Product } from '../../../shared/constants/product.model';
 import { ProductService } from '../../../shared/services/product.service';
 
@@ -13,7 +14,8 @@ export class ProductsDetailComponent implements OnInit {
 
   constructor(
     private _products: ProductService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {
     this.product = null;
   }
@@ -21,6 +23,8 @@ export class ProductsDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
     this.product = this._products.getProductById(id);
-    console.log(this.product);
+    if (!this.product) {
+      this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
+    }
   }
 }

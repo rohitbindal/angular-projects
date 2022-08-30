@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HELPERS } from '../../../shared/constants/helpers';
 import { Product } from '../../../shared/constants/product.model';
 import { ProductService } from '../../../shared/services/product.service';
 
@@ -11,6 +12,7 @@ import { ProductService } from '../../../shared/services/product.service';
 export class ProductsListComponent implements OnInit {
   products: Product[] | null;
   category: string | '';
+  helpers = HELPERS;
 
   constructor(
     private _product: ProductService,

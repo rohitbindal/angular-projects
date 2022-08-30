@@ -1,10 +1,14 @@
 <!-- Outlet for the children components  -->
 <app-header></app-header>
 <div class="container btn-group">
-  <a routerLink="electronics" routerLinkActive="active">
+  <a
+    [routerLink]="[helpers.routing.categoryRouteRelative, helpers.routing.productCategories.electronics]"
+    routerLinkActive="active">
     Electronics
   </a>
-  <a routerLink="men's clothing" routerLinkActive="active">
+  <a
+    [routerLink]="[ helpers.routing.categoryRouteRelative, helpers.routing.productCategories.menClothing ]"
+    routerLinkActive="active">
     Men's Clothing
   </a>
 </div>
