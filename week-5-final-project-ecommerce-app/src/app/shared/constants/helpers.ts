@@ -10,6 +10,8 @@ export const HELPERS = {
       electronics: 'electronics',
       jewelery: 'jewelery',
     },
+    wishlistRoute: '/wishlist',
+    checkoutRoute: '/checkout',
   },
   text: {
     electronics: 'Electronics',
