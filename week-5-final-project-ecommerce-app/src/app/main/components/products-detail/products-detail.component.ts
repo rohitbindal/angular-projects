@@ -35,9 +35,21 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
           if (!this.product) {
             this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
           }
-        }, 4000);
+        }, 600);
       });
   }
+
+  // TODO: Cart, Checkout and Wishlist actions
+  // Add the product to the cart
+  onAddToCartClicked() {}
+
+  // Add to cart and navigate to checkout
+  onBuyNowClicked() {
+    this._router.navigate([APP_ROUTES.absolute.main.checkout]).then();
+  }
+
+  // Add the product to user wishlist
+  onWishlistClicked() {}
 
   ngOnDestroy() {
     this.productDetail$?.unsubscribe();

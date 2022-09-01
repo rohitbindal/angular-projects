@@ -18,9 +18,9 @@
       <div class="col-12 col-md-7 col-lg-7"
       >
         <!--   Product Name     -->
-        <h3 class="display-6">{{product.title}}</h3>
+        <h3 class="display-6" title="Title">{{product.title}}</h3>
         <!--   Description - truncated     -->
-        <div class="lead text-truncate text-truncate-2">
+        <div class="lead text-truncate text-truncate-2" title="Description">
           {{product.description}}
         </div>
         <div class="row d-flex flex-column">
@@ -37,21 +37,25 @@
                 7pm </strong></small>
             </div>
           </div>
+
           <!--     Actions     -->
           <div
             class="d-flex flex-column justify-content-evenly gap-2 col-sm-6 col-md-8 col-lg-6 mt-3">
             <div class="btn-group">
-              <!-- TODO: Handle Cart add action -->
-              <button class="btn btn-outline-info" title="Add to Cart">Add
+              <button (click)="onAddToCartClicked()"
+                      class="btn btn-outline-info"
+                      title="Add to Cart">Add
                 to
                 Cart
               </button>
-              <!-- TODO: Handle Wishlist Action -->
-              <button class="btn btn-outline-danger"><i class="bi bi-heart"></i>
+              <button (click)="onWishlistClicked()"
+                      class="btn btn-outline-danger"
+                      title="Add to Wishlist"><i class="bi bi-heart"></i>
               </button>
             </div>
-            <!--     TODO: Handle Buy Now Action       -->
-            <button class="btn btn-dark" title="Buy Now">Buy Now</button>
+            <button (click)="onBuyNowClicked()" class="btn btn-dark"
+                    title="Buy Now">Buy Now
+            </button>
           </div>
         </div>
       </div>
@@ -59,7 +63,7 @@
     </div>
   </div>
   <div class="details-container">
-    <div class="lead">
+    <div class="lead fs-6" title="Description">
       {{product.description}}
     </div>
   </div>
