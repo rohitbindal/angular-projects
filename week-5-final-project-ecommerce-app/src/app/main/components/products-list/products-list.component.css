@@ -7,6 +7,10 @@
   text-align: inherit
 }
 
+.clear-filters-button {
+  font-size: small;
+}
+
 .custom-border {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }

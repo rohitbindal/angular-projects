@@ -16,7 +16,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] | null;
   category: string | '';
   helpers = HELPERS;
-  filters: FiltersModel | null;
+  filters: FiltersModel;
 
   private productList$: Subscription | null;
 
@@ -33,6 +33,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       rating: 0,
       price: [0, 0],
       sort: ['', ''],
+      active: false,
     };
   }
 
@@ -50,11 +51,27 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .getProductsByCategory(this.category)
         .subscribe((data) => {
           this.products = data;
-          // if (this.products) {
-          this.filterProducts();
-          // }
+          if (this.products) {
+            const filteredProducts = this._filter.filterProducts(
+              this.products,
+              this.filters
+            );
+            this.products = filteredProducts.products;
+            this.filters = filteredProducts.filters;
+          }
         });
     }, 1000);
+  }
+
+  clearFilters() {
+    this.filters = {
+      stock: false,
+      rating: 0,
+      price: [0, 0],
+      sort: ['', ''],
+      active: false,
+    };
+    this.updateUi();
   }
 
   onChange() {
@@ -63,32 +80,5 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.productList$?.unsubscribe();
-  }
-
-  private filterProducts() {
-    if (this.products) {
-      // Filter out the products based on stack
-      if (this.filters?.stock)
-        this.products = this._filter.byStock(this.filters.stock, this.products);
-
-      // Filter out the products with appropriate rating
-      if (this.filters?.rating)
-        this.products = this._filter.byRating(
-          this.filters.rating,
-          this.products
-        );
-
-      // Filter out the products with appropriate price
-      // index 0, 1 --> lower and upper limit respectively
-      if (this.filters?.price[1])
-        this.products = this._filter.byPrice(this.filters.price, this.products);
-
-      // Sort the products base on name, price and rating
-      if (this.filters?.sort[0])
-        this.products = this._filter.sortProducts(
-          this.filters.sort,
-          this.products
-        );
-    }
   }
 }

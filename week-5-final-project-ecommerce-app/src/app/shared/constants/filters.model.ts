@@ -3,4 +3,5 @@ export interface FiltersModel {
   rating: number;
   price: [number, number];
   sort: [string, string];
+  active: boolean;
 }

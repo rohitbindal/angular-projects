@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FiltersModel } from '../constants/filters.model';
 import { Product } from '../constants/product.model';
 
 @Injectable({
@@ -6,6 +7,32 @@ import { Product } from '../constants/product.model';
 })
 export class FilterService {
   constructor() {}
+
+  filterProducts(products: Product[], filters: FiltersModel) {
+    // Filter out the products based on stack
+    products = this.byStock(filters.stock, products);
+
+    // Filter out the products with appropriate rating
+    if (filters.rating) {
+      filters.active = true;
+      products = this.byRating(filters.rating, products);
+    }
+
+    // Filter out the products with appropriate price
+    // index 0, 1 --> lower and upper limit respectively
+    if (filters.price[1]) {
+      filters.active = true;
+      products = this.byPrice(filters.price, products);
+    }
+
+    // Sort the products base on name, price and rating
+    if (filters.sort[0]) {
+      filters.active = true;
+      products = this.sortProducts(filters.sort, products);
+    }
+
+    return { products, filters };
+  }
 
   /**
    * Method to filter products based on a range
