@@ -11,7 +11,7 @@ export const APP_ROUTES = {
     main: {
       home: '/home',
       login: '/login',
-      sign_up: '/sign-up',
+      signUp: '/sign-up',
       products: {
         list: '/c/:category',
         detail: '/d/:id',
@@ -31,7 +31,7 @@ export const APP_ROUTES = {
     main: {
       home: 'home',
       login: 'login',
-      sign_up: 'sign-up',
+      signUp: 'sign-up',
       products: {
         list: 'c/:category',
         detail: 'd/:id',

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { APP_ROUTES } from '../shared/constants/app-routes';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsDetailComponent } from './components/products-detail/products-detail.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
@@ -32,6 +34,14 @@ const mainAppRoutes: Routes = [
     // TODO: Add guard and user id as a parameter
     path: APP_ROUTES.relative.main.wishlist,
     component: WishlistComponent,
+  },
+  {
+    path: APP_ROUTES.relative.main.login,
+    component: LoginComponent,
+  },
+  {
+    path: APP_ROUTES.relative.main.signUp,
+    component: SignupComponent,
   },
 ];
 

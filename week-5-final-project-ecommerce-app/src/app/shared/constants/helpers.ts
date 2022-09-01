@@ -12,6 +12,8 @@ export const HELPERS = {
     },
     wishlistRoute: '/wishlist',
     checkoutRoute: '/checkout',
+    login: '/login',
+    signUp: '/sign-up',
   },
   text: {
     electronics: 'Electronics',

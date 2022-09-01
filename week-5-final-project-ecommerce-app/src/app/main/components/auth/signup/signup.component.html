@@ -1,0 +1,46 @@
+<app-header></app-header>
+<!--TODO: Add Loader-->
+<div class="container container-fluid mb-5">
+  <form
+    class="form-signup w-100 m-auto p-1 d-flex flex-column justify-content-center">
+    <p class="display-6 mb-4">Create a new Account</p>
+
+    <!-- Username -->
+    <div class="form-floating">
+      <input class="form-control" id="username" placeholder="john doe"
+             type="name">
+      <label for="username">Username</label>
+    </div>
+
+    <!-- Email -->
+    <div class="form-floating">
+      <input class="form-control" id="email" placeholder="JonDoe@mail.com"
+             type="email">
+      <label for="email">Email</label>
+    </div>
+
+    <!-- Password-->
+    <div class="form-floating">
+      <input class="form-control" id="password" placeholder="password"
+             type="password">
+      <label for="password">Password</label>
+    </div>
+
+    <!-- Confirm Password-->
+    <div class="form-floating">
+      <input class="form-control" id="confirmPassword" placeholder="password"
+             type="password">
+      <label for="confirmPassword">Confirm Password</label>
+    </div>
+
+    <!-- Actions -->
+    <div class="btn-group mt-3">
+      <!-- Sign Up Button   -->
+      <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
+      <!-- Login Button: Navigate to Login Page -->
+      <button [routerLink]="helpers.routing.login"
+              class="btn btn-lg btn-light" type="button">Log In
+      </button>
+    </div>
+  </form>
+</div>

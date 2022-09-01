@@ -1,0 +1,17 @@
+.form-signup {
+  max-width: 500px;
+}
+
+#username {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#email, #confirmPassword {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#password, #email {
+  border-radius: 0;
+}
