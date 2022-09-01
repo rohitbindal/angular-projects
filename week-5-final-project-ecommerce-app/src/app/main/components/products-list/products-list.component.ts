@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FiltersModel } from '../../../shared/constants/filters.model';
 import { HELPERS } from '../../../shared/constants/helpers';
 import { Product } from '../../../shared/constants/product.model';
+import { FilterService } from '../../../shared/services/filter.service';
 import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
@@ -14,20 +16,24 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] | null;
   category: string | '';
   helpers = HELPERS;
-  stock = false;
-  rating = 0;
-  price = [0, 0];
-  sort = ['', ''];
+  filters: FiltersModel | null;
 
   private productList$: Subscription | null;
 
   constructor(
     private _product: ProductService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _filter: FilterService
   ) {
     this.products = null;
     this.category = '';
     this.productList$ = null;
+    this.filters = {
+      stock: false,
+      rating: 0,
+      price: [0, 0],
+      sort: ['', ''],
+    };
   }
 
   ngOnInit(): void {
@@ -44,30 +50,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         .getProductsByCategory(this.category)
         .subscribe((data) => {
           this.products = data;
-
-          // Filter out the products based on stack
-          if (!this.stock) this.products.sort((x, y) => +y.stock - +x.stock);
-          else this.products = this.products.filter((product) => product.stock);
-
-          // Filter out the products with appropriate rating
-          if (this.rating)
-            this.products = this.products.filter(
-              (product) => product.rating.rate >= this.rating
-            );
-
-          // Filter out the products with appropriate price
-          // index 0, 1 --> lower and upper limit respectively
-          if (this.price[1])
-            this.products = this.products.filter(
-              (product) =>
-                product.price < this.price[1] && product.price >= this.price[0]
-            );
-
-          // Sorting
-          if (this.sort[0]) this.sortProducts();
+          // if (this.products) {
+          this.filterProducts();
+          // }
         });
     }, 1000);
-    // Sort the products based on stock
   }
 
   onChange() {
@@ -78,5 +65,30 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.productList$?.unsubscribe();
   }
 
-  private sortProducts() {}
+  private filterProducts() {
+    if (this.products) {
+      // Filter out the products based on stack
+      if (this.filters?.stock)
+        this.products = this._filter.byStock(this.filters.stock, this.products);
+
+      // Filter out the products with appropriate rating
+      if (this.filters?.rating)
+        this.products = this._filter.byRating(
+          this.filters.rating,
+          this.products
+        );
+
+      // Filter out the products with appropriate price
+      // index 0, 1 --> lower and upper limit respectively
+      if (this.filters?.price[1])
+        this.products = this._filter.byPrice(this.filters.price, this.products);
+
+      // Sort the products base on name, price and rating
+      if (this.filters?.sort[0])
+        this.products = this._filter.sortProducts(
+          this.filters.sort,
+          this.products
+        );
+    }
+  }
 }
