@@ -19,11 +19,11 @@
             </a>
             <ul class="dropdown-menu">
               <li><a
-                [routerLink]="[helpers.routing.categoryRouteRelative, helpers.routing.productCategories.electronics]"
+                [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.electronics]"
                 class="dropdown-item">{{helpers.text.electronics}}</a>
               </li>
               <li><a
-                [routerLink]="[helpers.routing.categoryRouteRelative,helpers.routing.productCategories.jewelery]"
+                [routerLink]="[helpers.routing.categoryRouteAbsolute,helpers.routing.productCategories.jewelery]"
                 class="dropdown-item">{{helpers.text.jewelery}}</a>
               </li>
               <li>
@@ -32,10 +32,10 @@
               <li>
                 <h6 class="dropdown-header">{{helpers.text.clothing}}</h6>
                 <a
-                  [routerLink]="[helpers.routing.categoryRouteRelative, helpers.routing.productCategories.menClothing]"
+                  [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.menClothing]"
                   class="dropdown-item">{{helpers.text.menClothing}}</a>
                 <a
-                  [routerLink]="[helpers.routing.categoryRouteRelative, helpers.routing.productCategories.womenClothing]"
+                  [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.womenClothing]"
                   class="dropdown-item">{{helpers.text.womenClothing}}</a>
               </li>
             </ul>

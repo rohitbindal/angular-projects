@@ -1,1 +1,57 @@
-<p>checkout works!</p>
+<app-header></app-header>
+
+<div *ngIf="!checkoutProducts" class="loader">
+  <app-loader></app-loader>
+</div>
+
+<div *ngIf="checkoutProducts" class="container container-fluid mb-5">
+  <div *ngFor="let product of checkoutProducts" class="checkout-item-container">
+    <app-checkout-item [product]="product"></app-checkout-item>
+  </div>
+  <hr>
+  <div
+    class="checkout-details d-flex justify-content-lg-end justify-content-md-end">
+    <div class="col-12 col-md-4 col-lg-4 lead">
+      <div class="row">
+        <div class="col text-start">
+          <small>
+            Subtotal
+          </small>
+        </div>
+        <div class="col text-end">
+          {{total}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-start">
+          <small>
+            Shipping
+          </small>
+        </div>
+        <div class="col text-end">
+          0
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col text-start">
+          <strong>
+            Total
+          </strong>
+        </div>
+        <div class="col text-end">
+          <strong>
+            &#8377;{{total}}/-
+          </strong>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <button (click)="onPlaceOrderClicked()"
+                  class="btn btn-outline-success w-100">Place you order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

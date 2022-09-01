@@ -13,11 +13,11 @@ export class ProductService {
   }
 
   /**
-   * Method to return the list of all the products.
-   * @returns {Product[]}
+   *
+   * @returns {Observable<Product[]>}
    */
   getAllProducts() {
-    return this.products;
+    return of(this.products);
   }
 
   /**

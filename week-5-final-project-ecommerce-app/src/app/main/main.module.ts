@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { ProductsDetailComponent } from './components/products-detail/products-detail.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
+import { CheckoutItemComponent } from './components/secure/checkout/checkout-item/checkout-item.component';
 import { CheckoutComponent } from './components/secure/checkout/checkout.component';
 import { WishlistComponent } from './components/secure/wishlist/wishlist.component';
 import { MainRoutingModule } from './main.routing.module';
@@ -19,6 +20,7 @@ import { MainRoutingModule } from './main.routing.module';
     CheckoutComponent,
     WishlistComponent,
     HeaderComponent,
+    CheckoutItemComponent,
   ],
   imports: [MainRoutingModule, SharedModule, FormsModule],
 })
