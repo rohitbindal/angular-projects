@@ -4,6 +4,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 // import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
 import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
 import { SETTINGS } from '@angular/fire/compat/firestore';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { AdminModule } from './admin/admin.module';
@@ -22,6 +23,7 @@ import { FirebaseModule } from './shared/firebase.module';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthGuardModule,
     FirebaseModule,
+    ReactiveFormsModule,
     AppRoutingModule,
   ],
   providers: [

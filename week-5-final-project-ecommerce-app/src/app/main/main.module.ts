@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
@@ -10,8 +12,6 @@ import { CheckoutItemComponent } from './components/secure/checkout/checkout-ite
 import { CheckoutComponent } from './components/secure/checkout/checkout.component';
 import { WishlistComponent } from './components/secure/wishlist/wishlist.component';
 import { MainRoutingModule } from './main.routing.module';
-import { LoginComponent } from './components/auth/login/login.component';
-import { SignupComponent } from './components/auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,6 @@ import { SignupComponent } from './components/auth/signup/signup.component';
     LoginComponent,
     SignupComponent,
   ],
-  imports: [MainRoutingModule, SharedModule, FormsModule],
+  imports: [MainRoutingModule, SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class MainModule {}

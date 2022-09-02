@@ -2,24 +2,44 @@
 <!--TODO: Add Loader-->
 <div class="container container-fluid">
   <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="loginForm"
     class="form-login w-100 m-auto p-1 d-flex flex-column justify-content-center">
     <p class="display-6 mb-4">Log In</p>
     <!-- Email -->
-    <div class="form-floating">
-      <input class="form-control" id="email" placeholder="JonDoe@mail.com"
-             type="email">
+    <div class="form-floating mb-2">
+      <input
+        [ngClass]="{'form-control':true, 'is-invalid': email?.invalid && (email?.touched || email?.dirty), 'is-valid': email?.valid}"
+        formControlName="email"
+        id="email"
+        placeholder="JonDoe@mail.com"
+        type="email">
       <label for="email">Email</label>
+
+      <div *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+           class="invalid-tooltip">
+        {{helpers.validators.text.email}}
+      </div>
     </div>
     <!-- Password -->
     <div class="form-floating">
-      <input class="form-control" id="password" placeholder="password"
-             type="password">
+      <input
+        [ngClass]="{'form-control':true, 'is-invalid': password?.invalid && (password?.touched || password?.dirty), 'is-valid': password?.valid}"
+        formControlName="password" id="password"
+        placeholder="password"
+        type="password">
       <label for="password">Password</label>
+      <div *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+           class="invalid-tooltip">
+        {{helpers.validators.text.password}}
+      </div>
     </div>
     <!-- Actions -->
     <div class="btn-group mt-3">
       <!--  Login Button -->
-      <button class="btn btn-lg btn-primary" type="submit">Log In</button>
+      <button [disabled]="!loginForm.valid" class="btn btn-lg btn-primary"
+              type="submit">Log In
+      </button>
       <!-- Sign Up Button: Navigate to Sign Up Page-->
       <button [routerLink]="helpers.routing.signUp"
               class="btn btn-lg btn-light" type="button">Sign
