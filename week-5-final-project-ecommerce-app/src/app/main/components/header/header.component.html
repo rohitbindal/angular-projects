@@ -65,15 +65,16 @@
               <!--            <i class="bi bi-cart"></i>-->
             </button>
           </li>
-          <!--        <li class="nav-item">-->
-          <!--          &lt;!&ndash;  TODO: Hide logout button and show login button and vice versa based on authentication status &ndash;&gt;-->
-          <!--          <a [title]="helpers.text.logout" aria-expanded="false"-->
-          <!--             class="nav-link"-->
-          <!--             role="button">-->
-          <!--            {{helpers.text.logout}}-->
-          <!--            <i class="bi bi-power"></i>-->
-          <!--          </a>-->
-          <!--        </li>-->
+          <li class="nav-item">
+            <!--  TODO: Hide logout button and show login button and vice versa based on authentication status -->
+            <a (click)="onSignOut()" [title]="helpers.text.logout"
+               aria-expanded="false"
+               class="nav-link"
+               role="button">
+              {{helpers.text.logout}}
+              <i class="bi bi-power"></i>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

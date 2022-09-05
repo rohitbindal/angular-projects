@@ -11,6 +11,10 @@ import { FirebaseAuthService } from '../../../../shared/services/firebase/auth.f
 export class LoginComponent implements OnInit {
   helpers = HELPERS;
   loginForm: FormGroup;
+  pageUtils = {
+    loading: false,
+    error: '',
+  };
 
   constructor(private _auth: FirebaseAuthService) {
     this.loginForm = new FormGroup({
@@ -36,6 +40,24 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) return;
+
+    this.pageUtils.loading = true;
+
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+
+    this._auth.login(email, password).subscribe({
+      next: (response) => {
+        this.pageUtils.loading = false;
+      },
+      error: (err) => {
+        // TODO: Show error tooltip
+        this.pageUtils.loading = false;
+        console.log(err.message);
+        this.pageUtils.error = err.message;
+        this.loginForm.reset();
+      },
+    });
   }
 }

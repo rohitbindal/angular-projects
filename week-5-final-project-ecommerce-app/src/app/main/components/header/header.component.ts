@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HELPERS } from '../../../shared/constants/helpers';
+import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,11 @@ import { HELPERS } from '../../../shared/constants/helpers';
 export class HeaderComponent implements OnInit {
   helpers = HELPERS;
 
-  constructor() {}
+  constructor(private _auth: FirebaseAuthService) {}
 
   ngOnInit(): void {}
+
+  onSignOut() {
+    this._auth.logout();
+  }
 }

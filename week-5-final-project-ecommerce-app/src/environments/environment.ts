@@ -14,6 +14,10 @@ export const environment = {
     measurementId: 'G-64GMFRKDLC',
   },
   useEmulators: false,
+  authorizations: {
+    read: ['subscriber', 'admin'],
+    write: ['admin'],
+  },
 };
 
 /*

@@ -38,6 +38,7 @@ export const HELPERS = {
       email: 'Please enter a valid email.',
       password:
         'Password must be 8-40 Characters long and a mixture of alphabets, numbers and special characters',
+      confirmPassword: 'Passwords do not match.',
     },
   },
 };

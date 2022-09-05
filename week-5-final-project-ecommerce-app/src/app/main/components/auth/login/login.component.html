@@ -37,8 +37,13 @@
     <!-- Actions -->
     <div class="btn-group mt-3">
       <!--  Login Button -->
-      <button [disabled]="!loginForm.valid" class="btn btn-lg btn-primary"
-              type="submit">Log In
+      <button
+        [disabled]="loginForm.invalid && pageUtils.loading"
+        class="btn btn-lg btn-primary w-50"
+        type="submit">
+        <span *ngIf="!pageUtils.loading">Login</span>
+        <span *ngIf="pageUtils.loading"
+              class="spinner-border spinner-border-sm"></span>
       </button>
       <!-- Sign Up Button: Navigate to Sign Up Page-->
       <button [routerLink]="helpers.routing.signUp"

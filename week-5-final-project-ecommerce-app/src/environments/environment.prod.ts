@@ -9,4 +9,8 @@ export const environment = {
     appId: '1:744355370348:web:46502ba5bd9d8162ef8f49',
     measurementId: 'G-64GMFRKDLC',
   },
+  authorizations: {
+    read: ['subscriber', 'admin'],
+    write: ['admin'],
+  },
 };

@@ -1,42 +1,78 @@
 <app-header></app-header>
-<!--TODO: Add Loader-->
 <div class="container container-fluid mb-5">
   <form
-    class="form-signup w-100 m-auto p-1 d-flex flex-column justify-content-center">
+    (ngSubmit)="onSubmit()"
+    [formGroup]="signUpForm"
+    class="form-signup w-100 m-auto p-1 d-flex flex-column justify-content-center gap-2">
     <p class="display-6 mb-4">Create a new Account</p>
 
     <!-- Username -->
     <div class="form-floating">
-      <input class="form-control" id="username" placeholder="john doe"
-             type="name">
+      <input
+        [ngClass]="{'form-control':true, 'is-invalid': username?.invalid && (username?.touched || username?.dirty), 'is-valid': email?.valid}"
+        formControlName="username" id="username"
+        placeholder="john doe"
+        type="name">
       <label for="username">Username</label>
     </div>
 
     <!-- Email -->
     <div class="form-floating">
-      <input class="form-control" id="email" placeholder="JonDoe@mail.com"
-             type="email">
+      <input
+        [ngClass]="{'form-control':true, 'is-invalid': email?.invalid && (email?.touched || email?.dirty), 'is-valid': email?.valid}"
+        formControlName="email"
+        id="email"
+        placeholder="JonDoe@mail.com"
+        type="email">
       <label for="email">Email</label>
+      <div *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+           class="invalid-tooltip">
+        {{helpers.validators.text.email}}
+      </div>
     </div>
 
     <!-- Password-->
     <div class="form-floating">
-      <input class="form-control" id="password" placeholder="password"
-             type="password">
+      <input
+        [ngClass]="{'form-control':true, 'is-invalid': password?.invalid && (password?.touched || password?.dirty), 'is-valid': password?.valid}"
+        formControlName="password"
+        id="password"
+        placeholder="password"
+        type="password">
       <label for="password">Password</label>
+      <div *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+           class="invalid-tooltip">
+        {{helpers.validators.text.password}}
+      </div>
     </div>
 
     <!-- Confirm Password-->
     <div class="form-floating">
-      <input class="form-control" id="confirmPassword" placeholder="password"
-             type="password">
+      <input
+        [ngClass]="{'form-control':true, 'is-invalid': (confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)) || !matchPassword, 'is-valid': confirmPassword?.valid && matchPassword}"
+        formControlName="confirmPassword"
+        id="confirmPassword"
+        placeholder="Confirm Password"
+        type="password">
       <label for="confirmPassword">Confirm Password</label>
+      <div
+        *ngIf="(confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)) || !matchPassword"
+        class="invalid-tooltip">
+        {{helpers.validators.text.confirmPassword}}
+      </div>
     </div>
 
     <!-- Actions -->
     <div class="btn-group mt-3">
       <!-- Sign Up Button   -->
-      <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
+      <button
+        [disabled]="(signUpForm.invalid || !matchPassword) && pageUtils.loading"
+        class="btn btn-lg btn-primary w-50"
+        type="submit">
+        <span *ngIf="!pageUtils.loading">Sign Up</span>
+        <span *ngIf="pageUtils.loading"
+              class="spinner-border spinner-border-sm"></span>
+      </button>
       <!-- Login Button: Navigate to Login Page -->
       <button [routerLink]="helpers.routing.login"
               class="btn btn-lg btn-light" type="button">Log In
