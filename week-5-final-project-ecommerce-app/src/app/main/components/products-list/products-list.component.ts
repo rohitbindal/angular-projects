@@ -17,6 +17,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   category: string | '';
   helpers = HELPERS;
   filters: FiltersModel;
+  loading = false;
 
   private productList$: Subscription | null;
 
@@ -45,22 +46,21 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   updateUi() {
-    // TODO: replace the locally stored products with the products fetched from firebase.
-    setTimeout(() => {
-      this.productList$ = this._product
-        .getProductsByCategory(this.category)
-        .subscribe((data) => {
-          this.products = data;
-          if (this.products) {
-            const filteredProducts = this._filter.filterProducts(
-              this.products,
-              this.filters
-            );
-            this.products = filteredProducts.products;
-            this.filters = filteredProducts.filters;
-          }
-        });
-    }, 1000);
+    this.loading = true;
+    this.productList$ = this._product
+      .getProductsByCategory(this.category)
+      .subscribe((data) => {
+        this.products = data;
+        if (this.products) {
+          const filteredProducts = this._filter.filterProducts(
+            this.products,
+            this.filters
+          );
+          this.products = filteredProducts.products;
+          this.filters = filteredProducts.filters;
+          this.loading = false;
+        }
+      });
   }
 
   clearFilters() {

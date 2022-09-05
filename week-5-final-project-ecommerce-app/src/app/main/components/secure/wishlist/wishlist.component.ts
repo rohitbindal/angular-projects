@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HELPERS } from '../../../../shared/constants/helpers';
 import { Product } from '../../../../shared/constants/product.model';
+import { FirebaseDataService } from '../../../../shared/services/firebase/data.firebase.service';
 import { ProductService } from '../../../../shared/services/product.service';
 
 @Component({
@@ -14,17 +15,18 @@ export class WishlistComponent implements OnInit, OnDestroy {
   productList$: Subscription | null;
   helpers = HELPERS;
 
-  constructor(private _products: ProductService) {
+  constructor(
+    private _products: ProductService,
+    private _data: FirebaseDataService
+  ) {
     this.wishlistProducts = null;
     this.productList$ = null;
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.productList$ = this._products.getAllProducts().subscribe((data) => {
-        this.wishlistProducts = data;
-      });
-    }, 1000);
+    this.productList$ = this._data.getWishlist().subscribe((data) => {
+      this.wishlistProducts = data;
+    });
   }
 
   // TODO: Handle product Delete from wishlist -> Show a confirmation and delete the product

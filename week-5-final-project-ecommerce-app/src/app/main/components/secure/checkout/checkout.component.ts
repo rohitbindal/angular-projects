@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../../shared/constants/product.model';
+import { FirebaseDataService } from '../../../../shared/services/firebase/data.firebase.service';
 import { ProductService } from '../../../../shared/services/product.service';
 
 @Component({
@@ -13,22 +14,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   checkoutSubscription$: Subscription | null;
   total = 0;
 
-  constructor(private _products: ProductService) {
+  constructor(
+    private _products: ProductService,
+    private _data: FirebaseDataService
+  ) {
     this.checkoutProducts = null;
     this.checkoutSubscription$ = null;
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.checkoutSubscription$ = this._products
-        .getAllProducts()
-        .subscribe((data) => {
-          this.checkoutProducts = data.slice(0, 3);
-          // Calculate the total
-          this.total = this.getTotal(this.checkoutProducts);
-          console.log(this.total);
-        });
-    }, 1000);
+    this.checkoutSubscription$ = this._data.getCart().subscribe((data) => {
+      this.checkoutProducts = data;
+      // Calculate the total
+      this.total = this.getTotal(this.checkoutProducts);
+    });
   }
 
   ngOnDestroy() {

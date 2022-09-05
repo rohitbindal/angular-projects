@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes';
 import { Product } from '../../../shared/constants/product.model';
+import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
 import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   constructor(
     private _products: ProductService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _data: FirebaseDataService
   ) {
     this.product = null;
     this.productDetail$ = null;
@@ -26,30 +28,31 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
-    // TODO: replace the locally stored product with the product fetched from firebase.
     this.productDetail$ = this._products
       .getProductById(id)
       .subscribe((response) => {
-        setTimeout(() => {
-          this.product = response;
-          if (!this.product) {
-            this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
-          }
-        }, 600);
+        this.product = response;
+        if (!this.product) {
+          this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
+        }
       });
   }
 
-  // TODO: Cart, Checkout and Wishlist actions
   // Add the product to the cart
-  onAddToCartClicked() {}
+  onAddToCartClicked() {
+    this._data.addProductToCart(this.product!);
+  }
 
   // Add to cart and navigate to checkout
   onBuyNowClicked() {
+    this._data.addProductToCart(this.product!);
     this._router.navigate([APP_ROUTES.absolute.main.checkout]).then();
   }
 
   // Add the product to user wishlist
-  onWishlistClicked() {}
+  onWishlistClicked() {
+    this._data.addProductToWishlist(this.product!);
+  }
 
   ngOnDestroy() {
     this.productDetail$?.unsubscribe();

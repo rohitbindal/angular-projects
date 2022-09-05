@@ -4,7 +4,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { defer, from, map } from 'rxjs';
+import { defer, from, map, switchMap, take } from 'rxjs';
 import { User } from '../../constants/authorization.model';
 import { Product } from '../../constants/product.model';
 import { AuthorizationService } from './authorization.service';
@@ -15,6 +15,8 @@ import { AuthorizationService } from './authorization.service';
 export class FirebaseDataService {
   private readonly USERS_COLLECTION = 'users';
   private readonly PRODUCTS_COLLECTION = 'products';
+  private readonly WISHLIST_COLLECTION = 'wishlist';
+  private readonly CHECKOUT_COLLECTION = 'checkout';
   private productsCollection: AngularFirestoreCollection<Product>;
   private usersCollection: AngularFirestoreCollection<User>;
 
@@ -31,12 +33,18 @@ export class FirebaseDataService {
     );
   }
 
-  createProduct(product: Product) {
-    this.productsCollection
-      .doc(product.id.toString())
-      .set({ ...product })
-      .then(() => console.log('Product Created: ' + product))
-      .catch((e) => console.log(e));
+  getAllProducts() {
+    let products: Product[] = [];
+    return defer(() => from(this.productsCollection.get())).pipe(
+      map((qS) => {
+        if (qS.docs) {
+          qS.docs.forEach((doc) => {
+            products.push(doc.data());
+          });
+        }
+        return products;
+      })
+    );
   }
 
   getProductsByCategory(category: string) {
@@ -53,6 +61,106 @@ export class FirebaseDataService {
         return products;
       })
     );
+  }
+
+  getProductById(id: number) {
+    let product: Product;
+    return defer(() =>
+      from(this.productsCollection.doc(id.toString()).get())
+    ).pipe(
+      map((qS) => {
+        if (qS.exists) {
+          product = qS.data()!;
+        }
+        return product;
+      })
+    );
+  }
+
+  addProductToWishlist(product: Product) {
+    this._fireAuth.user.subscribe((user) => {
+      if (user)
+        this.usersCollection
+          .doc(user.uid)
+          .collection(this.WISHLIST_COLLECTION)
+          .doc(product.id.toString())
+          .set({ ...product }, { merge: true })
+          .then()
+          .catch((e) => console.log(e));
+    });
+  }
+
+  addProductToCart(product: Product) {
+    this._fireAuth.user.subscribe((user) => {
+      if (user)
+        this.usersCollection
+          .doc(user.uid)
+          .collection(this.CHECKOUT_COLLECTION)
+          .doc(product.id.toString())
+          .set({ ...product }, { merge: true })
+          .then()
+          .catch((e) => console.log(e));
+    });
+  }
+
+  getWishlist() {
+    return this._fireAuth.user.pipe(
+      take(1),
+      switchMap((user) => {
+        return defer(() =>
+          from(
+            this.usersCollection
+              .doc(user?.uid.toString())
+              .collection<Product>(this.WISHLIST_COLLECTION)
+              .get()
+          )
+        ).pipe(
+          map((qS) => {
+            let products: Product[] = [];
+            if (qS.docs) {
+              qS.docs.forEach((doc) => {
+                products.push(doc.data());
+              });
+            }
+            return products;
+          })
+        );
+      })
+    );
+  }
+
+  getCart() {
+    return this._fireAuth.user.pipe(
+      take(1),
+      switchMap((user) => {
+        return defer(() =>
+          from(
+            this.usersCollection
+              .doc(user?.uid.toString())
+              .collection<Product>(this.CHECKOUT_COLLECTION)
+              .get()
+          )
+        ).pipe(
+          map((qS) => {
+            let products: Product[] = [];
+            if (qS.docs) {
+              qS.docs.forEach((doc) => {
+                products.push(doc.data());
+              });
+            }
+            return products;
+          })
+        );
+      })
+    );
+  }
+
+  createProduct(product: Product) {
+    this.productsCollection
+      .doc(product.id.toString())
+      .set({ ...product })
+      .then(() => console.log('Product Created: ' + product))
+      .catch((e) => console.log(e));
   }
 
   updateProduct(product: Product) {

@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { Product, PRODUCTS } from '../constants/product.model';
+import { Product } from '../constants/product.model';
+import { FirebaseDataService } from './firebase/data.firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  products: Product[];
-
-  constructor() {
-    this.products = PRODUCTS;
-  }
+  constructor(private _data: FirebaseDataService) {}
 
   /**
    *
    * @returns {Observable<Product[]>}
    */
   getAllProducts() {
-    return of(this.products);
+    return this._data.getAllProducts();
   }
 
   /**
@@ -26,7 +22,7 @@ export class ProductService {
    * @returns {Observable<Product[]>}
    */
   getProductsByCategory(category: string) {
-    return of(this.products.filter((product) => product.category === category));
+    return this._data.getProductsByCategory(category);
   }
 
   /**
@@ -35,6 +31,6 @@ export class ProductService {
    * @returns {Observable<Product>}
    */
   getProductById(id: number) {
-    return of(this.products.filter((product) => product.id == id)[0]);
+    return this._data.getProductById(id);
   }
 }
