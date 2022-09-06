@@ -7,7 +7,7 @@
 </div>
 <div *ngIf="wishlistProducts && !pageProps.loading"
      class="container container-fluid">
-  <div class="product-list-container">
+  <div *ngIf="wishlistProducts.length" class="product-list-container">
     <div class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
       <div *ngFor="let product of wishlistProducts; let i = index"
            class="products-list-container col" style="margin-bottom: 80px">
@@ -22,5 +22,10 @@
       </div>
     </div>
   </div>
-
+  <div *ngIf="!wishlistProducts.length" class="lead">
+    <a class="btn" routerLink="/" type="button">
+      Add products to your wishlist
+      <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
 </div>

@@ -29,7 +29,7 @@
             <div>
               <small class="small lead">Inclusive of all taxes</small>
             </div>
-            <div>
+            <div *ngIf="product.stock">
               <small class="small lead">Free Delivery by <strong>Tomorrow
                 7pm </strong></small>
             </div>
@@ -50,8 +50,9 @@
                       title="Add to Wishlist"><i class="bi bi-heart-fill"></i>
               </button>
             </div>
-            <button (click)="onBuyNowClicked()" class="btn btn-dark"
-                    title="Buy Now">Buy Now
+            <button (click)="onBuyNowClicked()" [disabled]="!product.stock"
+                    class="btn btn-dark"
+                    title="Buy Now">{{product.stock ? 'Buy Now' : 'Out of Stock'}}
             </button>
           </div>
         </div>

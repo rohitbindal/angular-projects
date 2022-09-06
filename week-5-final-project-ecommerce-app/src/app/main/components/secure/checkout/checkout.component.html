@@ -1,4 +1,3 @@
-<!--TODO Handle no products-->
 <div class="container-fluid container">
   <div class="title-container display-6 container-fluid container">
     My Cart
@@ -66,7 +65,10 @@
   </div>
   <div *ngIf="!checkoutProducts.length"
        class="container container-fluid lead">
-    Your Cart is Empty.
+    <a class="btn" routerLink="/" type="button">
+      Add products to your Cart
+      <i class="bi bi-arrow-right"></i>
+    </a>
     <!--    Your Cart is empty. Look through our catalogue of products with amazing-->
     <!--    deals to find something you like.-->
   </div>
