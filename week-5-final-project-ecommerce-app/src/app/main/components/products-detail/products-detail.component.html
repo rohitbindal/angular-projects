@@ -40,6 +40,7 @@
             class="d-flex flex-column justify-content-evenly gap-2 col-sm-6 col-md-8 col-lg-6 mt-3">
             <div class="btn-group">
               <button (click)="onAddToCartClicked()"
+                      [disabled]="!product.stock"
                       class="btn btn-outline-info"
                       title="Add to Cart">Add
                 to
