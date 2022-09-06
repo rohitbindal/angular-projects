@@ -17,6 +17,7 @@ export class FirebaseDataService {
   private readonly PRODUCTS_COLLECTION = 'products';
   private readonly WISHLIST_COLLECTION = 'wishlist';
   private readonly CHECKOUT_COLLECTION = 'checkout';
+  private readonly ORDERS_COLLECTION = 'orders';
   private productsCollection: AngularFirestoreCollection<Product>;
   private usersCollection: AngularFirestoreCollection<User>;
 
@@ -90,6 +91,32 @@ export class FirebaseDataService {
     });
   }
 
+  removeProductFromWishlist(id: number) {
+    this._fireAuth.user.subscribe((user) => {
+      if (user)
+        this.usersCollection
+          .doc(user.uid)
+          .collection(this.WISHLIST_COLLECTION)
+          .doc(id.toString())
+          .delete()
+          .then()
+          .catch((e) => console.log(e));
+    });
+  }
+
+  removeProductFromCart(id: number) {
+    this._fireAuth.user.subscribe((user) => {
+      if (user)
+        this.usersCollection
+          .doc(user.uid)
+          .collection(this.CHECKOUT_COLLECTION)
+          .doc(id.toString())
+          .delete()
+          .then()
+          .catch((e) => console.log(e));
+    });
+  }
+
   addProductToCart(product: Product) {
     this._fireAuth.user.subscribe((user) => {
       if (user)
@@ -154,6 +181,8 @@ export class FirebaseDataService {
       })
     );
   }
+
+  orderProducts(products: string[]) {}
 
   createProduct(product: Product) {
     this.productsCollection

@@ -19,18 +19,9 @@
           <strong>&#8377;{{product.price}}/-</strong></p>
 
         <div class="actions d-flex justify-content-between mt-3">
-          <!--  Change the quantities -->
-          <span class="btn-group">
-            <button class="decrease btn btn-outline-danger"><span><i
-              class="bi bi-dash-square"></i></span></button>
-            <!--  TODO: Update the quantity -->
-            <button class="btn" disabled>1</button>
-            <button class="increase btn btn-outline-success"><span><i
-              class="bi bi-plus-square"></i></span></button>
-          </span>
-
           <!-- Delete the item from list -->
-          <button class="delete-btn btn btn-danger"><span><i
+          <button (click)="onDelete()"
+                  class="delete-btn btn btn-danger"><span><i
             class="bi bi-trash"></i></span>
           </button>
         </div>

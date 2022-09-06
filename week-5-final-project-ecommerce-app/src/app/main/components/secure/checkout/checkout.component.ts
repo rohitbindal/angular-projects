@@ -13,6 +13,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   checkoutProducts: Product[] | null;
   checkoutSubscription$: Subscription | null;
   total = 0;
+  pageProps = {
+    loading: false,
+    error: '',
+  };
 
   constructor(
     private _products: ProductService,
@@ -23,11 +27,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.checkoutSubscription$ = this._data.getCart().subscribe((data) => {
-      this.checkoutProducts = data;
-      // Calculate the total
-      this.total = this.getTotal(this.checkoutProducts);
-    });
+    this.updateUI();
   }
 
   ngOnDestroy() {
@@ -36,6 +36,27 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   // TODO: Handle Place orders.
   onPlaceOrderClicked() {}
+
+  onDeleteClicked(index: number, id: number) {
+    const conf = confirm('Are you sure ?');
+    if (conf) {
+      this._data.removeProductFromCart(id);
+      this.checkoutProducts!.splice(index, 1);
+      this.updateUI();
+    }
+  }
+
+  private updateUI() {
+    this.pageProps.loading = true;
+    setTimeout(() => {
+      this.checkoutSubscription$ = this._data.getCart().subscribe((data) => {
+        this.checkoutProducts = data;
+        // Calculate the total
+        this.total = this.getTotal(this.checkoutProducts);
+        this.pageProps.loading = false;
+      });
+    }, 600);
+  }
 
   /**
    * Method to calculate the total order value

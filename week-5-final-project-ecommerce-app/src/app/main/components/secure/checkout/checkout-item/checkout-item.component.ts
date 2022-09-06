@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HELPERS } from '../../../../../shared/constants/helpers';
 import { Product } from '../../../../../shared/constants/product.model';
 
@@ -9,9 +9,15 @@ import { Product } from '../../../../../shared/constants/product.model';
 })
 export class CheckoutItemComponent implements OnInit {
   @Input() product!: Product;
+  @Input() index!: number;
+  @Output('delete') deleteClicked = new EventEmitter();
   helpers = HELPERS;
 
   constructor() {}
+
+  onDelete() {
+    this.deleteClicked.emit();
+  }
 
   ngOnInit(): void {}
 }

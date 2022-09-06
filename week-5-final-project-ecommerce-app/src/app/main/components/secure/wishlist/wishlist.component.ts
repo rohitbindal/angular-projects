@@ -14,6 +14,11 @@ export class WishlistComponent implements OnInit, OnDestroy {
   wishlistProducts: Product[] | null;
   productList$: Subscription | null;
   helpers = HELPERS;
+  pageProps = {
+    loading: false,
+    error: '',
+    username: '',
+  };
 
   constructor(
     private _products: ProductService,
@@ -24,15 +29,29 @@ export class WishlistComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.productList$ = this._data.getWishlist().subscribe((data) => {
-      this.wishlistProducts = data;
-    });
+    this.updateUI();
   }
 
-  // TODO: Handle product Delete from wishlist -> Show a confirmation and delete the product
-  onDeleteClicked() {}
+  onDeleteClicked(id: number, index: number) {
+    const conf = confirm('Are you sure ?');
+    if (conf) {
+      this._data.removeProductFromWishlist(id);
+      this.wishlistProducts!.splice(index, 1);
+      this.updateUI();
+    }
+  }
 
   ngOnDestroy() {
     this.productList$?.unsubscribe();
+  }
+
+  private updateUI() {
+    this.pageProps.loading = true;
+    setTimeout(() => {
+      this.productList$ = this._data.getWishlist().subscribe((data) => {
+        this.wishlistProducts = data;
+        this.pageProps.loading = false;
+      });
+    }, 600);
   }
 }
