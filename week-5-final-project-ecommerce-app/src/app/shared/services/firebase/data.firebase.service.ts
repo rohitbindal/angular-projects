@@ -6,7 +6,9 @@ import {
 } from '@angular/fire/compat/firestore';
 import { defer, from, map, switchMap, take } from 'rxjs';
 import { User } from '../../constants/authorization.model';
+import { HELPERS } from '../../constants/helpers';
 import { Product } from '../../constants/product.model';
+import { ToastService } from '../toast.service';
 import { AuthorizationService } from './authorization.service';
 
 @Injectable({
@@ -24,7 +26,8 @@ export class FirebaseDataService {
   constructor(
     private _firestore: AngularFirestore,
     private _fireAuth: AngularFireAuth,
-    private _authorize: AuthorizationService
+    private _authorize: AuthorizationService,
+    private _toast: ToastService
   ) {
     this.productsCollection = this._firestore.collection<Product>(
       this.PRODUCTS_COLLECTION
@@ -86,7 +89,9 @@ export class FirebaseDataService {
           .collection(this.WISHLIST_COLLECTION)
           .doc(product.id.toString())
           .set({ ...product }, { merge: true })
-          .then()
+          .then(() =>
+            this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_WISHLIST)
+          )
           .catch((e) => console.log(e));
     });
   }
@@ -99,7 +104,11 @@ export class FirebaseDataService {
           .collection(this.WISHLIST_COLLECTION)
           .doc(id.toString())
           .delete()
-          .then()
+          .then(() => {
+            this._toast.showInfoToast(
+              HELPERS.toast.message.REMOVED_FROM_WISHLIST
+            );
+          })
           .catch((e) => console.log(e));
     });
   }
@@ -112,7 +121,9 @@ export class FirebaseDataService {
           .collection(this.CHECKOUT_COLLECTION)
           .doc(id.toString())
           .delete()
-          .then()
+          .then(() => {
+            this._toast.showInfoToast(HELPERS.toast.message.REMOVED_FROM_CART);
+          })
           .catch((e) => console.log(e));
     });
   }
@@ -125,8 +136,12 @@ export class FirebaseDataService {
           .collection(this.CHECKOUT_COLLECTION)
           .doc(product.id.toString())
           .set({ ...product }, { merge: true })
-          .then()
-          .catch((e) => console.log(e));
+          .then(() => {
+            this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_CART);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
     });
   }
 

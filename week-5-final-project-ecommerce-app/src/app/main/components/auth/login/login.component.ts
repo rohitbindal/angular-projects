@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HELPERS } from '../../../../shared/constants/helpers';
 import { FirebaseAuthService } from '../../../../shared/services/firebase/auth.firebase.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,12 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   pageUtils = {
     loading: false,
-    error: '',
   };
 
-  constructor(private _auth: FirebaseAuthService) {
+  constructor(
+    private _auth: FirebaseAuthService,
+    private _toast: ToastService
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [
         Validators.required,
@@ -50,12 +53,11 @@ export class LoginComponent implements OnInit {
     this._auth.login(email, password).subscribe({
       next: (response) => {
         this.pageUtils.loading = false;
+        this._toast.showSuccessToast(this.helpers.toast.message.WELCOME_BACK);
       },
       error: (err) => {
-        // TODO: Show error tooltip
         this.pageUtils.loading = false;
-        console.log(err.message);
-        this.pageUtils.error = err.message;
+        this._toast.showErrorToast(err.message);
         this.loginForm.reset();
       },
     });

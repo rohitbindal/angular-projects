@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HELPERS } from '../../../../shared/constants/helpers';
 import { FirebaseAuthService } from '../../../../shared/services/firebase/auth.firebase.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,10 @@ export class SignupComponent implements OnInit {
     error: '',
   };
 
-  constructor(private _auth: FirebaseAuthService) {
+  constructor(
+    private _auth: FirebaseAuthService,
+    private _toast: ToastService
+  ) {
     this.signUpForm = new FormGroup({
       username: new FormControl(
         {
@@ -88,12 +92,11 @@ export class SignupComponent implements OnInit {
     this._auth.signUp(email, password, username).subscribe({
       next: (response) => {
         this.pageUtils.loading = false;
+        this._toast.showSuccessToast(this.helpers.toast.message.NEW_USER);
       },
       error: (err) => {
-        // TODO: Show error tooltip
         this.pageUtils.loading = false;
-        console.log(err.message);
-        this.pageUtils.error = err.message;
+        this._toast.showErrorToast(err.message);
         this.signUpForm.reset();
       },
     });

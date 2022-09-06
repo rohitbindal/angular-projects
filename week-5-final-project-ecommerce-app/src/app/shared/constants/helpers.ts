@@ -32,6 +32,31 @@ export const HELPERS = {
     message: {
       ADD_TO_WISHLIST: 'Added to Wishlist.',
       ADD_TO_CART: 'Added to Cart.',
+      REMOVED_FROM_WISHLIST: 'Item removed from wishlist',
+      REMOVED_FROM_CART: 'Item removed from cart.',
+      WELCOME_BACK: 'Welcome back!',
+      NEW_USER: 'Welcome!',
+    },
+  },
+  errors: {
+    default: 'An unexpected error occurred.',
+    auth: {
+      NOT_FOUND: {
+        code: 'auth/user-not-found',
+        text: 'Account not found',
+      },
+      WRONG_PASSWORD: {
+        code: 'auth/wrong-password',
+        text: 'Email or password is wrong.',
+      },
+      USER_EXISTS: {
+        code: 'auth/email-already-in-use',
+        text: 'Email already in use.',
+      },
+      TOO_MANY_REQUESTS: {
+        code: 'auth/too-many-requests',
+        text: 'Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.',
+      },
     },
   },
   validators: {

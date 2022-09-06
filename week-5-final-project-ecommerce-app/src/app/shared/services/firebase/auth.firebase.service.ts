@@ -1,5 +1,4 @@
 import { Location } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -16,6 +15,7 @@ import {
 } from 'rxjs';
 import { APP_ROUTES } from '../../constants/app-routes';
 import { User } from '../../constants/authorization.model';
+import { HELPERS } from '../../constants/helpers';
 import { AuthorizationService } from './authorization.service';
 import { FirebaseDataService } from './data.firebase.service';
 
@@ -66,6 +66,7 @@ export class FirebaseAuthService {
     return defer(() =>
       from(this._afAuth.signInWithEmailAndPassword(email, password))
     ).pipe(
+      catchError(this.handleError),
       map((user) => {
         if (user.user) {
           const newUser: User = {
@@ -87,7 +88,28 @@ export class FirebaseAuthService {
     this._router.navigate([APP_ROUTES.absolute.main.login]).then();
   }
 
-  private handleError(error: HttpErrorResponse) {
-    return throwError(() => new Error('There was an error'));
+  private handleError(error: any) {
+    let errorMessage = HELPERS.errors.default;
+
+    const authErrors = HELPERS.errors.auth;
+
+    switch (error.code) {
+      case authErrors.TOO_MANY_REQUESTS.code:
+        errorMessage = authErrors.TOO_MANY_REQUESTS.text;
+        break;
+      case authErrors.NOT_FOUND.code:
+        errorMessage = authErrors.NOT_FOUND.text;
+        break;
+      case authErrors.USER_EXISTS.code:
+        errorMessage = authErrors.USER_EXISTS.text;
+        break;
+      case authErrors.WRONG_PASSWORD.code:
+        errorMessage = authErrors.WRONG_PASSWORD.text;
+        break;
+      default:
+        errorMessage = HELPERS.errors.default;
+    }
+
+    return throwError(() => new Error(errorMessage));
   }
 }
