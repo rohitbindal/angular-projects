@@ -28,6 +28,12 @@ export const HELPERS = {
     wishlist: 'Wishlist',
     checkout: 'Checkout',
   },
+  toast: {
+    message: {
+      ADD_TO_WISHLIST: 'Added to Wishlist.',
+      ADD_TO_CART: 'Added to Cart.',
+    },
+  },
   validators: {
     // Regular Expression to validate password.
     PASSWORD_VALIDATOR:
