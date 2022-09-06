@@ -5,7 +5,7 @@ import { APP_ROUTES } from './shared/constants/app-routes';
 
 const appRoutes: Routes = [
   {
-    path: APP_ROUTES.relative.main.home,
+    path: APP_ROUTES.relative.main.main,
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {

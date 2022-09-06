@@ -9,15 +9,16 @@ export const APP_ROUTES = {
       login: '/login',
     },
     main: {
-      home: '/home',
-      login: '/login',
-      signUp: '/sign-up',
+      main: '/store',
+      home: '/store/home',
+      login: '/store/login',
+      signUp: '/store/sign-up',
       products: {
-        list: '/c/:category',
-        detail: '/d/:id',
+        list: '/store/c/:category',
+        detail: '/store/d/:id',
       },
-      checkout: '/checkout',
-      wishlist: '/wishlist',
+      checkout: '/store/checkout',
+      wishlist: '/store/wishlist',
     },
   },
   relative: {
@@ -29,6 +30,7 @@ export const APP_ROUTES = {
       login: 'login',
     },
     main: {
+      main: 'store',
       home: 'home',
       login: 'login',
       signUp: 'sign-up',

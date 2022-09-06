@@ -11,10 +11,12 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { CheckoutItemComponent } from './components/secure/checkout/checkout-item/checkout-item.component';
 import { CheckoutComponent } from './components/secure/checkout/checkout.component';
 import { WishlistComponent } from './components/secure/wishlist/wishlist.component';
+import { MainComponent } from './main.component';
 import { MainRoutingModule } from './main.routing.module';
 
 @NgModule({
   declarations: [
+    MainComponent,
     HomeComponent,
     ProductItemComponent,
     ProductsListComponent,

@@ -11,26 +11,25 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <li class="nav-item"><a
+            [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.electronics]"
+            class="nav-link">{{helpers.text.electronics}}</a>
+          </li>
+
+          <li class="nav-item"><a
+            [routerLink]="[helpers.routing.categoryRouteAbsolute,helpers.routing.productCategories.jewelery]"
+            class="nav-link">{{helpers.text.jewelery}}</a>
+          </li>
+
           <li class="nav-item dropdown">
             <a aria-expanded="false" class="nav-link dropdown-toggle"
                data-bs-toggle="dropdown"
                href="#" role="button">
-              Products
+              Clothing
             </a>
             <ul class="dropdown-menu">
-              <li><a
-                [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.electronics]"
-                class="dropdown-item">{{helpers.text.electronics}}</a>
-              </li>
-              <li><a
-                [routerLink]="[helpers.routing.categoryRouteAbsolute,helpers.routing.productCategories.jewelery]"
-                class="dropdown-item">{{helpers.text.jewelery}}</a>
-              </li>
               <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li>
-                <h6 class="dropdown-header">{{helpers.text.clothing}}</h6>
                 <a
                   [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.menClothing]"
                   class="dropdown-item">{{helpers.text.menClothing}}</a>
@@ -40,19 +39,16 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">{{helpers.text.about}}</a>
-          </li>
+
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav gap-3">
           <li class="nav-item">
             <button [routerLink]="helpers.routing.wishlistRoute"
                     [title]="helpers.text.wishlist"
                     aria-expanded="false"
                     class="nav-link btn"
             >
-              {{helpers.text.wishlist}}
-              <!--            <i class="bi bi-heart"></i>-->
+              <i class="bi bi-heart"></i>
             </button>
           </li>
           <li class="nav-item">
@@ -61,17 +57,23 @@
                     aria-expanded="false"
                     class="nav-link btn"
             >
-              {{helpers.text.checkout}}
-              <!--            <i class="bi bi-cart"></i>-->
+              <i class="bi bi-cart"></i>
             </button>
           </li>
           <li class="nav-item">
-            <!--  TODO: Hide logout button and show login button and vice versa based on authentication status -->
-            <a (click)="onSignOut()" [title]="helpers.text.logout"
+            <a (click)="onLogIn()" *ngIf="!authenticated"
+               [title]="helpers.text.login"
                aria-expanded="false"
-               class="nav-link"
+               class="nav-link btn"
                role="button">
-              {{helpers.text.logout}}
+              <i class="bi bi-power"></i>
+            </a>
+            <!--  TODO: Hide logout button and show login button and vice versa based on authentication status -->
+            <a (click)="onSignOut()" *ngIf="authenticated"
+               [title]="helpers.text.logout"
+               aria-expanded="false"
+               class="nav-link btn"
+               role="button">
               <i class="bi bi-power"></i>
             </a>
           </li>

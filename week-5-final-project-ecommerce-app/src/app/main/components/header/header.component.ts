@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { APP_ROUTES } from '../../../shared/constants/app-routes';
 import { HELPERS } from '../../../shared/constants/helpers';
 import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 
@@ -7,14 +10,31 @@ import { FirebaseAuthService } from '../../../shared/services/firebase/auth.fire
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   helpers = HELPERS;
+  authenticated = false;
+  private userSub$: Subscription;
 
-  constructor(private _auth: FirebaseAuthService) {}
+  constructor(private _auth: FirebaseAuthService, private _router: Router) {
+    this.userSub$ = this._auth.user.subscribe((user) => {
+      if (user) {
+        this.authenticated = true;
+      }
+    });
+  }
 
   ngOnInit(): void {}
 
+  ngOnDestroy() {
+    this.userSub$.unsubscribe();
+  }
+
   onSignOut() {
     this._auth.logout();
+    this._router.navigate([APP_ROUTES.absolute.main.login]).then();
+  }
+
+  onLogIn() {
+    this._router.navigate([APP_ROUTES.absolute.main.login]).then();
   }
 }
