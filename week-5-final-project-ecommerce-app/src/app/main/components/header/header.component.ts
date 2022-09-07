@@ -31,7 +31,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSignOut() {
     this._auth.logout();
-    this._router.navigate([APP_ROUTES.absolute.main.login]).then();
+    setTimeout(
+      () => this._router.navigate([APP_ROUTES.absolute.main.login]).then(),
+      600
+    );
   }
 
   onLogIn() {

@@ -33,10 +33,9 @@ export class BackTrackGuard implements CanActivate {
       take(1),
       map((user) => {
         if (user) {
-          this._location.back();
-          return false;
+          return this._router.createUrlTree([APP_ROUTES.absolute.main.home]);
         }
-        return this._router.createUrlTree([APP_ROUTES.absolute.main.login]);
+        return true;
       })
     );
   }
