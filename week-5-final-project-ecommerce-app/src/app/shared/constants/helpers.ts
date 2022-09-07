@@ -14,6 +14,10 @@ export const HELPERS = {
     cartRoute: '/store/cart',
     login: '/store/login',
     signUp: '/store/sign-up',
+    admin: {
+      products: 'products',
+      users: 'users',
+    },
   },
   text: {
     electronics: 'Electronics',
@@ -36,6 +40,7 @@ export const HELPERS = {
       REMOVED_FROM_CART: 'Item removed from cart.',
       WELCOME_BACK: 'Welcome back!',
       NEW_USER: 'Welcome!',
+      NO_PRODUCTS_FOUND: 'No Products found!',
     },
   },
   errors: {

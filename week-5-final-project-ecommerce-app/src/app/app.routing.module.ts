@@ -9,7 +9,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {
-    path: APP_ROUTES.relative.admin.home,
+    path: APP_ROUTES.relative.admin.admin,
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },

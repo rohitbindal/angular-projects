@@ -5,8 +5,8 @@ export const APP_ROUTES = {
     admin: {
       // Routes will be like --> /admin/home
       admin: '/admin',
-      home: '/home',
-      login: '/login',
+      products: '/admin/products',
+      users: '/admin/users',
     },
     main: {
       main: '/store',
@@ -26,8 +26,8 @@ export const APP_ROUTES = {
     admin: {
       // Routes will be like --> /admin/home
       admin: 'admin',
-      home: 'home',
-      login: 'login',
+      products: 'products',
+      users: 'users',
     },
     main: {
       main: 'store',
