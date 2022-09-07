@@ -46,7 +46,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   // Add to cart and navigate to checkout
   onBuyNowClicked() {
     this._data.addProductToCart(this.product!);
-    this._router.navigate([APP_ROUTES.absolute.main.checkout]).then();
+    this._router.navigate([APP_ROUTES.absolute.main.cart]).then();
   }
 
   // Add the product to user wishlist

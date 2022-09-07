@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { MainModule } from './main/main.module';
 import { FirebaseModule } from './shared/firebase.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { FirebaseModule } from './shared/firebase.module';
     FirebaseModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    SharedModule,
   ],
   providers: [
     {

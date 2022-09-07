@@ -11,7 +11,7 @@ export const HELPERS = {
       jewelery: 'jewelery',
     },
     wishlistRoute: '/store/wishlist',
-    checkoutRoute: '/store/checkout',
+    cartRoute: '/store/cart',
     login: '/store/login',
     signUp: '/store/sign-up',
   },
@@ -26,7 +26,7 @@ export const HELPERS = {
     login: 'Log In',
     signUp: 'Sign Up',
     wishlist: 'Wishlist',
-    checkout: 'Checkout',
+    cart: 'Cart',
   },
   toast: {
     message: {
@@ -40,6 +40,8 @@ export const HELPERS = {
   },
   errors: {
     default: 'An unexpected error occurred.',
+    ACCOUNT_NEEDED_VIEW_TEXT: 'You need an account to view ',
+    UNAUTHORIZED: 'You are not authorized to access this content.',
     auth: {
       NOT_FOUND: {
         code: 'auth/user-not-found',

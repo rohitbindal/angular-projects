@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LoaderComponent } from './components/loader/loader.component';
-import { ToastComponent } from './components/Toaster/toast/toast.component';
+import { ToastComponent } from './components/toaster/toast/toast.component';
 import { ToasterComponent } from './components/toaster/toaster.component';
 
 @NgModule({

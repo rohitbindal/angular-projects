@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import {
-  canActivate,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { BackTrackGuard } from '../guards/backtrack/back-track.guard';
+import { SubscriberGuard } from '../guards/subscriber/subscriber.guard';
 import { APP_ROUTES } from '../shared/constants/app-routes';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
@@ -49,25 +50,24 @@ const mainAppRoutes: Routes = [
         component: ProductsDetailComponent,
       },
       {
-        path: APP_ROUTES.relative.main.checkout,
+        path: APP_ROUTES.relative.main.cart,
         component: CheckoutComponent,
-        // Using canActivate helper from AngularFire to make the code readable
-        ...canActivate(redirectUnauthorizedToLogin),
+        canActivate: [SubscriberGuard],
       },
       {
         path: APP_ROUTES.relative.main.wishlist,
         component: WishlistComponent,
-        ...canActivate(redirectUnauthorizedToLogin),
+        canActivate: [SubscriberGuard],
       },
       {
         path: APP_ROUTES.relative.main.login,
         component: LoginComponent,
-        ...canActivate(redirectLoggedInToHome),
+        canActivate: [BackTrackGuard],
       },
       {
         path: APP_ROUTES.relative.main.signUp,
         component: SignupComponent,
-        ...canActivate(redirectLoggedInToHome),
+        canActivate: [BackTrackGuard],
       },
     ],
   },
