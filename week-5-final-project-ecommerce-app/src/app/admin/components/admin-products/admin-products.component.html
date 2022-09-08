@@ -1,25 +1,22 @@
-<div class="table-responsive">
-
-  <ul *ngFor="let product of products"
-      class="list-group">
-    <button
-      [attr.aria-controls]="'p'+product.id"
-      [attr.data-bs-target]="'#p'+product.id"
-      aria-expanded="false"
-      class="list-group-item list-group-item-action list-group-item-light d-flex gap-3 justify-content-between"
-      data-bs-toggle="collapse"
-      type="button"
-    >
+<ul *ngFor="let product of products; let i = index"
+    class="list-group">
+  <button
+    [attr.aria-controls]="'p'+product.id"
+    [attr.data-bs-target]="'#p'+product.id"
+    aria-expanded="false"
+    class="list-group-item list-group-item-action list-group-item-light d-flex gap-3 justify-content-between"
+    data-bs-toggle="collapse"
+    type="button"
+  >
       <span class="overflow-hidden  gap-3">
       <strong>{{product.id}}</strong>
           <span> - {{product.title}}</span>
       </span>
-      <span><i class="bi bi-chevron-down"></i></span>
-    </button>
-    <div [id]="'p'+product.id" class="collapse">
-      <div class="card card-body">
-        {{product.description}}
-      </div>
+    <span><i class="bi bi-chevron-down"></i></span>
+  </button>
+  <div [id]="'p'+product.id" class="collapse">
+    <div class="card card-body">
+      <app-products-edit-form [product]="product"></app-products-edit-form>
     </div>
-  </ul>
-</div>
+  </div>
+</ul>

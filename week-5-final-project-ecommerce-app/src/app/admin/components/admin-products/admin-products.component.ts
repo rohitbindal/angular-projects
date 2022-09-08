@@ -47,7 +47,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     // Fetch products
     this.products$ = this._data.getAllProducts().subscribe((products) => {
       // If products exist, set products state
-      console.log(products);
       if (products) this.products = products;
       // If not, show error
       else

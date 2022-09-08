@@ -208,25 +208,19 @@ export class FirebaseDataService {
   }
 
   updateProduct(product: Product) {
-    // if (!this.user) return;
-
-    // if (this._authorize.canEdit(this.user))
-    this.productsCollection
-      .doc(product.id.toString())
-      .set({ ...product }, { merge: true })
-      .then(() => console.log('Data Updated for: ' + product.id))
-      .catch((e) => console.log(e));
+    return defer(() =>
+      from(
+        this.productsCollection
+          .doc(product.id.toString())
+          .set({ ...product }, { merge: true })
+      )
+    );
   }
 
   deleteProduct(id: number) {
-    // if (!this.user) return;
-
-    // if (this._authorize.canDelete(this.user))
-    this.productsCollection
-      .doc(id.toString())
-      .delete()
-      .then(() => console.log('Product deleted: ' + id))
-      .catch((e) => console.log(e));
+    return defer(() =>
+      from(this.productsCollection.doc(id.toString()).delete())
+    );
   }
 
   updateUser(user: User) {
