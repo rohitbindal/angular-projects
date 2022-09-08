@@ -202,16 +202,6 @@ export class FirebaseDataService {
     );
   }
 
-  orderProducts(products: string[]) {}
-
-  createProduct(product: Product) {
-    this.productsCollection
-      .doc(product.id.toString())
-      .set({ ...product })
-      .then(() => console.log('Product Created: ' + product))
-      .catch((e) => console.log(e));
-  }
-
   updateProduct(product: Product) {
     return defer(() =>
       from(
@@ -234,6 +224,28 @@ export class FirebaseDataService {
       .set(user, { merge: true })
       .then()
       .catch((e) => console.log(e));
+  }
+
+  updateUserStatus(user: User) {
+    this.usersCollection
+      .doc(user.uid)
+      .set(user, { merge: true })
+      .then(() => this._toast.showSuccessToast('User updated!'))
+      .catch((e) => console.log(e));
+  }
+
+  getUsers() {
+    let users: User[] = [];
+    return defer(() => from(this.usersCollection.get())).pipe(
+      map((qS) => {
+        if (qS.docs) {
+          qS.docs.forEach((doc) => {
+            users.push(doc.data());
+          });
+        }
+        return users;
+      })
+    );
   }
 
   deleteUser(id: string) {

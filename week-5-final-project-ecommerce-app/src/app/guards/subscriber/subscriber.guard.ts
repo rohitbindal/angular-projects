@@ -34,9 +34,17 @@ export class SubscriberGuard implements CanActivate {
       take(1),
       map((user) => {
         const currentRoute = route.url[0].path;
-        const isAuthenticated = !!user;
-        if (isAuthenticated) {
-          return true;
+        if (user) {
+          const isAuthenticated = !!user;
+          if (isAuthenticated && !user.disabled) {
+            return true;
+          }
+          if (user.disabled) {
+            this._toast.showErrorToast(
+              HELPERS.errors.ACCOUNT_DISABLED_BY_ADMIN
+            );
+            return false;
+          }
         }
         this._toast.showErrorToast(
           HELPERS.errors.ACCOUNT_NEEDED_VIEW_TEXT + currentRoute + '.'
