@@ -10,6 +10,7 @@ export interface Product {
     count: number;
   };
   stock: boolean;
+  disabled: boolean;
 }
 
 const productsData = require('./data.json');

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HELPERS } from '../../../shared/constants/helpers';
+import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 
 @Component({
   selector: 'app-admin-header',
@@ -9,11 +10,11 @@ import { HELPERS } from '../../../shared/constants/helpers';
 export class AdminHeaderComponent implements OnInit {
   helper = HELPERS.routing.admin;
 
-  constructor() {}
+  constructor(private _auth: FirebaseAuthService) {}
 
   ngOnInit(): void {}
 
   onSignOut() {
-    //  TODO: Sign Out and navigate to login
+    this._auth.logout();
   }
 }

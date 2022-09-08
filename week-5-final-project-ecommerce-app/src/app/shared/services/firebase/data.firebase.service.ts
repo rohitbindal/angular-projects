@@ -54,7 +54,12 @@ export class FirebaseDataService {
   getProductsByCategory(category: string) {
     let products: Product[] = [];
     return defer(() =>
-      from(this.productsCollection.ref.where('category', '==', category).get())
+      from(
+        this.productsCollection.ref
+          .where('category', '==', category)
+          .where('disabled', '==', false)
+          .get()
+      )
     ).pipe(
       map((qS) => {
         if (qS.docs) {

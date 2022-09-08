@@ -34,19 +34,25 @@ export class ProductsEditFormComponent implements OnInit {
   }
 
   onSubmit() {
+    const id = this.editProductForm.get('id')?.value;
     this.editProductForm.disable();
     this.loading.update = true;
     this._data
       .updateProduct({
         ...this.editProductForm.value,
-        id: this.productData.id,
-        rating: this.productData.rating,
+        id: id,
+        rating: this.productData?.rating.rate
+          ? this.productData.rating
+          : { rate: 0, count: 0 },
       })
       .subscribe({
         next: () => {
-          this._toast.showSuccessToast(
-            'Data Updated for ' + this.productData.id
-          );
+          if (this.productData)
+            this._toast.showSuccessToast('Data Updated for ' + id);
+          else {
+            this._toast.showSuccessToast('Created Product ' + id);
+            this.editProductForm.reset();
+          }
           this.loading.update = false;
           this.editProductForm.enable();
         },
@@ -82,18 +88,39 @@ export class ProductsEditFormComponent implements OnInit {
   }
 
   private updateUI() {
-    this.editProductForm = new FormGroup({
-      id: new FormControl(this.productData.id),
-      title: new FormControl(this.productData.title, [Validators.required]),
-      description: new FormControl(this.productData.description, [
-        Validators.required,
-      ]),
-      category: new FormControl(this.productData.category, [
-        Validators.required,
-      ]),
-      price: new FormControl(this.productData.price, [Validators.required]),
-      image: new FormControl(this.productData.image, [Validators.required]),
-      stock: new FormControl(this.productData.stock, [Validators.required]),
-    });
+    if (this.productData)
+      this.editProductForm = new FormGroup({
+        id: new FormControl(
+          {
+            value: this.productData.id,
+            disabled: true,
+          },
+          [Validators.required]
+        ),
+        title: new FormControl(this.productData.title, [Validators.required]),
+        description: new FormControl(this.productData.description, [
+          Validators.required,
+        ]),
+        category: new FormControl(this.productData.category, [
+          Validators.required,
+        ]),
+        price: new FormControl(this.productData.price, [Validators.required]),
+        image: new FormControl(this.productData.image, [Validators.required]),
+        stock: new FormControl(this.productData.stock, [Validators.required]),
+        disabled: new FormControl(!!this.productData?.disabled, [
+          Validators.required,
+        ]),
+      });
+    else
+      this.editProductForm = new FormGroup({
+        id: new FormControl('', [Validators.required]),
+        title: new FormControl(null, [Validators.required]),
+        description: new FormControl(null, [Validators.required]),
+        category: new FormControl('', [Validators.required]),
+        price: new FormControl(null, [Validators.required]),
+        image: new FormControl(null, [Validators.required]),
+        stock: new FormControl(true, [Validators.required]),
+        disabled: new FormControl(false, [Validators.required]),
+      });
   }
 }

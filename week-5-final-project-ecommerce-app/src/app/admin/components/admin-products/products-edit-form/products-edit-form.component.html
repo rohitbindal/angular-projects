@@ -72,6 +72,13 @@
       Stock
     </label>
   </div>
+  <div class="form-check">
+    <input class="form-check-input" formControlName="disabled" id="disabled"
+           type="checkbox">
+    <label class="form-check-label" for="disabled">
+      Disabled
+    </label>
+  </div>
   <div class="row d-flex">
     <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-sm-center">
       <div class="btn-group w-100">
@@ -79,11 +86,13 @@
           [disabled]="editProductForm.invalid || (loading.update || loading.del)"
           class="btn btn-primary"
           title="Update Product" type="submit">
-          <span *ngIf="!loading.update">Update</span>
+          <span
+            *ngIf="!loading.update">{{productData ? 'Update' : 'Add'}}</span>
           <span *ngIf="loading.update"
                 class="spinner-border spinner-border-sm"></span>
         </button>
         <button (click)="onDelete()"
+                *ngIf="productData"
                 [disabled]="(loading.update || loading.del)"
                 class="btn btn-outline-danger"
                 title="Delete Product" type="button">

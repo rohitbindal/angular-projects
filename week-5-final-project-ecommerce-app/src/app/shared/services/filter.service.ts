@@ -92,21 +92,21 @@ export class FilterService {
     }
   }
 
-  private sortByTitle(products: Product[], dir: number) {
+  sortByTitle(products: Product[], dir: number) {
     // Descending
     if (dir) return products.sort((a, b) => b.title.localeCompare(a.title));
     // Ascending
     return products.sort((a, b) => a.title.localeCompare(b.title));
   }
 
-  private sortByPrice(products: Product[], dir: number) {
+  sortByPrice(products: Product[], dir: number) {
     // Descending
     if (dir) return products.sort((a, b) => b.price - a.price);
     // Ascending
     return products.sort((a, b) => a.price - b.price);
   }
 
-  private sortByRating(products: Product[], dir: number) {
+  sortByRating(products: Product[], dir: number) {
     // Descending
     if (dir) return products.sort((a, b) => b.rating.rate - a.rating.rate);
     // Ascending
