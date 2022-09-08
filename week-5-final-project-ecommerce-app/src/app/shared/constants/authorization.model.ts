@@ -8,4 +8,5 @@ export interface User {
   uid: string;
   roles: Roles;
   username?: string;
+  disabled?: boolean;
 }

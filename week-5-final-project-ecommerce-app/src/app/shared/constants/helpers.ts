@@ -41,12 +41,19 @@ export const HELPERS = {
       WELCOME_BACK: 'Welcome back!',
       NEW_USER: 'Welcome!',
       NO_PRODUCTS_FOUND: 'No Products found!',
+      NO_USER_FOUND: 'No users found!',
     },
   },
   errors: {
     default: 'An unexpected error occurred.',
     ACCOUNT_NEEDED_VIEW_TEXT: 'You need an account to view ',
+    ACCOUNT_NEEDED_TO_ADD_TO_WISHLIST:
+      'You need an account to add products to your wishlist.',
+    ACCOUNT_NEEDED_TO_ADD_TO_CART:
+      'You need an account to add products to your Cart.',
     UNAUTHORIZED: 'You are not authorized to access this content.',
+    ACCOUNT_DISABLED_BY_ADMIN:
+      'You account has been disabled by admin. You cannot access Cart or Wishlist',
     auth: {
       NOT_FOUND: {
         code: 'auth/user-not-found',
