@@ -9,4 +9,5 @@ export interface User {
   roles: Roles;
   username?: string;
   disabled?: boolean;
+  cart?: number;
 }

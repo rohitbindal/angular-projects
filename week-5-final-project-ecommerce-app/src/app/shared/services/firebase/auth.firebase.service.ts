@@ -54,6 +54,8 @@ export class FirebaseAuthService {
               subscriber: true,
             },
             username: username,
+            disabled: false,
+            cart: 0,
           };
           this._data.updateUser(newUser);
           this._router.navigate([APP_ROUTES.absolute.main.home]).then();

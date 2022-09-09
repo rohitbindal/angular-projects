@@ -39,11 +39,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   onDeleteClicked(index: number, id: number) {
     const conf = confirm('Are you sure ?');
-    if (conf) {
-      this._data.removeProductFromCart(id);
+    if (conf && this.checkoutProducts) {
+      let count = this.checkoutProducts[index].count;
+      if (count) count = count * -1;
+      this._data.removeProductFromCart(id, count);
       this.checkoutProducts!.splice(index, 1);
       this.updateUI();
     }
+  }
+
+  onQtyUpdate() {
+    this.updateUI();
   }
 
   private updateUI() {
@@ -66,7 +72,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    */
   private getTotal(products: Product[]) {
     return products
-      .map((product) => product.price)
+      .map((product) => product.price * (product.count ? product.count : 1))
       .reduce((prev, next) => prev + next, 0);
   }
 }

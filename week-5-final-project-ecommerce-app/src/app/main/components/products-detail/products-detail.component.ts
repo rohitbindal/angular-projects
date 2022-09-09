@@ -7,7 +7,6 @@ import { HELPERS } from '../../../shared/constants/helpers';
 import { Product } from '../../../shared/constants/product.model';
 import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
-import { ProductService } from '../../../shared/services/product.service';
 import { ToastService } from '../../../shared/services/toast.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   private productDetail$: Subscription | null;
 
   constructor(
-    private _products: ProductService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _data: FirebaseDataService,
@@ -81,7 +79,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
 
   private updateUI() {
     const id = this._route.snapshot.params['id'];
-    this.productDetail$ = this._products
+    this.productDetail$ = this._data
       .getProductById(id)
       .subscribe((response) => {
         this.product = response;

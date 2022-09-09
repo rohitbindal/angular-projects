@@ -13,12 +13,14 @@ import { FirebaseAuthService } from '../../../shared/services/firebase/auth.fire
 export class HeaderComponent implements OnInit, OnDestroy {
   helpers = HELPERS;
   authenticated = false;
+  cart = 0;
   private userSub$: Subscription;
 
   constructor(private _auth: FirebaseAuthService, private _router: Router) {
     this.userSub$ = this._auth.user.subscribe((user) => {
       if (user) {
         this.authenticated = true;
+        if (user.cart != null) this.cart = user.cart;
       }
     });
   }

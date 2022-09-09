@@ -5,7 +5,7 @@ import { FiltersModel } from '../../../shared/constants/filters.model';
 import { HELPERS } from '../../../shared/constants/helpers';
 import { Product } from '../../../shared/constants/product.model';
 import { FilterService } from '../../../shared/services/filter.service';
-import { ProductService } from '../../../shared/services/product.service';
+import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
 
 @Component({
   selector: 'app-products-list',
@@ -22,7 +22,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   private productList$: Subscription | null;
 
   constructor(
-    private _product: ProductService,
+    private _data: FirebaseDataService,
     private _route: ActivatedRoute,
     private _filter: FilterService
   ) {
@@ -47,7 +47,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   updateUi() {
     this.loading = true;
-    this.productList$ = this._product
+    this.productList$ = this._data
       .getProductsByCategory(this.category)
       .subscribe((data) => {
         this.products = data;

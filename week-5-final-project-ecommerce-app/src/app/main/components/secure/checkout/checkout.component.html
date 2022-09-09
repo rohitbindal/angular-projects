@@ -13,7 +13,8 @@
   <div *ngIf="checkoutProducts.length">
     <div *ngFor="let product of checkoutProducts; let i = index"
          class="checkout-item-container">
-      <app-checkout-item (delete)="onDeleteClicked(i, product.id)" [index]="i"
+      <app-checkout-item (delete)="onDeleteClicked(i, product.id)"
+                         (updated)="onQtyUpdate()" [index]="i"
                          [product]="product"></app-checkout-item>
     </div>
     <hr>

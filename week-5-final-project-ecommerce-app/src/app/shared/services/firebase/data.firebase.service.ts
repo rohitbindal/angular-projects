@@ -4,6 +4,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
+import { increment } from '@angular/fire/firestore';
 import { defer, from, map, switchMap, take } from 'rxjs';
 import { User } from '../../constants/authorization.model';
 import { HELPERS } from '../../constants/helpers';
@@ -118,9 +119,33 @@ export class FirebaseDataService {
     });
   }
 
-  removeProductFromCart(id: number) {
+  updateQuantity(id: number, count: number = 1) {
     this._fireAuth.user.subscribe((user) => {
-      if (user)
+      if (user) {
+        this.usersCollection
+          .doc(user.uid)
+          .collection(this.CHECKOUT_COLLECTION)
+          .doc(id.toString())
+          .update({ count: increment(count) })
+          .then(() => {
+            this._toast.showInfoToast(HELPERS.toast.message.QTY_UPDATED);
+          })
+          .catch((e) => console.log(e));
+
+        // Update cart counter
+        this.usersCollection
+          .doc(user.uid)
+          // @ts-ignore
+          .update({ cart: increment(count) })
+          .then()
+          .catch((e) => console.log(e));
+      }
+    });
+  }
+
+  removeProductFromCart(id: number, count: number = -1) {
+    this._fireAuth.user.subscribe((user) => {
+      if (user) {
         this.usersCollection
           .doc(user.uid)
           .collection(this.CHECKOUT_COLLECTION)
@@ -130,23 +155,43 @@ export class FirebaseDataService {
             this._toast.showInfoToast(HELPERS.toast.message.REMOVED_FROM_CART);
           })
           .catch((e) => console.log(e));
+
+        // Update cart counter
+        this.usersCollection
+          .doc(user.uid)
+          // @ts-ignore
+          .update({ cart: increment(count) })
+          .then()
+          .catch((e) => console.log(e));
+      }
     });
   }
 
   addProductToCart(product: Product) {
     this._fireAuth.user.subscribe((user) => {
-      if (user)
+      if (user) {
+        // Add to cart
         this.usersCollection
           .doc(user.uid)
           .collection(this.CHECKOUT_COLLECTION)
           .doc(product.id.toString())
-          .set({ ...product }, { merge: true })
+          // @ts-ignore
+          .set({ ...product, count: increment(1) }, { merge: true })
           .then(() => {
             this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_CART);
           })
           .catch((e) => {
             console.log(e);
           });
+
+        // Update cart counter
+        this.usersCollection
+          .doc(user.uid)
+          // @ts-ignore
+          .update({ cart: increment(1) })
+          .then()
+          .catch((e) => console.log(e));
+      }
     });
   }
 

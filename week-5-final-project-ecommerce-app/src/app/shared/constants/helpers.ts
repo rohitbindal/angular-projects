@@ -38,6 +38,7 @@ export const HELPERS = {
       ADD_TO_CART: 'Added to Cart.',
       REMOVED_FROM_WISHLIST: 'Item removed from wishlist',
       REMOVED_FROM_CART: 'Item removed from cart.',
+      QTY_UPDATED: 'Quantity Updated',
       WELCOME_BACK: 'Welcome back!',
       NEW_USER: 'Welcome!',
       NO_PRODUCTS_FOUND: 'No Products found!',
