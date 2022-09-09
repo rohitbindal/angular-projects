@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes';
@@ -17,6 +17,11 @@ import { ToastService } from '../../../shared/services/toast.service';
 export class ProductsDetailComponent implements OnInit, OnDestroy {
   product: Product | null;
   currentUser: User | null;
+  relatedProducts: Product[] | null;
+  sliderProducts: Product[] | null;
+  screenWidth: Number = window.innerWidth;
+  screenBreakpoint = 1;
+  private relatedProducts$: Subscription | null;
   private productDetail$: Subscription | null;
 
   constructor(
@@ -29,6 +34,10 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
     this.product = null;
     this.productDetail$ = null;
     this.currentUser = null;
+    this.relatedProducts = null;
+    this.relatedProducts$ = null;
+    this.sliderProducts = null;
+    this.getScreenSize();
   }
 
   ngOnInit(): void {
@@ -38,6 +47,34 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
       }
     });
     this.updateUI();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?: Event) {
+    if (this.relatedProducts) {
+      this.screenWidth = window.innerWidth;
+      if (this.screenWidth >= 576) {
+        this.screenBreakpoint = 1;
+        this.sliderProducts = this.relatedProducts!.slice(
+          0,
+          this.screenBreakpoint
+        );
+      }
+      if (this.screenWidth >= 768) {
+        this.screenBreakpoint = 2;
+        this.sliderProducts = this.relatedProducts!.slice(
+          0,
+          this.screenBreakpoint
+        );
+      }
+      if (this.screenWidth >= 992) {
+        this.screenBreakpoint = 3;
+        this.sliderProducts = this.relatedProducts!.slice(
+          0,
+          this.screenBreakpoint
+        );
+      }
+    }
   }
 
   // Add the product to the cart
@@ -75,17 +112,35 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.productDetail$?.unsubscribe();
+    this.relatedProducts$?.unsubscribe();
+  }
+
+  onProductClicked() {
+    this.updateUI();
   }
 
   private updateUI() {
-    const id = this._route.snapshot.params['id'];
-    this.productDetail$ = this._data
-      .getProductById(id)
+    this._route.params.subscribe((params) => {
+      const id = params['id'];
+      this.productDetail$ = this._data
+        .getProductById(id)
+        .subscribe((response) => {
+          this.product = response;
+          if (!this.product) {
+            this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
+          }
+          this.getRelatedProducts();
+        });
+    });
+  }
+
+  private getRelatedProducts() {
+    const category = this.product?.category;
+    this.relatedProducts$ = this._data
+      .getProductsByCategory(category!)
       .subscribe((response) => {
-        this.product = response;
-        if (!this.product) {
-          this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
-        }
+        this.relatedProducts = response;
+        this.getScreenSize();
       });
   }
 }

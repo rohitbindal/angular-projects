@@ -1,0 +1,11 @@
+<app-loader *ngIf="loading"></app-loader>
+
+<div *ngIf="allProducts && !loading"
+     class="container-fluid col-10 offset-1 mb-5 mt-5">
+  <hr>
+  <div class="lead">Recommended Products</div>
+  <app-products-slider
+    [relatedProducts]="recommendedProducts"
+    [screenBreakpoint]="screenBreakpoint"
+    [sliderProducts]="sliderProducts"></app-products-slider>
+</div>

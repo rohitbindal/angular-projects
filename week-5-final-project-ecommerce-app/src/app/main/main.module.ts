@@ -5,7 +5,6 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProductItemComponent } from './components/product-item/product-item.component';
 import { ProductsDetailComponent } from './components/products-detail/products-detail.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { CheckoutItemComponent } from './components/secure/checkout/checkout-item/checkout-item.component';
@@ -18,7 +17,6 @@ import { MainRoutingModule } from './main.routing.module';
   declarations: [
     MainComponent,
     HomeComponent,
-    ProductItemComponent,
     ProductsListComponent,
     ProductsDetailComponent,
     CheckoutComponent,

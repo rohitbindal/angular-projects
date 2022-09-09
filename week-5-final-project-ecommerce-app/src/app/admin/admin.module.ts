@@ -17,5 +17,6 @@ import { UsersComponent } from './components/users/users.component';
     ProductsEditFormComponent,
   ],
   imports: [SharedModule, AdminRoutingModule, ReactiveFormsModule],
+  exports: [AdminProductsComponent],
 })
 export class AdminModule {}

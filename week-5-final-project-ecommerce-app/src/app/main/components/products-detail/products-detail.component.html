@@ -58,12 +58,17 @@
           </div>
         </div>
       </div>
-      <hr>
     </div>
   </div>
-  <div class="details-container">
+  <div class="details-container mt-3">
     <div class="lead fs-6" title="Description">
       {{product.description}}
     </div>
   </div>
+  <hr>
+  <div class="lead">Similar Products</div>
+  <app-products-slider (productClicked)="onProductClicked()"
+                       [relatedProducts]="relatedProducts"
+                       [screenBreakpoint]="screenBreakpoint"
+                       [sliderProducts]="sliderProducts"></app-products-slider>
 </div>
