@@ -21,13 +21,16 @@
         <div class="actions d-flex justify-content-between mt-3">
           <!-- Delete the item from list -->
           <div class="btn-group">
-            <button (click)="onDecrement()" class="btn btn-outline-danger">-
+            <button (click)="onDecrement()" [disabled]="product.count === 1"
+                    class="btn btn-outline-danger">-
             </button>
             <button class="btn" disabled>{{product.count}}</button>
-            <button (click)="onIncrement()" class="btn btn-outline-success">+
+            <button (click)="onIncrement()" [disabled]="product.count === 5"
+                    class="btn btn-outline-success">+
             </button>
           </div>
           <button (click)="onDelete()"
+
                   class="delete-btn btn btn-danger"><span><i
             class="bi bi-trash"></i></span>
           </button>

@@ -21,6 +21,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   sliderProducts: Product[] | null;
   screenWidth: Number = window.innerWidth;
   screenBreakpoint = 1;
+  loading = false;
   private relatedProducts$: Subscription | null;
   private productDetail$: Subscription | null;
 
@@ -120,6 +121,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   }
 
   private updateUI() {
+    this.loading = true;
     this._route.params.subscribe((params) => {
       const id = params['id'];
       this.productDetail$ = this._data
@@ -130,6 +132,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
             this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
           }
           this.getRelatedProducts();
+          this.loading = false;
         });
     });
   }

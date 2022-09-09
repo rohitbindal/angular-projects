@@ -19,6 +19,29 @@ export class HomeComponent implements OnInit {
   screenWidth: Number = window.innerWidth;
   screenBreakpoint = 1;
   loading = false;
+  categories = [
+    {
+      category: 'Electronics',
+      image: 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg',
+      route: this.helpers.routing.productCategories.electronics,
+    },
+    {
+      category: 'Jewelery',
+      image: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
+      route: this.helpers.routing.productCategories.jewelery,
+    },
+    {
+      category: "Men's Clothing",
+      image:
+        'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
+      route: this.helpers.routing.productCategories.menClothing,
+    },
+    {
+      category: "Women's Clothing",
+      image: 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg',
+      route: this.helpers.routing.productCategories.womenClothing,
+    },
+  ];
 
   constructor(private _router: Router, private _data: FirebaseDataService) {
     this.sliderProducts = null;

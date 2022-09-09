@@ -92,7 +92,7 @@
     <div
       class="card-header d-flex flex-row justify-content-between align-items-center">
 
-      <span>{{user.uid}}</span>
+      <span>{{user.roles.admin ? 'Admin' : 'Customer'}}</span>
       <button (click)="onDisableClicked(user,i)"
               *ngIf="!user.disabled"
               [disabled]="user.uid == currentUser.uid"
