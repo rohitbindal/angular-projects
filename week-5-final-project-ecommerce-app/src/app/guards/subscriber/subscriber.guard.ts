@@ -36,7 +36,7 @@ export class SubscriberGuard implements CanActivate {
         const currentRoute = route.url[0].path;
         if (user) {
           const isAuthenticated = !!user;
-          if (isAuthenticated && !user.disabled) {
+          if (isAuthenticated && !user.disabled && user.roles.subscriber) {
             return true;
           }
           if (user.disabled) {

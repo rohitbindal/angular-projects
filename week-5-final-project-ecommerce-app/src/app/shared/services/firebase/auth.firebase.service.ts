@@ -14,8 +14,8 @@ import {
   throwError,
 } from 'rxjs';
 import { APP_ROUTES } from '../../constants/app-routes';
-import { User } from '../../constants/models/authorization.model';
 import { HELPERS } from '../../constants/helpers';
+import { User } from '../../constants/models/authorization.model';
 import { AuthorizationService } from './authorization.service';
 import { FirebaseDataService } from './data.firebase.service';
 
@@ -70,17 +70,7 @@ export class FirebaseAuthService {
     ).pipe(
       catchError(this.handleError),
       map((user) => {
-        if (user.user) {
-          const newUser: User = {
-            uid: user.user.uid,
-            email: email,
-            roles: {
-              subscriber: true,
-            },
-          };
-          this._data.updateUser(newUser);
-          this._location.back();
-        }
+        this._location.back();
       })
     );
   }

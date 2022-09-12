@@ -1,38 +1,24 @@
 import { NgModule } from '@angular/core';
-import {
-  redirectLoggedInTo,
-  redirectUnauthorizedTo,
-} from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 import { BackTrackGuard } from '../guards/backtrack/back-track.guard';
+import { MainRouteGuard } from '../guards/main-route/main-route.guard';
 import { SubscriberGuard } from '../guards/subscriber/subscriber.guard';
 import { APP_ROUTES } from '../shared/constants/app-routes';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
-import {
-  ProductsDetailComponent
-} from './components/products-detail/products-detail.component';
-import {
-  ProductsListComponent
-} from './components/products-list/products-list.component';
-import {
-  CheckoutComponent
-} from './components/secure/checkout/checkout.component';
-import {
-  WishlistComponent
-} from './components/secure/wishlist/wishlist.component';
+import { ProductsDetailComponent } from './components/products-detail/products-detail.component';
+import { ProductsListComponent } from './components/products-list/products-list.component';
+import { CheckoutComponent } from './components/secure/checkout/checkout.component';
+import { WishlistComponent } from './components/secure/wishlist/wishlist.component';
 import { MainComponent } from './main.component';
 
-// Using AngularFireAuthGuard pipes
-/* Redirect unauthorized users to login when checkout or wishlist pages are accessed */
-const redirectUnauthorizedToLogin = () =>
-  redirectUnauthorizedTo([APP_ROUTES.absolute.main.login]);
-/* Stop LoggedIn users from accessing login and signup pages */
-const redirectLoggedInToHome = () =>
-  redirectLoggedInTo([APP_ROUTES.absolute.main.home]);
-
 const mainAppRoutes: Routes = [
+  {
+    path: APP_ROUTES.relative.main.main,
+    redirectTo: APP_ROUTES.absolute.main.home,
+    pathMatch: 'full',
+  },
   {
     path: APP_ROUTES.relative.main.main,
     component: MainComponent,
@@ -40,14 +26,17 @@ const mainAppRoutes: Routes = [
       {
         path: APP_ROUTES.relative.main.home,
         component: HomeComponent,
+        canActivate: [MainRouteGuard],
       },
       {
         path: APP_ROUTES.relative.main.products.list,
         component: ProductsListComponent,
+        canActivate: [MainRouteGuard],
       },
       {
         path: APP_ROUTES.relative.main.products.detail,
         component: ProductsDetailComponent,
+        canActivate: [MainRouteGuard],
       },
       {
         path: APP_ROUTES.relative.main.cart,
