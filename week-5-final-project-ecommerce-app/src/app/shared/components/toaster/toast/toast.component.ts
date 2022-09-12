@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Toast } from 'bootstrap';
-import { EventTypes } from '../../../constants/toasts.model';
+import { EventTypes } from '../../../constants/models/toasts.model';
 
 @Component({
   selector: 'app-toast',

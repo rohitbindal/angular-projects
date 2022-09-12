@@ -14,6 +14,12 @@ export interface Product {
   count?: number;
 }
 
-const productsData = require('./data.json');
+export interface Order {
+  total: number;
+  uid: string;
+  products: Product[];
+}
+
+const productsData = require('../data.json');
 
 export const PRODUCTS: Product[] = productsData;

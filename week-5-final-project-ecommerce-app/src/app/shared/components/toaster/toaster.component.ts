@@ -4,7 +4,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { ToastEvent } from '../../constants/toasts.model';
+import { ToastEvent } from '../../constants/models/toasts.model';
 import { ToastService } from '../../services/toast.service';
 
 @Component({

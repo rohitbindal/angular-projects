@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Product } from '../../../../shared/constants/product.model';
+import { User } from '../../../../shared/constants/models/authorization.model';
+import {
+  Order,
+  Product,
+} from '../../../../shared/constants/models/product.model';
+import { FirebaseAuthService } from '../../../../shared/services/firebase/auth.firebase.service';
 import { FirebaseDataService } from '../../../../shared/services/firebase/data.firebase.service';
 import { ProductService } from '../../../../shared/services/product.service';
 
@@ -12,6 +17,9 @@ import { ProductService } from '../../../../shared/services/product.service';
 export class CheckoutComponent implements OnInit, OnDestroy {
   checkoutProducts: Product[] | null;
   checkoutSubscription$: Subscription | null;
+  /* Object to store the currently signed-in user */
+  user: User | null;
+  userSub$: Subscription | null;
   total = 0;
   pageProps = {
     loading: false,
@@ -20,22 +28,45 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private _products: ProductService,
-    private _data: FirebaseDataService
+    private _data: FirebaseDataService,
+    private _auth: FirebaseAuthService
   ) {
     this.checkoutProducts = null;
     this.checkoutSubscription$ = null;
+    this.user = null;
+    this.userSub$ = null;
   }
 
   ngOnInit(): void {
+    // Get the currently signed-in user.
+    this.userSub$ = this._auth.user.subscribe((user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
     this.updateUI();
   }
 
   ngOnDestroy() {
     this.checkoutSubscription$?.unsubscribe();
+    this.userSub$?.unsubscribe();
   }
 
-  // TODO: Handle Place orders.
-  onPlaceOrderClicked() {}
+  /**
+   * Method to place order
+   */
+  onPlaceOrderClicked() {
+    // Check if the user exists and there are products in the cart.
+    if (this.user && this.checkoutProducts) {
+      const order: Order = {
+        uid: this.user?.uid,
+        total: this.getTotal(this.checkoutProducts),
+        products: this.checkoutProducts,
+      };
+
+      this._data.generateOrder(order);
+    }
+  }
 
   onDeleteClicked(index: number, id: number) {
     const conf = confirm('Are you sure ?');

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { User } from '../../../shared/constants/authorization.model';
+import { User } from '../../../shared/constants/models/authorization.model';
 import { HELPERS } from '../../../shared/constants/helpers';
 import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';

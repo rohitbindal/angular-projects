@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Product } from '../../../../shared/constants/product.model';
+import { Product } from '../../../../shared/constants/models/product.model';
 import { FirebaseDataService } from '../../../../shared/services/firebase/data.firebase.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { EventTypes, ToastEvent } from '../constants/toasts.model';
+import { EventTypes, ToastEvent } from '../constants/models/toasts.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {

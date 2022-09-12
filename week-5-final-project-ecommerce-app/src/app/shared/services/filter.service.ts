@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FiltersModel } from '../constants/filters.model';
-import { Product } from '../constants/product.model';
+import { FiltersModel } from '../constants/models/filters.model';
+import { Product } from '../constants/models/product.model';
 
 @Injectable({
   providedIn: 'root',

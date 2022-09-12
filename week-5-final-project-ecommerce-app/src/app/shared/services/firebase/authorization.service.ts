@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { User } from '../../constants/authorization.model';
+import { User } from '../../constants/models/authorization.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizationService {

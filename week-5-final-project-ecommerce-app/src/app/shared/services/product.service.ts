@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../constants/product.model';
+import { Product } from '../constants/models/product.model';
 import { FirebaseDataService } from './firebase/data.firebase.service';
 
 @Injectable({

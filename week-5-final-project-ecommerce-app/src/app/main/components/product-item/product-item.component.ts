@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../../../shared/constants/product.model';
+import { Product } from '../../../shared/constants/models/product.model';
 
 @Component({
   selector: 'app-product-item',

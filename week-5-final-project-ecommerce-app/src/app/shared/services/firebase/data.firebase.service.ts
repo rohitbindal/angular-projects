@@ -5,10 +5,12 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { increment } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { defer, from, map, switchMap, take } from 'rxjs';
-import { User } from '../../constants/authorization.model';
+import { APP_ROUTES } from '../../constants/app-routes';
 import { HELPERS } from '../../constants/helpers';
-import { Product } from '../../constants/product.model';
+import { User } from '../../constants/models/authorization.model';
+import { Order, Product } from '../../constants/models/product.model';
 import { ToastService } from '../toast.service';
 import { AuthorizationService } from './authorization.service';
 
@@ -21,20 +23,27 @@ export class FirebaseDataService {
   private readonly WISHLIST_COLLECTION = 'wishlist';
   private readonly CHECKOUT_COLLECTION = 'checkout';
   private readonly ORDERS_COLLECTION = 'orders';
+
+  // Objects to store the collection refs.
   private productsCollection: AngularFirestoreCollection<Product>;
   private usersCollection: AngularFirestoreCollection<User>;
+  private ordersCollection: AngularFirestoreCollection<Order>;
 
   constructor(
     private _firestore: AngularFirestore,
     private _fireAuth: AngularFireAuth,
     private _authorize: AuthorizationService,
-    private _toast: ToastService
+    private _toast: ToastService,
+    private _router: Router
   ) {
     this.productsCollection = this._firestore.collection<Product>(
       this.PRODUCTS_COLLECTION
     );
     this.usersCollection = this._firestore.collection<User>(
       this.USERS_COLLECTION
+    );
+    this.ordersCollection = this._firestore.collection<Order>(
+      this.ORDERS_COLLECTION
     );
   }
 
@@ -241,6 +250,28 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to add a new document to Orders collection
+   * @param {Order} order
+   */
+  generateOrder(order: Order) {
+    const docId = this._firestore.createId();
+    this.ordersCollection
+      .doc(docId)
+      .set(order)
+      .then(() => {
+        // Show a toast with order id
+        this._toast.showSuccessToast(
+          `Order generated successfully! Order id: ${docId}`
+        );
+        // Delete the Checkout collection from the users collection to clear cart
+        this.clearCart(order.uid);
+        // Update cart counter to 0
+        this.updateUserCartCount(0, order.uid);
+      })
+      .catch((e) => console.log(e.message));
+  }
+
   updateProduct(product: Product) {
     return defer(() =>
       from(
@@ -295,6 +326,32 @@ export class FirebaseDataService {
       .catch((e) => console.log(e));
   }
 
+  /**
+   * Method to delete all the documents in 'checkout' collection to clear the cart.
+   * @param {string} uid Id of the logged-in user.
+   * @private
+   */
+  private clearCart(uid: string) {
+    this.usersCollection
+      .doc(uid)
+      .collection(this.CHECKOUT_COLLECTION)
+      .get()
+      .subscribe((snapshot) => {
+        // Create a batch
+        const batch = this._firestore.firestore.batch();
+        // Setup batch delete
+        snapshot.forEach((doc) => batch.delete(doc.ref));
+        // Delete all the document
+        batch
+          .commit()
+          .then(() => {
+            // Navigate to Home Screen
+            this._router.navigate([APP_ROUTES.absolute.main.home]).then();
+          })
+          .catch((e) => console.log(e.message));
+      });
+  }
+
   private quantityLessThenFive(qty: number) {
     if (qty) {
       return qty < 5;
@@ -316,12 +373,25 @@ export class FirebaseDataService {
       );
   }
 
-  // Update cart counter
+  /**
+   * Method to update the cart count field in the user document
+   * @param {number} count
+   * @param {string} uid
+   * @private
+   */
   private updateUserCartCount(count: number, uid: string) {
+    let incrementBy;
+    // If the count is set to be 0 -> When the cart is cleared
+    if (count === 0) {
+      incrementBy = 0;
+    } else {
+      incrementBy = increment(count);
+    }
+    // Update the cart count
     this.usersCollection
       .doc(uid)
       // @ts-ignore
-      .update({ cart: increment(count) })
+      .update({ cart: incrementBy })
       .then()
       .catch((e) => console.log(e));
   }

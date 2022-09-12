@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FiltersModel } from '../../../shared/constants/filters.model';
+import { FiltersModel } from '../../../shared/constants/models/filters.model';
 import { HELPERS } from '../../../shared/constants/helpers';
-import { Product } from '../../../shared/constants/product.model';
+import { Product } from '../../../shared/constants/models/product.model';
 import { FilterService } from '../../../shared/services/filter.service';
 import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
 

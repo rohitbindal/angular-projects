@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HELPERS } from '../../../../shared/constants/helpers';
-import { Product } from '../../../../shared/constants/product.model';
+import { Product } from '../../../../shared/constants/models/product.model';
 import { FirebaseDataService } from '../../../../shared/services/firebase/data.firebase.service';
 import { ProductService } from '../../../../shared/services/product.service';
 

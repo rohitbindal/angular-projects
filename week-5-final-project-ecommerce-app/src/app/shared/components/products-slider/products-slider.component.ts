@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { HELPERS } from '../../constants/helpers';
-import { Product } from '../../constants/product.model';
+import { Product } from '../../constants/models/product.model';
 
 @Component({
   selector: 'app-products-slider',

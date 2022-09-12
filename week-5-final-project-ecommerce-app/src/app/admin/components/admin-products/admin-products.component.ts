@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { HELPERS } from '../../../shared/constants/helpers';
-import { Product } from '../../../shared/constants/product.model';
+import { Product } from '../../../shared/constants/models/product.model';
 import { FilterService } from '../../../shared/services/filter.service';
 import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
 import { ToastService } from '../../../shared/services/toast.service';

@@ -14,7 +14,7 @@ import {
   throwError,
 } from 'rxjs';
 import { APP_ROUTES } from '../../constants/app-routes';
-import { User } from '../../constants/authorization.model';
+import { User } from '../../constants/models/authorization.model';
 import { HELPERS } from '../../constants/helpers';
 import { AuthorizationService } from './authorization.service';
 import { FirebaseDataService } from './data.firebase.service';
