@@ -21,7 +21,10 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   sliderProducts: Product[] | null;
   screenWidth: Number = window.innerWidth;
   screenBreakpoint = 1;
-  loading = false;
+  pageProps = {
+    pageLoading: false,
+    cartUpdateLoading: false,
+  };
   private relatedProducts$: Subscription | null;
   private productDetail$: Subscription | null;
 
@@ -80,9 +83,13 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
 
   // Add the product to the cart
   onAddToCartClicked() {
-    if (this.currentUser && !this.currentUser.disabled)
+    if (this.currentUser && !this.currentUser.disabled) {
+      this.pageProps.cartUpdateLoading = true;
       this._data.addProductToCart(this.product!);
-    else if (this.currentUser && this.currentUser.disabled)
+      setTimeout(() => {
+        this.pageProps.cartUpdateLoading = false;
+      }, 1500);
+    } else if (this.currentUser && this.currentUser.disabled)
       this._toast.showErrorToast(HELPERS.errors.ACCOUNT_DISABLED_BY_ADMIN);
     else
       this._toast.showErrorToast(HELPERS.errors.ACCOUNT_NEEDED_TO_ADD_TO_CART);
@@ -91,8 +98,12 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   // Add to cart and navigate to checkout
   onBuyNowClicked() {
     if (this.currentUser && !this.currentUser.disabled) {
+      this.pageProps.cartUpdateLoading = true;
       this._data.addProductToCart(this.product!);
-      this._router.navigate([APP_ROUTES.absolute.main.cart]).then();
+      setTimeout(() => {
+        this.pageProps.cartUpdateLoading = false;
+        this._router.navigate([APP_ROUTES.absolute.main.cart]).then();
+      }, 1500);
     } else if (this.currentUser && this.currentUser.disabled)
       this._toast.showErrorToast(HELPERS.errors.ACCOUNT_DISABLED_BY_ADMIN);
     else
@@ -121,7 +132,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   }
 
   private updateUI() {
-    this.loading = true;
+    this.pageProps.pageLoading = true;
     this._route.params.subscribe((params) => {
       const id = params['id'];
       this.productDetail$ = this._data
@@ -132,7 +143,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
             this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
           }
           this.getRelatedProducts();
-          this.loading = false;
+          this.pageProps.pageLoading = false;
         });
     });
   }

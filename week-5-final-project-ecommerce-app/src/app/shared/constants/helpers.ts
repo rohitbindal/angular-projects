@@ -31,6 +31,8 @@ export const HELPERS = {
     signUp: 'Sign Up',
     wishlist: 'Wishlist',
     cart: 'Cart',
+    products: 'Products',
+    users: 'Users',
   },
   toast: {
     message: {
@@ -43,6 +45,7 @@ export const HELPERS = {
       NEW_USER: 'Welcome!',
       NO_PRODUCTS_FOUND: 'No Products found!',
       NO_USER_FOUND: 'No users found!',
+      MAX_PRODUCT_LIMIT: 'You cannot add more than 5 items of same type.',
     },
   },
   errors: {

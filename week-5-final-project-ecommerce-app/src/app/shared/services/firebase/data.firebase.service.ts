@@ -122,23 +122,23 @@ export class FirebaseDataService {
   updateQuantity(id: number, count: number = 1) {
     this._fireAuth.user.subscribe((user) => {
       if (user) {
-        this.usersCollection
-          .doc(user.uid)
-          .collection(this.CHECKOUT_COLLECTION)
-          .doc(id.toString())
-          .update({ count: increment(count) })
-          .then(() => {
-            this._toast.showInfoToast(HELPERS.toast.message.QTY_UPDATED);
-          })
-          .catch((e) => console.log(e));
-
-        // Update cart counter
-        this.usersCollection
-          .doc(user.uid)
-          // @ts-ignore
-          .update({ cart: increment(count) })
-          .then()
-          .catch((e) => console.log(e));
+        this.getProductQty(id, user.uid).subscribe((res) => {
+          if (!this.quantityLessThenFive(res!)) {
+            this._toast.showErrorToast(HELPERS.toast.message.MAX_PRODUCT_LIMIT);
+            return;
+          }
+          // Update Item counter in cart.
+          this.usersCollection
+            .doc(user.uid)
+            .collection(this.CHECKOUT_COLLECTION)
+            .doc(id.toString())
+            .update({ count: increment(count) })
+            .then(() => {
+              this._toast.showInfoToast(HELPERS.toast.message.QTY_UPDATED);
+              this.updateUserCartCount(count, user.uid);
+            })
+            .catch((e) => console.log(e));
+        });
       }
     });
   }
@@ -153,44 +153,38 @@ export class FirebaseDataService {
           .delete()
           .then(() => {
             this._toast.showInfoToast(HELPERS.toast.message.REMOVED_FROM_CART);
+            this.updateUserCartCount(count, user.uid);
           })
-          .catch((e) => console.log(e));
-
-        // Update cart counter
-        this.usersCollection
-          .doc(user.uid)
-          // @ts-ignore
-          .update({ cart: increment(count) })
-          .then()
           .catch((e) => console.log(e));
       }
     });
   }
 
   addProductToCart(product: Product) {
+    const incrementBy = 1;
     this._fireAuth.user.subscribe((user) => {
       if (user) {
-        // Add to cart
-        this.usersCollection
-          .doc(user.uid)
-          .collection(this.CHECKOUT_COLLECTION)
-          .doc(product.id.toString())
-          // @ts-ignore
-          .set({ ...product, count: increment(1) }, { merge: true })
-          .then(() => {
-            this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_CART);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-
-        // Update cart counter
-        this.usersCollection
-          .doc(user.uid)
-          // @ts-ignore
-          .update({ cart: increment(1) })
-          .then()
-          .catch((e) => console.log(e));
+        this.getProductQty(product.id, user.uid).subscribe((res) => {
+          if (res && !this.quantityLessThenFive(res)) {
+            console.log(res);
+            this._toast.showErrorToast(HELPERS.toast.message.MAX_PRODUCT_LIMIT);
+            return;
+          }
+          // Add to cart
+          this.usersCollection
+            .doc(user.uid)
+            .collection(this.CHECKOUT_COLLECTION)
+            .doc(product.id.toString())
+            // @ts-ignore
+            .set({ ...product, count: increment(incrementBy) }, { merge: true })
+            .then(() => {
+              this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_CART);
+              this.updateUserCartCount(incrementBy, user.uid);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        });
       }
     });
   }
@@ -298,6 +292,37 @@ export class FirebaseDataService {
       .doc(id)
       .delete()
       .then(() => console.log('User Deleted: ' + id))
+      .catch((e) => console.log(e));
+  }
+
+  private quantityLessThenFive(qty: number) {
+    if (qty) {
+      return qty < 5;
+    }
+    return false;
+  }
+
+  private getProductQty(pid: number, uid: string) {
+    return this.usersCollection
+      .doc(uid)
+      .collection<Product>(this.CHECKOUT_COLLECTION)
+      .doc(pid.toString())
+      .get()
+      .pipe(
+        take(1),
+        map((data) => {
+          return <number | undefined>data.get('count');
+        })
+      );
+  }
+
+  // Update cart counter
+  private updateUserCartCount(count: number, uid: string) {
+    this.usersCollection
+      .doc(uid)
+      // @ts-ignore
+      .update({ cart: increment(count) })
+      .then()
       .catch((e) => console.log(e));
   }
 }

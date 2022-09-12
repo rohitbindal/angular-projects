@@ -8,7 +8,7 @@ import { FirebaseAuthService } from '../../../shared/services/firebase/auth.fire
   styleUrls: ['./admin-header.component.css'],
 })
 export class AdminHeaderComponent implements OnInit {
-  helper = HELPERS.routing.admin;
+  helper = HELPERS;
 
   constructor(private _auth: FirebaseAuthService) {}
 
