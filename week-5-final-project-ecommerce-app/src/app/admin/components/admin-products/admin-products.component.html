@@ -1,0 +1,150 @@
+<app-loader *ngIf="pageProps.loading && !products"></app-loader>
+
+<div *ngIf="products" class="mb-5">
+  <div class="filters d-flex flex-row justify-content-between">
+
+    <div class="buttons d-flex flex-row gap-3">
+      <button aria-controls="offcanvasFilters" class="btn"
+              data-bs-target="#offcanvasFilters"
+              data-bs-toggle="offcanvas" type="button">
+       <span>
+          <i class="bi bi-funnel"></i>
+            </span>
+        Filters
+      </button>
+      <button (click)="clearFilters()" *ngIf="filtersActive"
+              class="btn btn-outline-danger">
+      <span>Clear Filters
+              <span><i class="bi bi-x"></i></span>
+            </span></button>
+    </div>
+
+    <div class="createProduct">
+      <button aria-controls="createProduct" aria-expanded="false"
+              class="btn btn-outline-primary"
+              data-bs-target="#createProduct" data-bs-toggle="collapse"
+              type="button">Add a new Product
+      </button>
+    </div>
+
+    <div aria-labelledby="offcanvasFilters" class="offcanvas offcanvas-start"
+         id="offcanvasFilters"
+         tabindex="-1">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title lead" id="offcanvasFiltersTitle">Filters</h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas"
+                type="button"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form (ngSubmit)="onFilterSubmit()" [formGroup]="filterForm">
+          <!-- Sort By Name -->
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+              <div class="name-asc form-check">
+                <input
+                  class="form-check-input"
+                  formControlName="name"
+                  id="nameAscending"
+                  type="radio"
+                  value="0">
+                <label class="form-check-label" for="nameAscending">
+                    <span>
+                      <small>Name Asc (<i
+                        class="bi bi-sort-alpha-up-alt"></i>)</small>
+                    </span>
+                </label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="name-desc form-check">
+                <input
+                  class="form-check-input"
+                  formControlName="name"
+                  id="nameDescending"
+                  type="radio"
+                  value="1">
+                <label class="form-check-label" for="nameDescending">
+                    <span>
+                      <small>Name Desc (<i
+                        class="bi bi-sort-alpha-down-alt"></i>)</small>
+                    </span>
+                </label>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Filter by Category -->
+          <div class="form-floating category mb-3">
+            <select class="form-select" formControlName="category"
+                    id="category">
+              <option *ngFor="let category of categories"
+                      [ngValue]="category">{{category}}</option>
+            </select>
+            <label for="category">Category</label>
+          </div>
+
+          <!-- Filter by status -->
+          <div class="status form-check mb-3">
+            <input
+              [value]="true"
+              class="form-check-input"
+              formControlName="status"
+              id="status"
+              type="checkbox">
+            <label class="form-check-label" for="status">
+              <small>Disabled</small>
+            </label>
+          </div>
+
+          <!-- Filter by Stock -->
+          <div class="in-stock form-check mb-3">
+            <input
+              [value]="true"
+              class="form-check-input"
+              formControlName="stock"
+              id="in-stock"
+              type="checkbox">
+            <label class="form-check-label" for="in-stock">
+              <small>In Stock</small>
+            </label>
+          </div>
+          <hr>
+          <button class="btn btn-primary w-100" data-bs-dismiss="offcanvas">
+            Apply
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-container collapse mt-3" id="createProduct">
+    <app-products-edit-form
+      (somethingChanged)="update()"></app-products-edit-form>
+  </div>
+
+  <hr>
+
+  <ul *ngFor="let product of products; let i = index"
+      class="list-group">
+    <button
+      [attr.aria-controls]="'p'+product.id"
+      [attr.data-bs-target]="'#p'+product.id"
+      aria-expanded="false"
+      class="list-group-item mt-2 list-group-item-action list-group-item-light d-flex gap-3 justify-content-between"
+      data-bs-toggle="collapse"
+      type="button"
+    >
+      <span class="overflow-hidden  gap-3">
+        {{product.title}}
+      </span>
+      <span><i class="bi bi-chevron-down"></i></span>
+    </button>
+    <div [id]="'p'+product.id" class="collapse">
+      <div class="card card-body">
+        <app-products-edit-form (somethingChanged)="update()"
+                                [product]="product"></app-products-edit-form>
+      </div>
+    </div>
+  </ul>
+</div>

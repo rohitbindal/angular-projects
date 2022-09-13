@@ -1,0 +1,14 @@
+.text-truncate.text-truncate-2 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.small {
+  font-size: smaller;;
+}
+
+.details-container {
+  font-size: medium
+}

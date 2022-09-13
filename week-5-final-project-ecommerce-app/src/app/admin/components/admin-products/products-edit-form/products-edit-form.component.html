@@ -1,0 +1,105 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="editProductForm"
+      class="d-flex flex-column gap-3"
+      id="editForm"
+>
+  <div class="form-floating">
+    <input
+      class="form-control"
+      formControlName="id"
+      id="idInput"
+      type="text"
+    >
+    <label for="idInput">Id</label>
+  </div>
+
+  <div class="form-floating">
+    <input
+      class="form-control"
+      formControlName="title"
+      id="title"
+      type="text"
+    >
+    <label for="title">Title</label>
+  </div>
+
+  <div class="form-floating">
+    <textarea
+      class="form-control"
+      formControlName="description"
+      id="description"
+      style="height: 100px"
+      type="textarea"
+    ></textarea>
+    <label for="description">Description</label>
+  </div>
+
+  <div class="form-floating">
+    <input
+      class="form-control"
+      formControlName="image"
+      id="image"
+      type="text"
+    >
+    <label for="image">Image</label>
+  </div>
+  <div class="row g-3">
+    <div class="col">
+      <div class="form-floating">
+        <select class="form-select" formControlName="category" id="category">
+          <option *ngFor="let category of categories"
+                  [ngValue]="category">{{category}}</option>
+        </select>
+        <label for="category">Category</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          formControlName="price"
+          id="price"
+          type="number"
+        >
+        <label for="price">Price</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" formControlName="stock" id="stock"
+           type="checkbox">
+    <label class="form-check-label" for="stock">
+      Stock
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" formControlName="disabled" id="disabled"
+           type="checkbox">
+    <label class="form-check-label" for="disabled">
+      Disabled
+    </label>
+  </div>
+  <div class="row d-flex">
+    <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-sm-center">
+      <div class="btn-group w-100">
+        <button
+          [disabled]="editProductForm.invalid || (loading.update || loading.del)"
+          class="btn btn-primary"
+          title="Update Product" type="submit">
+          <span
+            *ngIf="!loading.update">{{productData ? 'Update' : 'Add'}}</span>
+          <span *ngIf="loading.update"
+                class="spinner-border spinner-border-sm"></span>
+        </button>
+        <button (click)="onDelete()"
+                *ngIf="productData"
+                [disabled]="(loading.update || loading.del)"
+                class="btn btn-outline-danger"
+                title="Delete Product" type="button">
+          <span *ngIf="!loading.del">Delete</span>
+          <span *ngIf="loading.del"
+                class="spinner-border spinner-border-sm"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

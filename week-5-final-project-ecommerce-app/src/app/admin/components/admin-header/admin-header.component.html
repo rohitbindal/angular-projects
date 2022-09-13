@@ -1,0 +1,26 @@
+<div
+  class="top-nav-container sticky-top bg-light p-3 mb-3">
+  <!--  Show top nav on large screens -->
+  <div
+    class="nav justify-content-center justify-content-lg-start justify-content-md-start">
+    <ul class="nav nav-pills gap-3">
+      <li class="nav-item">
+        <a [routerLinkActiveOptions]="{exact: true}"
+           [routerLink]="helper.routing.admin.products"
+           class="nav-link"
+           routerLinkActive="active">{{helper.text.products}}</a>
+      </li>
+      <li class="vr h-50 align-self-center"></li>
+      <li class="nav-item">
+        <a [routerLink]="helper.routing.admin.users" class="nav-link"
+           routerLinkActive="active">{{helper.text.users}}</a>
+      </li>
+      <li class="vr h-50 align-self-center"></li>
+      <li class="nav-item">
+        <a (click)="onSignOut()" class="nav-link"
+           role="button">{{helper.text.logout}}</a>
+      </li>
+    </ul>
+  </div>
+  <hr>
+</div>

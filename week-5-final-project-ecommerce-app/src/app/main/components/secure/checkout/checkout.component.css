@@ -1,0 +1,4 @@
+.checkout-details-col {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,27 @@
+<div *ngIf="sliderProducts"
+     class="related-products-container carousel-inner">
+  <div class="content-container m-5">
+    <button (click)="onBackClicked()" class="carousel-control-prev btn">
+      <span aria-hidden="true"
+            class="carousel-control-prev-icon text-bg-dark"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+
+    <div
+      class="{{'row-cols-lg-'+screenBreakpoint + ' row-cols-md-'+screenBreakpoint }} row-cols-sm-1 row">
+      <div
+        *ngFor="let relatedProduct of sliderProducts.slice(0, screenBreakpoint)"
+        class="col">
+        <app-product-item
+          (click)="onProductClicked(relatedProduct.id)"
+          [product]="relatedProduct"></app-product-item>
+      </div>
+    </div>
+
+    <button (click)="onNextClicked()" class="carousel-control-next btn">
+        <span aria-hidden="true"
+              class="carousel-control-next-icon text-bg-dark"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>

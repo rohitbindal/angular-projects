@@ -1,0 +1,41 @@
+<div *ngIf="product" class="card mb-3 p-3">
+  <div class="row">
+    <div
+      [routerLink]="[helpers.routing.detailsRouteAbsolute, product.id]"
+      class="col-sm-3 col-md-3 col-lg-3 d-flex justify-content-center"
+      role="button"
+    >
+      <img [alt]="product.title" [src]="product.image"
+           class="img-fluid rounded-start product-image align-self-center">
+    </div>
+    <div class="col-sm-9 col-md-9 col-lg-9">
+      <div class="card-body">
+
+        <p [routerLink]="[helpers.routing.detailsRouteAbsolute, product.id]"
+           [title]="product.title"
+           class="card-title text-truncate lead text-wrap"
+           role="button">{{product.title}}</p>
+        <p class="card-subtitle mb-2 text-muted">
+          <strong>&#8377;{{product.price}}/-</strong></p>
+
+        <div class="actions d-flex justify-content-between mt-3">
+          <!-- Delete the item from list -->
+          <div class="btn-group">
+            <button (click)="onDecrement()" [disabled]="product.count === 1"
+                    class="btn btn-outline-danger">-
+            </button>
+            <button class="btn" disabled>{{product.count}}</button>
+            <button (click)="onIncrement()"
+                    class="btn btn-outline-success">+
+            </button>
+          </div>
+          <button (click)="onDelete()"
+
+                  class="delete-btn btn btn-danger"><span><i
+            class="bi bi-trash"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

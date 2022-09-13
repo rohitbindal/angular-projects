@@ -1,0 +1,29 @@
+.product-image {
+  max-height: 120px;
+  max-width: 120px;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.175);
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.175);
+  transition: .1s;
+}
+
+.rating {
+  font-size: smaller;
+}
+
+.in-stock {
+  color: limegreen;
+  font-size: smaller;
+}
+
+.out-of-stock {
+  color: red;
+  font-size: smaller;
+}
