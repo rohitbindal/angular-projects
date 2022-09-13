@@ -21,6 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (user) {
         this.authenticated = true;
         if (user.cart != null) this.cart = user.cart;
+      } else {
+        this.cart = 0;
       }
     });
   }

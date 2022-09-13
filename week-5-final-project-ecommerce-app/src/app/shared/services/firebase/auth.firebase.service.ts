@@ -68,7 +68,7 @@ export class FirebaseAuthService {
     ).pipe(
       catchError(this.handleError),
       map(() => {
-        this._location.back();
+        this._router.navigate([APP_ROUTES.absolute.main.home]).then();
       })
     );
   }

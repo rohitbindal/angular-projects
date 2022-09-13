@@ -93,7 +93,7 @@ export class FirebaseDataService {
   }
 
   addProductToWishlist(product: Product) {
-    this._fireAuth.user.subscribe((user) => {
+    this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user)
         this.usersCollection
           .doc(user.uid)
@@ -108,7 +108,7 @@ export class FirebaseDataService {
   }
 
   removeProductFromWishlist(id: string) {
-    this._fireAuth.user.subscribe((user) => {
+    this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user)
         this.usersCollection
           .doc(user.uid)
@@ -125,7 +125,7 @@ export class FirebaseDataService {
   }
 
   updateQuantity(id: string, count: number = 1) {
-    this._fireAuth.user.subscribe((user) => {
+    this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.getProductQty(id, user.uid).subscribe((res) => {
           if (!this.quantityLessThenFive(res!)) {
@@ -149,7 +149,7 @@ export class FirebaseDataService {
   }
 
   removeProductFromCart(id: string, count: number = -1) {
-    this._fireAuth.user.subscribe((user) => {
+    this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.usersCollection
           .doc(user.uid)
@@ -167,7 +167,7 @@ export class FirebaseDataService {
 
   addProductToCart(product: Product) {
     const incrementBy = 1;
-    this._fireAuth.user.subscribe((user) => {
+    this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.getProductQty(product.id, user.uid).subscribe((res) => {
           if (res && !this.quantityLessThenFive(res)) {
