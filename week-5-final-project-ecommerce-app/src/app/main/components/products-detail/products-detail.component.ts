@@ -2,8 +2,8 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { APP_ROUTES } from '../../../shared/constants/app-routes';
-import { User } from '../../../shared/constants/models/authorization.model';
 import { HELPERS } from '../../../shared/constants/helpers';
+import { User } from '../../../shared/constants/models/authorization.model';
 import { Product } from '../../../shared/constants/models/product.model';
 import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
@@ -57,7 +57,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
   getScreenSize(event?: Event) {
     if (this.relatedProducts) {
       this.screenWidth = window.innerWidth;
-      if (this.screenWidth >= 576) {
+      if (this.screenWidth < 768) {
         this.screenBreakpoint = 1;
         this.sliderProducts = this.relatedProducts!.slice(
           0,
