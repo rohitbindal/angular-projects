@@ -28,7 +28,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
     this.updateUI();
   }
 
-  onDeleteClicked(id: number, index: number) {
+  onDeleteClicked(id: string, index: number) {
     const conf = confirm('Are you sure ?');
     if (conf) {
       this._data.removeProductFromWishlist(id);

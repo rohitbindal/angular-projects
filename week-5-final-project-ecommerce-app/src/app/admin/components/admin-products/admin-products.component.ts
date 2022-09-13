@@ -89,6 +89,10 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.updateUI();
   }
 
+  update() {
+    this.updateUI();
+  }
+
   /**
    * Method to update UI -> Fetch products, update loading and error states.
    * @private

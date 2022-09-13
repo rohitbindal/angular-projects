@@ -119,7 +119,8 @@
   </div>
 
   <div class="form-container collapse mt-3" id="createProduct">
-    <app-products-edit-form></app-products-edit-form>
+    <app-products-edit-form
+      (somethingChanged)="update()"></app-products-edit-form>
   </div>
 
   <hr>
@@ -141,7 +142,8 @@
     </button>
     <div [id]="'p'+product.id" class="collapse">
       <div class="card card-body">
-        <app-products-edit-form [product]="product"></app-products-edit-form>
+        <app-products-edit-form (somethingChanged)="update()"
+                                [product]="product"></app-products-edit-form>
       </div>
     </div>
   </ul>

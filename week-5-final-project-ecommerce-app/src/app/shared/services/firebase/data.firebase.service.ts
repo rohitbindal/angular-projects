@@ -80,11 +80,9 @@ export class FirebaseDataService {
     );
   }
 
-  getProductById(id: number) {
+  getProductById(id: string) {
     let product: Product;
-    return defer(() =>
-      from(this.productsCollection.doc(id.toString()).get())
-    ).pipe(
+    return defer(() => from(this.productsCollection.doc(id).get())).pipe(
       map((qS) => {
         if (qS.exists) {
           product = qS.data()!;
@@ -100,7 +98,7 @@ export class FirebaseDataService {
         this.usersCollection
           .doc(user.uid)
           .collection(this.WISHLIST_COLLECTION)
-          .doc(product.id.toString())
+          .doc(product.id)
           .set({ ...product }, { merge: true })
           .then(() =>
             this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_WISHLIST)
@@ -109,13 +107,13 @@ export class FirebaseDataService {
     });
   }
 
-  removeProductFromWishlist(id: number) {
+  removeProductFromWishlist(id: string) {
     this._fireAuth.user.subscribe((user) => {
       if (user)
         this.usersCollection
           .doc(user.uid)
           .collection(this.WISHLIST_COLLECTION)
-          .doc(id.toString())
+          .doc(id)
           .delete()
           .then(() => {
             this._toast.showInfoToast(
@@ -126,7 +124,7 @@ export class FirebaseDataService {
     });
   }
 
-  updateQuantity(id: number, count: number = 1) {
+  updateQuantity(id: string, count: number = 1) {
     this._fireAuth.user.subscribe((user) => {
       if (user) {
         this.getProductQty(id, user.uid).subscribe((res) => {
@@ -138,7 +136,7 @@ export class FirebaseDataService {
           this.usersCollection
             .doc(user.uid)
             .collection(this.CHECKOUT_COLLECTION)
-            .doc(id.toString())
+            .doc(id)
             .update({ count: increment(count) })
             .then(() => {
               this._toast.showInfoToast(HELPERS.toast.message.QTY_UPDATED);
@@ -150,13 +148,13 @@ export class FirebaseDataService {
     });
   }
 
-  removeProductFromCart(id: number, count: number = -1) {
+  removeProductFromCart(id: string, count: number = -1) {
     this._fireAuth.user.subscribe((user) => {
       if (user) {
         this.usersCollection
           .doc(user.uid)
           .collection(this.CHECKOUT_COLLECTION)
-          .doc(id.toString())
+          .doc(id)
           .delete()
           .then(() => {
             this._toast.showInfoToast(HELPERS.toast.message.REMOVED_FROM_CART);
@@ -181,7 +179,7 @@ export class FirebaseDataService {
           this.usersCollection
             .doc(user.uid)
             .collection(this.CHECKOUT_COLLECTION)
-            .doc(product.id.toString())
+            .doc(product.id)
             // @ts-ignore
             .set({ ...product, count: increment(incrementBy) }, { merge: true })
             .then(() => {
@@ -203,7 +201,7 @@ export class FirebaseDataService {
         return defer(() =>
           from(
             this.usersCollection
-              .doc(user?.uid.toString())
+              .doc(user?.uid)
               .collection<Product>(this.WISHLIST_COLLECTION)
               .get()
           )
@@ -229,7 +227,7 @@ export class FirebaseDataService {
         return defer(() =>
           from(
             this.usersCollection
-              .doc(user?.uid.toString())
+              .doc(user?.uid)
               .collection<Product>(this.CHECKOUT_COLLECTION)
               .get()
           )
@@ -274,16 +272,14 @@ export class FirebaseDataService {
     return defer(() =>
       from(
         this.productsCollection
-          .doc(product.id.toString())
+          .doc(product.id)
           .set({ ...product }, { merge: true })
       )
     );
   }
 
-  deleteProduct(id: number) {
-    return defer(() =>
-      from(this.productsCollection.doc(id.toString()).delete())
-    );
+  deleteProduct(id: string) {
+    return defer(() => from(this.productsCollection.doc(id).delete()));
   }
 
   updateUser(user: User) {
@@ -357,11 +353,11 @@ export class FirebaseDataService {
     return false;
   }
 
-  private getProductQty(pid: number, uid: string) {
+  private getProductQty(pid: string, uid: string) {
     return this.usersCollection
       .doc(uid)
       .collection<Product>(this.CHECKOUT_COLLECTION)
-      .doc(pid.toString())
+      .doc(pid)
       .get()
       .pipe(
         take(1),

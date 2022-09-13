@@ -45,7 +45,7 @@ export class ProductsSliderComponent implements OnInit {
     }
   }
 
-  onProductClicked(id: number) {
+  onProductClicked(id: string) {
     this._router
       .navigate([this.helpers.routing.detailsRouteAbsolute + '/' + id])
       .then();

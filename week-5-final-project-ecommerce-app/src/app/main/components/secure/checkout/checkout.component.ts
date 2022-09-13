@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDeleteClicked(index: number, id: number) {
+  onDeleteClicked(index: number, id: string) {
     const conf = confirm('Are you sure ?');
     if (conf && this.checkoutProducts) {
       let count = this.checkoutProducts[index].count;
