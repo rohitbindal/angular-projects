@@ -7,7 +7,6 @@ import {
 } from '../../../../shared/constants/models/product.model';
 import { FirebaseAuthService } from '../../../../shared/services/firebase/auth.firebase.service';
 import { FirebaseDataService } from '../../../../shared/services/firebase/data.firebase.service';
-import { ProductService } from '../../../../shared/services/product.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +26,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private _products: ProductService,
     private _data: FirebaseDataService,
     private _auth: FirebaseAuthService
   ) {

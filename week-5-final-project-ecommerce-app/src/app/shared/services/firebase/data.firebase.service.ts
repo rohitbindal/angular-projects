@@ -12,7 +12,6 @@ import { HELPERS } from '../../constants/helpers';
 import { User } from '../../constants/models/authorization.model';
 import { Order, Product } from '../../constants/models/product.model';
 import { ToastService } from '../toast.service';
-import { AuthorizationService } from './authorization.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +31,6 @@ export class FirebaseDataService {
   constructor(
     private _firestore: AngularFirestore,
     private _fireAuth: AngularFireAuth,
-    private _authorize: AuthorizationService,
     private _toast: ToastService,
     private _router: Router
   ) {

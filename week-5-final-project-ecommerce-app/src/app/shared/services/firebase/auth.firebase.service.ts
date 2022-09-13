@@ -16,7 +16,6 @@ import {
 import { APP_ROUTES } from '../../constants/app-routes';
 import { HELPERS } from '../../constants/helpers';
 import { User } from '../../constants/models/authorization.model';
-import { AuthorizationService } from './authorization.service';
 import { FirebaseDataService } from './data.firebase.service';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +26,6 @@ export class FirebaseAuthService {
     private _afAuth: AngularFireAuth,
     private _location: Location,
     private _data: FirebaseDataService,
-    private _authorization: AuthorizationService,
     private _router: Router,
     private _afs: AngularFirestore
   ) {
@@ -69,7 +67,7 @@ export class FirebaseAuthService {
       from(this._afAuth.signInWithEmailAndPassword(email, password))
     ).pipe(
       catchError(this.handleError),
-      map((user) => {
+      map(() => {
         this._location.back();
       })
     );
