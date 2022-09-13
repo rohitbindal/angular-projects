@@ -12,11 +12,12 @@ import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { MainModule } from './main/main.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FirebaseModule } from './shared/firebase.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     MainModule,
