@@ -11,20 +11,6 @@ export class ToastService {
     this.toastEvents$ = this.toastEvents.asObservable();
   }
 
-  showToast(type: EventTypes, message: string) {
-    switch (type) {
-      case EventTypes.SUCCESS:
-        this.showSuccessToast(message);
-        break;
-      case EventTypes.ERROR:
-        this.showErrorToast(message);
-        break;
-      default:
-        this.showInfoToast(message);
-        break;
-    }
-  }
-
   showSuccessToast(message: string) {
     this.toastEvents.next({
       message,

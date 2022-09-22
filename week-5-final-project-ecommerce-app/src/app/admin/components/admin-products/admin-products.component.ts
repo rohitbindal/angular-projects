@@ -75,14 +75,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   onFilterSubmit() {
-    //  TODO: Apply filters
     this.filtersActive = true;
     this.updateUI();
-    // if (this.products)
-    //   this.products = this._filters.sortByTitle(
-    //     this.products.slice(),
-    //     this.filterForm.get('name')?.value
-    //   );
   }
 
   clearFilters() {
