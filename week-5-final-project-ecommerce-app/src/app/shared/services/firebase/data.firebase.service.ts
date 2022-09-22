@@ -17,6 +17,7 @@ import { ToastService } from '../toast.service';
   providedIn: 'root',
 })
 export class FirebaseDataService {
+  // Objects to store collection names
   private readonly USERS_COLLECTION = 'users';
   private readonly PRODUCTS_COLLECTION = 'products';
   private readonly WISHLIST_COLLECTION = 'wishlist';
@@ -45,10 +46,16 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to fetch all products from firestore
+   * @returns {Observable<Product[]>}
+   */
   getAllProducts() {
     let products: Product[] = [];
+    // Convert promise to Observable
     return defer(() => from(this.productsCollection.get())).pipe(
       map((qS) => {
+        // If the collection is not empty
         if (qS.docs) {
           qS.docs.forEach((doc) => {
             products.push(doc.data());
@@ -59,8 +66,14 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to fetch products based on a given category
+   * @param {string} category
+   * @returns {Observable<Product[]>}
+   */
   getProductsByCategory(category: string) {
     let products: Product[] = [];
+    // Convert promise to Observable
     return defer(() =>
       from(
         this.productsCollection.ref
@@ -70,6 +83,7 @@ export class FirebaseDataService {
       )
     ).pipe(
       map((qS) => {
+        // If the collection is not empty
         if (qS.docs) {
           qS.docs.forEach((doc) => {
             products.push(doc.data());
@@ -80,10 +94,17 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to fetch product with a given id.
+   * @param {string} id
+   * @returns {Observable<Product>}
+   */
   getProductById(id: string) {
     let product: Product;
+    // Convert promise to Observable
     return defer(() => from(this.productsCollection.doc(id).get())).pipe(
       map((qS) => {
+        // If the collection is not empty
         if (qS.exists) {
           product = qS.data()!;
         }
@@ -92,7 +113,12 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to add a product to Wishlist
+   * @param {Product} product
+   */
   addProductToWishlist(product: Product) {
+    // Get current user
     this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user)
         this.usersCollection
@@ -101,13 +127,19 @@ export class FirebaseDataService {
           .doc(product.id)
           .set({ ...product }, { merge: true })
           .then(() =>
+            // If the operation is successful, show the success toast.
             this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_WISHLIST)
           )
           .catch((e) => console.log(e));
     });
   }
 
+  /**
+   * Method to remove a product from Wishlist
+   * @param {string} id
+   */
   removeProductFromWishlist(id: string) {
+    // Get current user
     this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user)
         this.usersCollection
@@ -116,6 +148,7 @@ export class FirebaseDataService {
           .doc(id)
           .delete()
           .then(() => {
+            // If the operation is successful, show the success toast.
             this._toast.showInfoToast(
               HELPERS.toast.message.REMOVED_FROM_WISHLIST
             );
@@ -124,15 +157,23 @@ export class FirebaseDataService {
     });
   }
 
+  /**
+   * Method to update the quantity of a product with the given id.
+   * @param {string} id
+   * @param {number} count UpdateBy counter -> could be 1 or -1
+   */
   updateQuantity(id: string, count: number = 1) {
+    // Get the current user
     this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.getProductQty(id, user.uid).subscribe((res) => {
+          // If the product is already in cart and the quantity is greater than 5, show error toast and return
           if (!this.quantityLessThenFive(res!)) {
             this._toast.showErrorToast(HELPERS.toast.message.MAX_PRODUCT_LIMIT);
             return;
           }
-          // Update Item counter in cart.
+
+          // Update Item counter in user/{uid}/checkout/{productId} document.
           this.usersCollection
             .doc(user.uid)
             .collection(this.CHECKOUT_COLLECTION)
@@ -140,6 +181,7 @@ export class FirebaseDataService {
             .update({ count: increment(count) })
             .then(() => {
               this._toast.showInfoToast(HELPERS.toast.message.QTY_UPDATED);
+              // Update user cart counter
               this.updateUserCartCount(count, user.uid);
             })
             .catch((e) => console.log(e));
@@ -148,9 +190,16 @@ export class FirebaseDataService {
     });
   }
 
+  /**
+   * Method ot remove a product from cart
+   * @param {string} id Product id
+   * @param {number} count Product quantity
+   */
   removeProductFromCart(id: string, count: number = -1) {
+    // Get the current user
     this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
+        // Delete users/{uid}/checkout/{productId} document
         this.usersCollection
           .doc(user.uid)
           .collection(this.CHECKOUT_COLLECTION)
@@ -158,6 +207,7 @@ export class FirebaseDataService {
           .delete()
           .then(() => {
             this._toast.showInfoToast(HELPERS.toast.message.REMOVED_FROM_CART);
+            // Update the user cart counter
             this.updateUserCartCount(count, user.uid);
           })
           .catch((e) => console.log(e));
@@ -165,17 +215,24 @@ export class FirebaseDataService {
     });
   }
 
+  /**
+   * Method to add a product to cart.
+   * @param {Product} product
+   */
   addProductToCart(product: Product) {
+    // Default quantity
     const incrementBy = 1;
+    // Get current user
     this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.getProductQty(product.id, user.uid).subscribe((res) => {
+          // If the product is already in cart and the quantity is greater than 5, show error toast and return
           if (res && !this.quantityLessThenFive(res)) {
-            console.log(res);
             this._toast.showErrorToast(HELPERS.toast.message.MAX_PRODUCT_LIMIT);
             return;
           }
-          // Add to cart
+
+          // Add document with product data at user/{uid}/checkout/{productId}
           this.usersCollection
             .doc(user.uid)
             .collection(this.CHECKOUT_COLLECTION)
@@ -184,6 +241,7 @@ export class FirebaseDataService {
             .set({ ...product, count: increment(incrementBy) }, { merge: true })
             .then(() => {
               this._toast.showSuccessToast(HELPERS.toast.message.ADD_TO_CART);
+              // Update user cart counter.
               this.updateUserCartCount(incrementBy, user.uid);
             })
             .catch((e) => {
@@ -194,10 +252,16 @@ export class FirebaseDataService {
     });
   }
 
+  /**
+   * Method to fetch user wishlist
+   * @returns {Observable<Product[]>}
+   */
   getWishlist() {
+    // Get the current user.
     return this._fireAuth.user.pipe(
       take(1),
       switchMap((user) => {
+        // Convert a promise to Observable
         return defer(() =>
           from(
             this.usersCollection
@@ -207,6 +271,7 @@ export class FirebaseDataService {
           )
         ).pipe(
           map((qS) => {
+            // If the collection is not empty. return an array of products, else return an empty array
             let products: Product[] = [];
             if (qS.docs) {
               qS.docs.forEach((doc) => {
@@ -220,10 +285,16 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to fetch user cart data.
+   * @returns {Observable<Product[]>}
+   */
   getCart() {
+    // Get the curren user
     return this._fireAuth.user.pipe(
       take(1),
       switchMap((user) => {
+        // Convert a promise to Observable
         return defer(() =>
           from(
             this.usersCollection
@@ -233,6 +304,7 @@ export class FirebaseDataService {
           )
         ).pipe(
           map((qS) => {
+            // If the collection is not empty. return an array of products, else return an empty array
             let products: Product[] = [];
             if (qS.docs) {
               qS.docs.forEach((doc) => {
@@ -251,7 +323,9 @@ export class FirebaseDataService {
    * @param {Order} order
    */
   generateOrder(order: Order) {
+    // Generate a unique id
     const docId = this._firestore.createId();
+    // Create a new orders document
     this.ordersCollection
       .doc(docId)
       .set(order)
@@ -268,11 +342,18 @@ export class FirebaseDataService {
       .catch((e) => console.log(e.message));
   }
 
+  /**
+   * Method to fetch the array of orders with the given user id.
+   * @param {string} uid
+   * @returns {Observable<Order[]>}
+   */
   getOrders(uid: string) {
+    // Convert a promise to Observable
     return defer(() =>
       from(this.ordersCollection.ref.where('uid', '==', uid).get())
     ).pipe(
       map((qS) => {
+        // If the collection is not empty. return an array of orders, else return an empty array
         const orders: Order[] = [];
         if (qS.docs) {
           qS.docs.forEach((doc) => orders.push(doc.data()));
@@ -282,7 +363,13 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to update a product data.
+   * @param {Product} product
+   * @returns {Observable<ObservedValueOf<Observable<ObservedValueOf<Promise<void>>>>>}
+   */
   updateProduct(product: Product) {
+    // Convert a promise to an Observable
     return defer(() =>
       from(
         this.productsCollection
@@ -292,10 +379,20 @@ export class FirebaseDataService {
     );
   }
 
+  /**
+   * Method to delete a product with the given id from Products collection.
+   * @param {string} id
+   * @returns {Observable<ObservedValueOf<Observable<ObservedValueOf<Promise<void>>>>>}
+   */
   deleteProduct(id: string) {
+    // Convert a promise to an Observable
     return defer(() => from(this.productsCollection.doc(id).delete()));
   }
 
+  /**
+   * Method to update user data -> used while creating a new user.
+   * @param {User} user
+   */
   updateUser(user: User) {
     this.usersCollection
       .doc(user.uid)
@@ -304,6 +401,10 @@ export class FirebaseDataService {
       .catch((e) => console.log(e));
   }
 
+  /**
+   * Method to update a user's status -> disabled: true | false
+   * @param {User} user
+   */
   updateUserStatus(user: User) {
     this.usersCollection
       .doc(user.uid)
@@ -312,10 +413,15 @@ export class FirebaseDataService {
       .catch((e) => console.log(e));
   }
 
+  /**
+   * Method to fetch the data of all the users from users collection
+   * @returns {Observable<User[]>}
+   */
   getUsers() {
     let users: User[] = [];
     return defer(() => from(this.usersCollection.get())).pipe(
       map((qS) => {
+        // If the collection is not empty. return an array of users, else return an empty array
         if (qS.docs) {
           qS.docs.forEach((doc) => {
             users.push(doc.data());
@@ -324,14 +430,6 @@ export class FirebaseDataService {
         return users;
       })
     );
-  }
-
-  deleteUser(id: string) {
-    this.usersCollection
-      .doc(id)
-      .delete()
-      .then(() => console.log('User Deleted: ' + id))
-      .catch((e) => console.log(e));
   }
 
   /**
@@ -360,6 +458,12 @@ export class FirebaseDataService {
       });
   }
 
+  /**
+   * Helper method to check if quantity < 5
+   * @param {number} qty
+   * @returns {boolean}
+   * @private
+   */
   private quantityLessThenFive(qty: number) {
     if (qty) {
       return qty < 5;
@@ -367,6 +471,13 @@ export class FirebaseDataService {
     return false;
   }
 
+  /**
+   * Helper method to get the quantity of a product in cart.
+   * @param {string} pid
+   * @param {string} uid
+   * @returns {Observable<number | undefined>}
+   * @private
+   */
   private getProductQty(pid: string, uid: string) {
     return this.usersCollection
       .doc(uid)

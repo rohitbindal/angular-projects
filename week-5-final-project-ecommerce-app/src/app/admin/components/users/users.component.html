@@ -2,6 +2,7 @@
 
 <div *ngIf="users && currentUser" class="mb-5">
 
+  <!--  Filters -->
   <div class="filters d-flex flex-row justify-content-between">
     <div class="buttons d-flex flex-row gap-3">
       <button aria-controls="offcanvasFilters" class="btn"
@@ -19,6 +20,7 @@
             </span></button>
     </div>
 
+    <!--  Filters Body -->
     <div aria-labelledby="offcanvasFilters" class="offcanvas offcanvas-start"
          id="offcanvasFilters"
          tabindex="-1">
@@ -88,6 +90,7 @@
   </div>
   <hr>
 
+  <!--  Users List -->
   <div *ngFor="let user of users; let i = index" class="card mb-3 shadow">
     <div
       class="card-header d-flex flex-row justify-content-between align-items-center ">

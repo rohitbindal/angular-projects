@@ -40,6 +40,7 @@ export class MainRouteGuard implements CanActivate {
               APP_ROUTES.absolute.admin.products,
             ]);
           }
+          // If not, continue navigation
           if (user.roles.subscriber) return true;
         }
         return true;

@@ -2,6 +2,7 @@
       class="d-flex flex-column gap-3"
       id="editForm"
 >
+  <!--  Disabled Product Id input -->
   <div class="form-floating">
     <input
       class="form-control"
@@ -12,6 +13,7 @@
     <label for="idInput">Id</label>
   </div>
 
+  <!-- Title input -->
   <div class="form-floating">
     <input
       class="form-control"
@@ -22,6 +24,7 @@
     <label for="title">Title</label>
   </div>
 
+  <!--  Description input -->
   <div class="form-floating">
     <textarea
       class="form-control"
@@ -33,6 +36,7 @@
     <label for="description">Description</label>
   </div>
 
+  <!--  Image Url input -->
   <div class="form-floating">
     <input
       class="form-control"
@@ -42,6 +46,8 @@
     >
     <label for="image">Image</label>
   </div>
+
+  <!--  Category Selector -->
   <div class="row g-3">
     <div class="col">
       <div class="form-floating">
@@ -52,6 +58,8 @@
         <label for="category">Category</label>
       </div>
     </div>
+
+    <!--  Price Input -->
     <div class="col">
       <div class="form-floating">
         <input
@@ -64,6 +72,8 @@
       </div>
     </div>
   </div>
+
+  <!--  Stock Checkbox-->
   <div class="form-check">
     <input class="form-check-input" formControlName="stock" id="stock"
            type="checkbox">
@@ -71,6 +81,8 @@
       Stock
     </label>
   </div>
+
+  <!--  Status Checkbox ->> Disabled -->
   <div class="form-check">
     <input class="form-check-input" formControlName="disabled" id="disabled"
            type="checkbox">
@@ -78,9 +90,12 @@
       Disabled
     </label>
   </div>
+  <!--  Form actions -->
   <div class="row d-flex">
     <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-sm-center">
       <div class="btn-group w-100">
+
+        <!-- Button text based on edit or new product form with loader -->
         <button
           [disabled]="editProductForm.invalid || (loading.update || loading.del)"
           class="btn btn-success"
@@ -90,6 +105,7 @@
           <span *ngIf="loading.update"
                 class="spinner-border spinner-border-sm"></span>
         </button>
+        <!--  Delete Button with loader -->
         <button (click)="onDelete()"
                 *ngIf="productData"
                 [disabled]="(loading.update || loading.del)"

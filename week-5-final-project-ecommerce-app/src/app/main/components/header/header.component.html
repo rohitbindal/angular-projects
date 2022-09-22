@@ -4,6 +4,8 @@
       <a class="navbar-brand" data-bs-target=".navbar-collapse.show"
          data-bs-toggle="collapse"
          routerLink="/">Store</a>
+
+      <!-- Navbar toggle icon for smaller screens -->
       <button aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Toggle navigation"
               class="navbar-toggler"
@@ -11,6 +13,8 @@
               type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- Nav content -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -44,8 +48,8 @@
               </li>
             </ul>
           </li>
-
         </ul>
+
         <ul class="navbar-nav gap-3">
           <li class="nav-item">
             <button [routerLink]="helpers.routing.wishlistRoute"
@@ -83,7 +87,7 @@
                role="button">
               <i class="bi bi-power"></i>
             </a>
-            <a (click)="onSignOut()" *ngIf="authenticated"
+            <a (click)="onLogOut()" *ngIf="authenticated"
                [title]="helpers.text.logout"
                aria-expanded="false"
                class="nav-link btn"

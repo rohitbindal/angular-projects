@@ -7,6 +7,7 @@ import { AdminComponent } from './components/admin.component';
 import { UsersComponent } from './components/users/users.component';
 
 const authRoutes: Routes = [
+  // Redirect /admin -> /admin/products
   {
     path: APP_ROUTES.relative.admin.admin,
     redirectTo: APP_ROUTES.absolute.admin.products,

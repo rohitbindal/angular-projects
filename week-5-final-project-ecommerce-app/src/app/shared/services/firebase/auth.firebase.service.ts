@@ -20,6 +20,7 @@ import { FirebaseDataService } from './data.firebase.service';
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseAuthService {
+  /* Observable to store the user */
   user: Observable<User | null | undefined>;
 
   constructor(
@@ -31,6 +32,7 @@ export class FirebaseAuthService {
   ) {
     this.user = this._afAuth.authState.pipe(
       switchMap((user) => {
+        // If the user is signed-in, return an observable of User from firestore
         if (user) {
           return this._afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else return of(null);
@@ -38,13 +40,23 @@ export class FirebaseAuthService {
     );
   }
 
+  /**
+   * Method to create a new user with a default role subscriber
+   * @param {string} email
+   * @param {string} password
+   * @param {string} username
+   * @returns {Observable<void>}
+   */
   signUp(email: string, password: string, username: string) {
+    // Convert promise to an observable
     return defer(() =>
       from(this._afAuth.createUserWithEmailAndPassword(email, password))
     ).pipe(
       catchError(this.handleError),
       map((response) => {
+        // If sign up is successful
         if (response.user) {
+          // Create a new user object
           const newUser: User = {
             uid: response.user.uid,
             email: email,
@@ -55,29 +67,48 @@ export class FirebaseAuthService {
             disabled: false,
             cart: 0,
           };
+          // Add user to firestore
           this._data.updateUser(newUser);
+          // Navigate to home
           this._router.navigate([APP_ROUTES.absolute.main.home]).then();
         }
       })
     );
   }
 
+  /**
+   * Method to login using email and password
+   * @param {string} email
+   * @param {string} password
+   * @returns {Observable<void>}
+   */
   login(email: string, password: string) {
+    // Convert a promise to an Observable
     return defer(() =>
       from(this._afAuth.signInWithEmailAndPassword(email, password))
     ).pipe(
       catchError(this.handleError),
       map(() => {
+        // If login is successful, navigate to home
         this._router.navigate([APP_ROUTES.absolute.main.home]).then();
       })
     );
   }
 
+  /**
+   * Method to logout user. Also, navigates to login page.
+   */
   logout() {
     this._afAuth.signOut().then();
     this._router.navigate([APP_ROUTES.absolute.main.login]).then();
   }
 
+  /**
+   * Method to handle errors generated while login or signup.
+   * @param error
+   * @returns {Observable<never>}
+   * @private
+   */
   private handleError(error: any) {
     let errorMessage = HELPERS.errors.default;
 

@@ -1,8 +1,9 @@
+<!-- Loading Component -->
 <app-loader *ngIf="pageProps.loading && !products"></app-loader>
 
 <div *ngIf="products" class="mb-5">
   <div class="filters d-flex flex-row justify-content-between">
-
+    <!-- Filter Actions-->
     <div class="buttons d-flex flex-row gap-3">
       <button aria-controls="offcanvasFilters" class="btn"
               data-bs-target="#offcanvasFilters"
@@ -19,6 +20,7 @@
             </span></button>
     </div>
 
+    <!-- Create new Product Collapse trigger-->
     <div class="createProduct">
       <button aria-controls="createProduct" aria-expanded="false"
               class="btn btn-outline-primary"
@@ -27,6 +29,7 @@
       </button>
     </div>
 
+    <!--  Filters -->
     <div aria-labelledby="offcanvasFilters" class="offcanvas offcanvas-start"
          id="offcanvasFilters"
          tabindex="-1">
@@ -118,6 +121,7 @@
 
   </div>
 
+  <!--  Create new product form -->
   <div class="form-container collapse mt-3" id="createProduct">
     <app-products-edit-form
       (somethingChanged)="update()"></app-products-edit-form>
@@ -125,6 +129,7 @@
 
   <hr>
 
+  <!-- Product List -->
   <ul *ngFor="let product of products; let i = index"
       class="list-group shadow">
     <button

@@ -14,7 +14,7 @@ export class AdminHeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSignOut() {
+  onLogout() {
     this._auth.logout();
   }
 }

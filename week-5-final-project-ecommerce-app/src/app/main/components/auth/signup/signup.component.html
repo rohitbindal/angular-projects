@@ -26,7 +26,7 @@
       <label for="email">Email</label>
       <div *ngIf="email?.invalid && (email?.touched || email?.dirty)"
            class="invalid-tooltip">
-        {{helpers.validators.text.email}}
+        {{pageUtils.helpers.validators.text.email}}
       </div>
     </div>
 
@@ -41,7 +41,7 @@
       <label for="password">Password</label>
       <div *ngIf="password?.invalid && (password?.touched || password?.dirty)"
            class="invalid-tooltip">
-        {{helpers.validators.text.password}}
+        {{pageUtils.helpers.validators.text.password}}
       </div>
     </div>
 
@@ -57,7 +57,7 @@
       <div
         *ngIf="(confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)) || !matchPassword"
         class="invalid-tooltip">
-        {{helpers.validators.text.confirmPassword}}
+        {{pageUtils.helpers.validators.text.confirmPassword}}
       </div>
     </div>
 
@@ -73,7 +73,7 @@
               class="spinner-border spinner-border-sm"></span>
       </button>
       <!-- Login Button: Navigate to Login Page -->
-      <button [routerLink]="helpers.routing.login"
+      <button [routerLink]="pageUtils.helpers.routing.login"
               class="btn btn-lg btn-light" type="button">Log In
       </button>
     </div>

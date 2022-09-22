@@ -11,6 +11,10 @@ export class ToastService {
     this.toastEvents$ = this.toastEvents.asObservable();
   }
 
+  /**
+   * Method to show a Success Toast
+   * @param {string} message Toast message
+   */
   showSuccessToast(message: string) {
     this.toastEvents.next({
       message,
@@ -18,6 +22,10 @@ export class ToastService {
     });
   }
 
+  /**
+   * Method to show an Error Toast
+   * @param {string} message Toast message
+   */
   showErrorToast(message: string) {
     this.toastEvents.next({
       message,
@@ -25,6 +33,10 @@ export class ToastService {
     });
   }
 
+  /**
+   * Method to show an Info Toast
+   * @param {string} message Toast message
+   */
   showInfoToast(message: string) {
     this.toastEvents.next({
       message,

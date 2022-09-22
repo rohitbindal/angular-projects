@@ -5,8 +5,8 @@
   <div *ngIf="products" class="products">
     <div class="row d-flex justify-content-between">
 
+      <!-- FILTERS -->
       <div class="filters col-xs-4 col-sm-4 col-md-4 col-lg-3 mb-3 gap-5">
-        <!--  Filter Text -->
         <p class="lead">
         <span>
           <i class="bi bi-funnel"></i>
@@ -16,7 +16,8 @@
 
         <div class="container container-fluid small row gap-3">
 
-          <div class="filters.sort">
+          <!--  SORT By -->
+          <div class="sort-by">
             <a aria-controls="sortCollapse" aria-expanded="true"
                class="btn w-100 filter-button"
                data-bs-toggle="collapse"
@@ -315,6 +316,7 @@
             </div>
           </div>
 
+          <!-- Clear Filters Button -->
           <button (click)="clearFilters()"
                   *ngIf="filters.active"
                   class="btn clear-filters-button w-100">
@@ -325,8 +327,12 @@
 
         </div>
       </div>
+
+      <!--  PRODUCT LIST -->
       <div class="col-xs-8 col-sm-8 col-md-8 col-lg-9 mb-5">
+
         <app-loader *ngIf="loading"></app-loader>
+
         <div *ngIf="!loading"
              class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
           <div *ngFor="let product of products; let i = index"
@@ -336,6 +342,7 @@
               [routerLink]="[helpers.routing.detailsRouteAbsolute, product.id]"></app-product-item>
           </div>
         </div>
+
       </div>
     </div>
   </div>

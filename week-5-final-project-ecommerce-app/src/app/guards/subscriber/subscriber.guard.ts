@@ -15,6 +15,9 @@ import { ToastService } from '../../shared/services/toast.service';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Guard used to authorize access to checkout and wishlist page.
+ */
 export class SubscriberGuard implements CanActivate {
   constructor(
     private _auth: FirebaseAuthService,
@@ -33,12 +36,16 @@ export class SubscriberGuard implements CanActivate {
     return this._auth.user.pipe(
       take(1),
       map((user) => {
+        // Get the current route
         const currentRoute = route.url[0].path;
+        // If the user is signed-in
         if (user) {
           const isAuthenticated = !!user;
+          // If the user exists, is not disabled and is a subscriber, continue navigation
           if (isAuthenticated && !user.disabled && user.roles.subscriber) {
             return true;
           }
+          // If user is disabled, do nothing and show an error toast
           if (user.disabled) {
             this._toast.showErrorToast(
               HELPERS.errors.ACCOUNT_DISABLED_BY_ADMIN
@@ -46,6 +53,7 @@ export class SubscriberGuard implements CanActivate {
             return false;
           }
         }
+        // If user is not signed in, show error toast, navigate to login.
         this._toast.showErrorToast(
           HELPERS.errors.ACCOUNT_NEEDED_VIEW_TEXT + currentRoute + '.'
         );
