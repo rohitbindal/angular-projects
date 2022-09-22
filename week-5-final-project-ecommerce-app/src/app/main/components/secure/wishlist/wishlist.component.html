@@ -2,9 +2,11 @@
   My Wishlist
   <hr>
 </div>
+<!-- Loading Component -->
 <div *ngIf="pageProps.loading" class="loader">
   <app-loader></app-loader>
 </div>
+
 <div *ngIf="wishlistProducts && !pageProps.loading"
      class="container container-fluid">
   <div *ngIf="wishlistProducts.length" class="product-list-container">
@@ -22,6 +24,8 @@
       </div>
     </div>
   </div>
+
+  <!--  Empty wishlist text -->
   <div *ngIf="!wishlistProducts.length" class="lead">
     <a class="btn" routerLink="/" type="button">
       Add products to your wishlist

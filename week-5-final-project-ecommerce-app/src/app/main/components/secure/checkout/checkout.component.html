@@ -4,20 +4,25 @@
     <hr>
   </div>
 </div>
+<!-- Loading Component -->
 <div *ngIf="pageProps.loading" class="loader">
   <app-loader></app-loader>
 </div>
 
 <div *ngIf="checkoutProducts && !pageProps.loading"
      class="container container-fluid mb-5">
+
+  <!--  Products list-->
   <div *ngIf="checkoutProducts.length">
     <div *ngFor="let product of checkoutProducts; let i = index"
          class="checkout-item-container">
       <app-checkout-item (delete)="onDeleteClicked(i, product.id)"
-                         (updated)="onQtyUpdate()" [index]="i"
+                         (updated)="onQtyUpdate()"
                          [product]="product"></app-checkout-item>
     </div>
     <hr>
+
+    <!-- Checkout Details -->
     <div
       class="checkout-details d-flex justify-content-lg-end justify-content-md-end">
       <div class="col-12 col-md-4 col-lg-4 lead">
@@ -64,14 +69,14 @@
       </div>
     </div>
   </div>
+
+  <!-- Empty cart text -->
   <div *ngIf="!checkoutProducts.length"
        class="container container-fluid lead">
     <a class="btn" routerLink="/" type="button">
       Add products to your Cart
       <i class="bi bi-arrow-right"></i>
     </a>
-    <!--    Your Cart is empty. Look through our catalogue of products with amazing-->
-    <!--    deals to find something you like.-->
   </div>
 
 </div>

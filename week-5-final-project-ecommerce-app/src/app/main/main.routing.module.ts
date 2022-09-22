@@ -14,6 +14,7 @@ import { WishlistComponent } from './components/secure/wishlist/wishlist.compone
 import { MainComponent } from './main.component';
 
 const mainAppRoutes: Routes = [
+  // Redirect /shop -> /shop/products
   {
     path: APP_ROUTES.relative.main.main,
     redirectTo: APP_ROUTES.absolute.main.home,

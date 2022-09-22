@@ -3,7 +3,9 @@
     (ngSubmit)="onSubmit()"
     [formGroup]="loginForm"
     class="form-login w-100 m-auto p-1 d-flex flex-column justify-content-center">
+
     <p class="display-6 mb-4">Log In</p>
+
     <!-- Email -->
     <div class="form-floating mb-2">
       <input
@@ -14,9 +16,10 @@
         type="email">
       <label for="email">Email</label>
 
+      <!-- Error tooltip -->
       <div *ngIf="email?.invalid && (email?.touched || email?.dirty)"
            class="invalid-tooltip">
-        {{helpers.validators.text.email}}
+        {{pageUtils.helpers.validators.text.email}}
       </div>
     </div>
     <!-- Password -->
@@ -27,13 +30,17 @@
         placeholder="password"
         type="password">
       <label for="password">Password</label>
+
+      <!-- Error tooltip -->
       <div *ngIf="password?.invalid && (password?.touched || password?.dirty)"
            class="invalid-tooltip">
-        {{helpers.validators.text.password}}
+        {{pageUtils.helpers.validators.text.password}}
       </div>
     </div>
+
     <!-- Actions -->
     <div class="btn-group mt-3">
+
       <!--  Login Button -->
       <button
         [disabled]="loginForm.invalid && pageUtils.loading"
@@ -43,11 +50,13 @@
         <span *ngIf="pageUtils.loading"
               class="spinner-border spinner-border-sm"></span>
       </button>
+
       <!-- Sign Up Button: Navigate to Sign Up Page-->
-      <button [routerLink]="helpers.routing.signUp"
+      <button [routerLink]="pageUtils.helpers.routing.signUp"
               class="btn btn-lg btn-light" type="button">Sign
         Up
       </button>
     </div>
+
   </form>
 </div>

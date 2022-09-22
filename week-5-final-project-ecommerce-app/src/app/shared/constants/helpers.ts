@@ -59,6 +59,7 @@ export const HELPERS = {
     UNAUTHORIZED: 'You are not authorized to access this content.',
     ACCOUNT_DISABLED_BY_ADMIN:
       'You account has been disabled by admin. You cannot access Cart or Wishlist',
+    NO_ORDERS_FOUND: 'No Orders found!',
     auth: {
       NOT_FOUND: {
         code: 'auth/user-not-found',

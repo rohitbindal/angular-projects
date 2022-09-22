@@ -10,13 +10,14 @@ import { FirebaseDataService } from '../../../../shared/services/firebase/data.f
   styleUrls: ['./wishlist.component.css'],
 })
 export class WishlistComponent implements OnInit, OnDestroy {
+  /* Property to store array of products in user wishlist */
   wishlistProducts: Product[] | null;
   productList$: Subscription | null;
   helpers = HELPERS;
+
+  /* Object to hold the loading state */
   pageProps = {
     loading: false,
-    error: '',
-    username: '',
   };
 
   constructor(private _data: FirebaseDataService) {
@@ -28,8 +29,15 @@ export class WishlistComponent implements OnInit, OnDestroy {
     this.updateUI();
   }
 
+  /**
+   * Method to delete an item from wishlist.
+   * @param {string} id Product id
+   * @param {number} index Index of the product in wishlistProducts array
+   */
   onDeleteClicked(id: string, index: number) {
+    // Ask for confirmation
     const conf = confirm('Are you sure ?');
+    // If delete action is confirmed
     if (conf) {
       this._data.removeProductFromWishlist(id);
       this.wishlistProducts!.splice(index, 1);
@@ -41,7 +49,12 @@ export class WishlistComponent implements OnInit, OnDestroy {
     this.productList$?.unsubscribe();
   }
 
+  /**
+   * Method to update UI -> Fetch wishlist products, update loading state and calculate total
+   * @private
+   */
   private updateUI() {
+    // Start loading
     this.pageProps.loading = true;
     setTimeout(() => {
       this.productList$ = this._data.getWishlist().subscribe((data) => {

@@ -3,6 +3,7 @@
 <div *ngIf="allProducts && !loading"
      class="container-fluid col-10 offset-1 mb-5">
 
+  <!--  Banners -->
   <div class="banner-carousel-container mb-5">
     <div class="carousel slide" data-bs-ride="true"
          id="image-carousel">
@@ -38,6 +39,7 @@
     </div>
   </div>
 
+  <!--  Categories container -->
   <div class="category-container mb-4">
     <div class="row d-flex flex-row justify-content-center">
 
@@ -59,6 +61,8 @@
     </div>
   </div>
   <hr>
+
+  <!--  Recommended Products slider -->
   <div class="lead">Recommended Products</div>
   <app-products-slider
     [relatedProducts]="recommendedProducts"
