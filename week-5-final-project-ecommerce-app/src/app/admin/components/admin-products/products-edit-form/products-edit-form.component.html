@@ -83,7 +83,7 @@
       <div class="btn-group w-100">
         <button
           [disabled]="editProductForm.invalid || (loading.update || loading.del)"
-          class="btn btn-primary"
+          class="btn btn-success"
           title="Update Product" type="submit">
           <span
             *ngIf="!loading.update">{{productData ? 'Update' : 'Add'}}</span>

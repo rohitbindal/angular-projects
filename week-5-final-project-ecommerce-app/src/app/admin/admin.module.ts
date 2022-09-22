@@ -7,6 +7,7 @@ import { AdminProductsComponent } from './components/admin-products/admin-produc
 import { ProductsEditFormComponent } from './components/admin-products/products-edit-form/products-edit-form.component';
 import { AdminComponent } from './components/admin.component';
 import { UsersComponent } from './components/users/users.component';
+import { OrdersModalComponent } from './components/users/orders-modal/orders-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { UsersComponent } from './components/users/users.component';
     UsersComponent,
     AdminHeaderComponent,
     ProductsEditFormComponent,
+    OrdersModalComponent,
   ],
   imports: [SharedModule, AdminRoutingModule, ReactiveFormsModule],
   exports: [AdminProductsComponent],

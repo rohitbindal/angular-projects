@@ -17,6 +17,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   products: Product[] | null;
   /* Property to hold the subscription */
   products$: Subscription | null;
+
+  /* Object to hold the loading state for update and delete operations and helpers object */
   pageProps = {
     loading: false,
     helpers: HELPERS,

@@ -126,7 +126,7 @@
   <hr>
 
   <ul *ngFor="let product of products; let i = index"
-      class="list-group">
+      class="list-group shadow">
     <button
       [attr.aria-controls]="'p'+product.id"
       [attr.data-bs-target]="'#p'+product.id"

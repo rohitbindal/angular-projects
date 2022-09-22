@@ -1,8 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Modal } from 'bootstrap';
 import { Subscription } from 'rxjs';
-import { User } from '../../../shared/constants/models/authorization.model';
 import { HELPERS } from '../../../shared/constants/helpers';
+import { User } from '../../../shared/constants/models/authorization.model';
+import { Order } from '../../../shared/constants/models/product.model';
 import { FirebaseAuthService } from '../../../shared/services/firebase/auth.firebase.service';
 import { FirebaseDataService } from '../../../shared/services/firebase/data.firebase.service';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -13,13 +21,21 @@ import { ToastService } from '../../../shared/services/toast.service';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  @ViewChild('ordersModal', { static: true })
+  ordersModalRef!: ElementRef;
+
+  ordersModal!: Modal;
+
   users: User[] | null;
   users$: Subscription | null;
+  orders: Order[] | null;
+  orders$: Subscription | null;
   currentUser!: User;
 
   pageProps = {
     loading: false,
     helpers: HELPERS,
+    ordersLoading: false,
   };
 
   filtersForm: FormGroup;
@@ -36,6 +52,8 @@ export class UsersComponent implements OnInit, OnDestroy {
       name: new FormControl(0),
       status: new FormControl(null),
     });
+    this.orders = [];
+    this.orders$ = null;
   }
 
   get name() {
@@ -80,6 +98,20 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.users$?.unsubscribe();
+  }
+
+  getUserOrders(uid: string) {
+    this.pageProps.ordersLoading = true;
+    this.orders$ = this._data.getOrders(uid).subscribe((orders: Order[]) => {
+      this.pageProps.ordersLoading = false;
+      this.orders = orders;
+      if (!this.orders.length) {
+        this._toast.showErrorToast(HELPERS.errors.NO_ORDERS_FOUND);
+        return;
+      }
+      this.ordersModal = new Modal(this.ordersModalRef.nativeElement);
+      this.ordersModal.show();
+    });
   }
 
   private updateUI() {

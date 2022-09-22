@@ -88,31 +88,49 @@
   </div>
   <hr>
 
-  <div *ngFor="let user of users; let i = index" class="card mb-3">
+  <div *ngFor="let user of users; let i = index" class="card mb-3 shadow">
     <div
-      class="card-header d-flex flex-row justify-content-between align-items-center">
+      class="card-header d-flex flex-row justify-content-between align-items-center ">
 
       <span>{{user.roles.admin ? 'Admin' : 'Customer'}}</span>
-      <button (click)="onDisableClicked(user,i)"
-              *ngIf="!user.disabled"
-              [disabled]="user.uid == currentUser.uid"
-              class="btn btn-danger"
-              title="Deactivate Account">
-        <span><i class="bi bi-slash-circle"></i></span>
-      </button>
-      <button (click)="onEnableClicked(user,i)"
-              *ngIf="user.disabled"
-              [disabled]="user.uid == currentUser.uid"
-              class="btn btn-success"
-              title="Activate Account">
-        <span><i class="bi bi-slash-circle"></i></span>
-      </button>
+      <div class="btn-group">
+        <button (click)="getUserOrders(user.uid)"
+                *ngIf="user.uid !== currentUser.uid"
+                [disabled]="pageProps.ordersLoading"
+                class="btn btn-secondary"
+        >
+          Get Orders
+        </button>
 
+        <button (click)="onDisableClicked(user,i)"
+                *ngIf="!user.disabled"
+                [disabled]="user.uid == currentUser.uid"
+                class="btn btn-danger"
+                title="Deactivate Account">
+          <span><i class="bi bi-slash-circle"></i></span>
+        </button>
+        <button (click)="onEnableClicked(user,i)"
+                *ngIf="user.disabled"
+                [disabled]="user.uid == currentUser.uid"
+                class="btn btn-success"
+                title="Activate Account">
+          <span><i class="bi bi-slash-circle"></i></span>
+        </button>
+
+      </div>
     </div>
     <div class="card-body d-flex flex-column">
       <span>Username: {{user.username}}</span>
       <span>E-mail: {{user.email}}</span>
     </div>
+    <div class="card-footer"></div>
   </div>
 
+</div>
+
+<!-- Orders Modal -->
+<div #ordersModal aria-hidden="true"
+     aria-labelledby="ordersModal"
+     class="modal fade">
+  <app-orders-modal *ngIf="orders" [orders]="orders"></app-orders-modal>
 </div>

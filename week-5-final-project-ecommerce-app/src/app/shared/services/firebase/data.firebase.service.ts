@@ -268,6 +268,20 @@ export class FirebaseDataService {
       .catch((e) => console.log(e.message));
   }
 
+  getOrders(uid: string) {
+    return defer(() =>
+      from(this.ordersCollection.ref.where('uid', '==', uid).get())
+    ).pipe(
+      map((qS) => {
+        const orders: Order[] = [];
+        if (qS.docs) {
+          qS.docs.forEach((doc) => orders.push(doc.data()));
+        }
+        return orders;
+      })
+    );
+  }
+
   updateProduct(product: Product) {
     return defer(() =>
       from(

@@ -1,5 +1,5 @@
 <div
-  class="top-nav-container sticky-top bg-light p-3 mb-3">
+  class="top-nav-container sticky-top bg-light p-3 mb-3 shadow-sm">
   <!--  Show top nav on large screens -->
   <div
     class="nav justify-content-center justify-content-lg-start justify-content-md-start">
@@ -7,20 +7,20 @@
       <li class="nav-item">
         <a [routerLinkActiveOptions]="{exact: true}"
            [routerLink]="helper.routing.admin.products"
-           class="nav-link"
-           routerLinkActive="active">{{helper.text.products}}</a>
+           class="nav-link text-secondary"
+           routerLinkActive="text-light text-bg-secondary">{{helper.text.products}}</a>
       </li>
       <li class="vr h-50 align-self-center"></li>
       <li class="nav-item">
-        <a [routerLink]="helper.routing.admin.users" class="nav-link"
-           routerLinkActive="active">{{helper.text.users}}</a>
+        <a [routerLink]="helper.routing.admin.users"
+           class="nav-link text-secondary"
+           routerLinkActive="text-bg-secondary text-light">{{helper.text.users}}</a>
       </li>
       <li class="vr h-50 align-self-center"></li>
       <li class="nav-item">
-        <a (click)="onSignOut()" class="nav-link"
+        <a (click)="onSignOut()" class="nav-link text-secondary"
            role="button">{{helper.text.logout}}</a>
       </li>
     </ul>
   </div>
-  <hr>
 </div>
