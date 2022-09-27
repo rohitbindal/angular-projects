@@ -37,14 +37,40 @@
   </div>
 
   <!--  Image Url input -->
-  <div class="form-floating">
+  <div class="input-group">
     <input
       class="form-control"
       formControlName="image"
       id="image"
+      placeholder="Image Url"
       type="text"
     >
-    <label for="image">Image</label>
+    <button (click)="onAddImage()" class="btn btn-success" type="button">
+      <span><i class="bi bi-plus"></i></span>
+    </button>
+  </div>
+
+
+  <!--  Image Url input -->
+  <div formArrayName="relatedImages">
+    <div *ngFor="let relatedImage of relatedImages; let i = index;"
+         [formGroupName]="i"
+         class="input-group mb-3">
+
+      <input
+        [id]="i"
+        class="form-control"
+        formControlName="url"
+        placeholder="Image Url"
+        type="text"
+      >
+      <button (click)="onDeleteImage(i)" class="btn btn-danger">
+        <span><i class="bi bi-dash"></i></span>
+      </button>
+      <button (click)="onAddImage()" class="btn btn-success" type="button">
+        <span><i class="bi bi-plus"></i></span>
+      </button>
+    </div>
   </div>
 
   <!--  Category Selector -->

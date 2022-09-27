@@ -10,7 +10,39 @@
       <!-- Details Header - Image Carousel Container  -->
       <div class="col-12 col-md-4 col-lg-4 d-flex align-items-center"
       >
-        <img [src]="product.image" alt="" class="img-fluid"/>
+        <div class="carousel slide" data-bs-ride="carousel"
+             id="productImageCarousel">
+          <div class="carousel-inner">
+
+            <!--  First image is active -->
+            <div class="carousel-item active" data-bs-interval="5000">
+              <img [alt]="product.title" [src]="product.image[0]"
+                   class="d-block w-100 img-fluid">
+            </div>
+
+            <!-- Rest of the images -->
+            <div *ngFor="let image of carouselImages"
+                 class="carousel-item img-fluid"
+                 data-bs-interval="2000">
+              <img [alt]="product.title" [src]="image" class="d-block w-100">
+            </div>
+          </div>
+
+          <!--  Carousel Actions -->
+          <button class="carousel-control-prev" data-bs-slide="prev"
+                  data-bs-target="#productImageCarousel" type="button">
+            <span aria-hidden="true"
+                  class="carousel-control-prev-icon text-bg-dark"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" data-bs-slide="next"
+                  data-bs-target="#productImageCarousel" type="button">
+            <span aria-hidden="true"
+                  class="carousel-control-next-icon text-bg-dark"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+
+        </div>
       </div>
 
       <!--  Details Header - Description Container  -->

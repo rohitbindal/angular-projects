@@ -290,7 +290,7 @@ export class FirebaseDataService {
    * @returns {Observable<Product[]>}
    */
   getCart() {
-    // Get the curren user
+    // Get the current user
     return this._fireAuth.user.pipe(
       take(1),
       switchMap((user) => {
@@ -378,6 +378,21 @@ export class FirebaseDataService {
       )
     );
   }
+
+  /**
+   * Helper method to store all the local products to firestore
+   * NOT TO BE USED IN PRODUCTION
+   */
+  // addProducts() {
+  //   // Convert a promise to an Observable
+  //   for (let product of PRODUCTS)
+  //     this.productsCollection
+  //       .doc(product.id)
+  //       .set({ ...product }, { merge: true })
+  //       .then(() => {
+  //         console.log('Products Added');
+  //       });
+  // }
 
   /**
    * Method to delete a product with the given id from Products collection.

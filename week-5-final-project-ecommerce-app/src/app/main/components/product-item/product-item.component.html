@@ -1,6 +1,6 @@
 <div [ngClass]="{'card h-100 p-3': true, 'opacity-50': !product.stock}">
   <div class="image-container d-flex justify-content-center h-100">
-    <img [src]="product.image" alt=""
+    <img [src]="product.image[0]" alt=""
          class="card-img-top product-image align-self-center"
     >
   </div>

@@ -17,6 +17,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 export class ProductsDetailComponent implements OnInit, OnDestroy {
   /* Property to hold product data */
   product: Product | null;
+  carouselImages: string[] | null;
 
   /* Property to hold current user */
   currentUser: User | null;
@@ -50,6 +51,7 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
     private _toast: ToastService
   ) {
     this.product = null;
+    this.carouselImages = null;
     this.productDetail$ = null;
     this.currentUser = null;
     this.currentUser$ = null;
@@ -205,6 +207,11 @@ export class ProductsDetailComponent implements OnInit, OnDestroy {
         .getProductById(id)
         .subscribe((response) => {
           this.product = response;
+          // Store all but the first image, first image will be used the active item for the carousel
+          this.carouselImages = this.product.image.slice(
+            1,
+            this.product.image.length
+          );
 
           if (!this.product) {
             this._router.navigate([APP_ROUTES.absolute.pageNotFound]).then();
