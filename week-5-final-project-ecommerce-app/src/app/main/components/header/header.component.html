@@ -41,10 +41,14 @@
               <li>
                 <a
                   [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.menClothing]"
-                  class="dropdown-item">{{helpers.text.menClothing}}</a>
+                  class="dropdown-item"
+                  data-bs-target=".navbar-collapse.show"
+                  data-bs-toggle="collapse">{{helpers.text.menClothing}}</a>
                 <a
                   [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.womenClothing]"
-                  class="dropdown-item">{{helpers.text.womenClothing}}</a>
+                  class="dropdown-item"
+                  data-bs-target=".navbar-collapse.show"
+                  data-bs-toggle="collapse">{{helpers.text.womenClothing}}</a>
               </li>
             </ul>
           </li>

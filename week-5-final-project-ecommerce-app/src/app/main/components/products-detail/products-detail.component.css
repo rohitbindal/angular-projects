@@ -12,3 +12,16 @@
 .details-container {
   font-size: medium
 }
+
+.carousel-image {
+  width: 48px !important;
+  height: 48px;
+}
+
+.carousel-indicators {
+  border-radius: 5px;
+  position: relative;
+  margin: 0;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
