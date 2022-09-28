@@ -22,16 +22,21 @@
           <!-- Delete the item from list -->
           <div class="btn-group">
             <button (click)="onDecrement()" [disabled]="product.count === 1"
-                    class="btn btn-outline-danger">-
+                    class="btn btn-outline-danger"
+                    title="Decrease quantity by 1">
+              <span><i class="bi bi-dash"></i></span>
             </button>
             <button class="btn" disabled>{{product.count}}</button>
             <button (click)="onIncrement()"
-                    class="btn btn-outline-success">+
+                    [disabled]="product.count === 5"
+                    class="btn btn-outline-success"
+                    title="Increase quantity by 1">
+              <span><i class="bi bi-plus"></i></span>
             </button>
           </div>
           <button (click)="onDelete()"
-
-                  class="delete-btn btn btn-danger"><span><i
+                  class="delete-btn btn btn-danger"
+                  title="Delete Product from cart."><span><i
             class="bi bi-trash"></i></span>
           </button>
         </div>

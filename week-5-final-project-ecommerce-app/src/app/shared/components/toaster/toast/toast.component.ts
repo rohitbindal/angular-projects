@@ -44,10 +44,11 @@ export class ToastComponent implements OnInit {
       // If type == error, don't hide, else hide after 5000ms
       this.type === EventTypes.ERROR
         ? {
-            autohide: false,
+            // autohide: false,
+            delay: 8000,
           }
         : {
-            delay: 5000,
+            delay: 3000,
           }
     );
 
