@@ -1,5 +1,5 @@
 <div class="mb-5 sticky-top">
-  <nav class="navbar navbar-expand-lg bg-light mb-2">
+  <nav class="navbar shadow-sm navbar-expand-lg bg-light mb-2">
     <div class="container-fluid">
       <a class="navbar-brand" data-bs-target=".navbar-collapse.show"
          data-bs-toggle="collapse"
@@ -85,7 +85,7 @@
                data-bs-target=".navbar-collapse.show"
                data-bs-toggle="collapse"
                role="button">
-              <i class="bi bi-power"></i>
+              {{helpers.text.login}}
             </a>
             <a (click)="onLogOut()" *ngIf="authenticated"
                [title]="helpers.text.logout"
@@ -94,7 +94,7 @@
                data-bs-target=".navbar-collapse.show"
                data-bs-toggle="collapse"
                role="button">
-              <i class="bi bi-power"></i>
+              {{helpers.text.logout}}
             </a>
           </li>
         </ul>
