@@ -109,7 +109,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.checkoutSubscription$ = this._data.getCart().subscribe((data) => {
         this.checkoutProducts = data;
         // Calculate the total
-        this.total = this.getTotal(this.checkoutProducts);
+        this.total = +Math.ceil(
+          this.getTotal(this.checkoutProducts)
+        ).toPrecision(2);
         // Stop loading
         this.pageProps.loading = false;
       });

@@ -14,8 +14,6 @@
 }
 
 .carousel-image {
-  height: 400px;
-  width: 100%;
   object-fit: contain;
 }
 
@@ -30,4 +28,5 @@
   margin: 0;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
 }

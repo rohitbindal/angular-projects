@@ -6,13 +6,13 @@
      class="container-fluid col-10 offset-1 mb-5">
   <div class="details-header">
     <div
-      class="row d-flex flex-md-row flex-lg-row flex-column gap-4 justify-content-between">
+      class="row d-flex flex-md-row flex-lg-row flex-column gap-4 ">
 
       <!-- Details Header - Image Carousel Container  -->
       <div
         class="col-12 col-md-4 col-lg-4 d-flex justify-content-center flex-column"
       >
-        <div class="carousel slide" data-bs-ride="carousel"
+        <div class="carousel slide carousel-fade" data-bs-ride="carousel"
              id="productImageCarousel">
           <div class="carousel-inner">
 
@@ -29,16 +29,7 @@
               <img [alt]="product.title" [src]="image"
                    class="d-block w-100 carousel-image">
             </div>
-            <div class="carousel-indicators">
-              <img
-                *ngFor="let image of product.image; let i = index"
-                [alt]="product.title"
-                [attr.aria-label]=" 'Image '+ i+1"
-                [attr.data-bs-slide-to]="i"
-                [src]="image"
-                class="carousel-image-indicator d-block w-100 active"
-                data-bs-target="#productImageCarousel">
-            </div>
+
           </div>
 
           <!--  Carousel Actions -->
@@ -54,12 +45,23 @@
                   class="carousel-control-next-icon text-bg-dark"></span>
             <span class="visually-hidden">Next</span>
           </button>
-
+          <div class="carousel-indicators">
+            <img
+              *ngFor="let image of product.image; let i = index"
+              [alt]="product.title"
+              [attr.aria-label]=" 'Image '+ i+1"
+              [attr.data-bs-slide-to]="i"
+              [src]="image"
+              class="carousel-image-indicator d-block w-100 active"
+              data-bs-target="#productImageCarousel">
+          </div>
         </div>
+
       </div>
 
       <!--  Details Header - Description Container  -->
-      <div class="col-12 col-md-7 col-lg-7"
+      <div
+        class="col-12 col-md-7 col-lg-7 d-flex flex-column justify-content-center"
       >
         <!--   Product Name     -->
         <h3 class="display-6" title="Title">{{product.title}}</h3>
