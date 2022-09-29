@@ -20,8 +20,8 @@
 }
 
 .carousel-image-indicator {
-  width: 48px !important;
-  height: 48px;
+  width: 2rem !important;
+  height: 2rem;
   object-fit: contain;
 }
 
