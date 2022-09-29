@@ -173,7 +173,10 @@ export class ProductsEditFormComponent implements OnInit {
         FormGroup<{ url: FormControl }>
       >([]);
       if (this.productData.image.length > 1) {
-        for (let image of this.productData.image.splice(0, 1)) {
+        for (let image of this.productData.image.slice(
+          1,
+          this.productData.image.length
+        )) {
           relatedImages.push(
             new FormGroup({
               url: new FormControl(image, Validators.required),

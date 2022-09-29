@@ -19,14 +19,25 @@
             <!--  First image is active -->
             <div class="carousel-item active" data-bs-interval="5000">
               <img [alt]="product.title" [src]="product.image[0]"
-                   class="d-block w-100 img-fluid">
+                   class="d-block w-100 carousel-image">
             </div>
 
             <!-- Rest of the images -->
             <div *ngFor="let image of carouselImages"
-                 class="carousel-item img-fluid"
+                 class="carousel-item"
                  data-bs-interval="2000">
-              <img [alt]="product.title" [src]="image" class="d-block w-100">
+              <img [alt]="product.title" [src]="image"
+                   class="d-block w-100 carousel-image">
+            </div>
+            <div class="carousel-indicators">
+              <img
+                *ngFor="let image of product.image; let i = index"
+                [alt]="product.title"
+                [attr.aria-label]=" 'Image '+ i+1"
+                [attr.data-bs-slide-to]="i"
+                [src]="image"
+                class="carousel-image-indicator d-block w-100 active"
+                data-bs-target="#productImageCarousel">
             </div>
           </div>
 
@@ -44,16 +55,6 @@
             <span class="visually-hidden">Next</span>
           </button>
 
-        </div>
-        <hr>
-        <div class="carousel-indicators">
-          <img
-            *ngFor="let image of product.image; let i = index"
-            [alt]="product.title"
-            [attr.aria-label]=" 'Image '+ i+1"
-            [attr.data-bs-slide-to]="i"
-            [src]="image" class="carousel-image d-block w-100 active"
-            data-bs-target="#productImageCarousel">
         </div>
       </div>
 

@@ -1,6 +1,10 @@
+.image-container {
+}
+
 .product-image {
   max-height: 120px;
   max-width: 120px;
+  object-fit: contain;
 }
 
 .card {

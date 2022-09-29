@@ -14,13 +14,19 @@
 }
 
 .carousel-image {
+  height: 400px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.carousel-image-indicator {
   width: 48px !important;
   height: 48px;
+  object-fit: contain;
 }
 
 .carousel-indicators {
   border-radius: 5px;
-  position: relative;
   margin: 0;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);

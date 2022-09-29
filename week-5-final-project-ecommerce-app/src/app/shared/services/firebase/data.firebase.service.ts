@@ -386,13 +386,15 @@ export class FirebaseDataService {
    */
   // addProducts() {
   //   // Convert a promise to an Observable
-  //   for (let product of PRODUCTS)
+  //   for (let product of PRODUCTS) {
+  //     const productId = this._firestore.createId();
   //     this.productsCollection
-  //       .doc(product.id)
-  //       .set({ ...product }, { merge: true })
+  //       .doc(productId)
+  //       .set({ ...product, id: productId, disabled: false }, { merge: true })
   //       .then(() => {
   //         console.log('Products Added');
   //       });
+  //   }
   // }
 
   /**
