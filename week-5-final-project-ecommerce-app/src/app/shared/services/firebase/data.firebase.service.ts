@@ -167,8 +167,9 @@ export class FirebaseDataService {
     this._fireAuth.user.pipe(take(1)).subscribe((user) => {
       if (user) {
         this.getProductQty(id, user.uid).subscribe((res) => {
-          // If the product is already in cart and the quantity is greater than 5, show error toast and return
-          if (!this.quantityLessThenFive(res!)) {
+          // If the product is already in cart and the quantity is greater than 5 and is incrementing,
+          // show error toast and return.
+          if (!this.quantityLessThenFive(res!) && count === 1) {
             this._toast.showErrorToast(HELPERS.toast.message.MAX_PRODUCT_LIMIT);
             return;
           }
@@ -290,7 +291,7 @@ export class FirebaseDataService {
    * @returns {Observable<Product[]>}
    */
   getCart() {
-    // Get the curren user
+    // Get the current user
     return this._fireAuth.user.pipe(
       take(1),
       switchMap((user) => {
@@ -378,6 +379,23 @@ export class FirebaseDataService {
       )
     );
   }
+
+  /**
+   * Helper method to store all the local products to firestore
+   * NOT TO BE USED IN PRODUCTION
+   */
+  // addProducts() {
+  //   // Convert a promise to an Observable
+  //   for (let product of PRODUCTS) {
+  //     const productId = this._firestore.createId();
+  //     this.productsCollection
+  //       .doc(productId)
+  //       .set({ ...product, id: productId, disabled: false }, { merge: true })
+  //       .then(() => {
+  //         console.log('Products Added');
+  //       });
+  //   }
+  // }
 
   /**
    * Method to delete a product with the given id from Products collection.

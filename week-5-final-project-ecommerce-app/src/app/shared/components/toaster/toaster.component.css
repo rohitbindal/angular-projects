@@ -1,3 +1,17 @@
 .toaster {
   z-index: 2000;
+  top: 0 !important;
+  right: 0 !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .toaster {
+    top: 0 !important;
+    transform: translateX(-50%) !important;
+    left: 50% !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

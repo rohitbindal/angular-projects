@@ -43,18 +43,21 @@
 
       <!--  Login Button -->
       <button
-        [disabled]="loginForm.invalid && pageUtils.loading"
+        [disabled]="loginForm.invalid || pageUtils.loading"
+        [title]="pageUtils.helpers.text.login"
         class="btn btn-lg btn-primary w-50"
         type="submit">
-        <span *ngIf="!pageUtils.loading">Login</span>
+        <span *ngIf="!pageUtils.loading">{{pageUtils.helpers.text.login}}</span>
         <span *ngIf="pageUtils.loading"
               class="spinner-border spinner-border-sm"></span>
       </button>
 
       <!-- Sign Up Button: Navigate to Sign Up Page-->
-      <button [routerLink]="pageUtils.helpers.routing.signUp"
-              class="btn btn-lg btn-light" type="button">Sign
-        Up
+      <button [disabled]="pageUtils.loading"
+              [routerLink]="pageUtils.helpers.routing.signUp"
+              [title]="pageUtils.helpers.text.signUp"
+              class="btn btn-lg btn-light" type="button">
+        {{pageUtils.helpers.text.signUp}}
       </button>
     </div>
 

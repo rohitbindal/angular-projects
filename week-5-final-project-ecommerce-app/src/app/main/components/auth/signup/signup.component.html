@@ -65,16 +65,21 @@
     <div class="btn-group mt-3">
       <!-- Sign Up Button   -->
       <button
-        [disabled]="(signUpForm.invalid || !matchPassword) && pageUtils.loading"
+        [disabled]="(signUpForm.invalid || !matchPassword) || pageUtils.loading"
+        [title]="pageUtils.helpers.text.signUp"
         class="btn btn-lg btn-primary w-50"
         type="submit">
-        <span *ngIf="!pageUtils.loading">Sign Up</span>
+        <span
+          *ngIf="!pageUtils.loading">{{pageUtils.helpers.text.signUp}}</span>
         <span *ngIf="pageUtils.loading"
               class="spinner-border spinner-border-sm"></span>
       </button>
       <!-- Login Button: Navigate to Login Page -->
-      <button [routerLink]="pageUtils.helpers.routing.login"
-              class="btn btn-lg btn-light" type="button">Log In
+      <button [disabled]="pageUtils.loading"
+              [routerLink]="pageUtils.helpers.routing.login"
+              [title]="pageUtils.helpers.text.login"
+              class="btn btn-lg btn-light" type="button">
+        {{pageUtils.helpers.text.login}}
       </button>
     </div>
   </form>

@@ -1,5 +1,5 @@
 <div class="mb-5 sticky-top">
-  <nav class="navbar navbar-expand-lg bg-light mb-2">
+  <nav class="navbar shadow-sm navbar-expand-lg bg-light mb-2">
     <div class="container-fluid">
       <a class="navbar-brand" data-bs-target=".navbar-collapse.show"
          data-bs-toggle="collapse"
@@ -41,10 +41,14 @@
               <li>
                 <a
                   [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.menClothing]"
-                  class="dropdown-item">{{helpers.text.menClothing}}</a>
+                  class="dropdown-item"
+                  data-bs-target=".navbar-collapse.show"
+                  data-bs-toggle="collapse">{{helpers.text.menClothing}}</a>
                 <a
                   [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.womenClothing]"
-                  class="dropdown-item">{{helpers.text.womenClothing}}</a>
+                  class="dropdown-item"
+                  data-bs-target=".navbar-collapse.show"
+                  data-bs-toggle="collapse">{{helpers.text.womenClothing}}</a>
               </li>
             </ul>
           </li>
@@ -85,7 +89,7 @@
                data-bs-target=".navbar-collapse.show"
                data-bs-toggle="collapse"
                role="button">
-              <i class="bi bi-power"></i>
+              {{helpers.text.login}}
             </a>
             <a (click)="onLogOut()" *ngIf="authenticated"
                [title]="helpers.text.logout"
@@ -94,7 +98,7 @@
                data-bs-target=".navbar-collapse.show"
                data-bs-toggle="collapse"
                role="button">
-              <i class="bi bi-power"></i>
+              {{helpers.text.logout}}
             </a>
           </li>
         </ul>

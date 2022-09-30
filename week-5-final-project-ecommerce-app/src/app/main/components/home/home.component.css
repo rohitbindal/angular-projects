@@ -4,6 +4,12 @@
   border-radius: 10px;
 }
 
+.category-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
 .banner {
   max-height: 400px;
   object-fit: cover
