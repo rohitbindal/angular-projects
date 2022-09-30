@@ -1,0 +1,147 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="editProductForm"
+      class="d-flex flex-column gap-3"
+      id="editForm"
+>
+  <!--  Disabled Product Id input -->
+  <div class="form-floating">
+    <input
+      class="form-control"
+      formControlName="id"
+      id="idInput"
+      type="text"
+    >
+    <label for="idInput">Id</label>
+  </div>
+
+  <!-- Title input -->
+  <div class="form-floating">
+    <input
+      class="form-control"
+      formControlName="title"
+      id="title"
+      type="text"
+    >
+    <label for="title">Title</label>
+  </div>
+
+  <!--  Description input -->
+  <div class="form-floating">
+    <textarea
+      class="form-control"
+      formControlName="description"
+      id="description"
+      style="height: 100px"
+      type="textarea"
+    ></textarea>
+    <label for="description">Description</label>
+  </div>
+
+  <!--  Image Url input -->
+  <div class="input-group">
+    <input
+      class="form-control"
+      formControlName="image"
+      id="image"
+      placeholder="Image Url"
+      type="text"
+    >
+    <button (click)="onAddImage()" class="btn btn-success" type="button">
+      <span><i class="bi bi-plus"></i></span>
+    </button>
+  </div>
+
+
+  <!--  Image Url input -->
+  <div formArrayName="relatedImages">
+    <div *ngFor="let relatedImage of relatedImages; let i = index;"
+         [formGroupName]="i"
+         class="input-group mb-3">
+
+      <input
+        [id]="i"
+        class="form-control"
+        formControlName="url"
+        placeholder="Image Url"
+        type="text"
+      >
+      <button (click)="onDeleteImage(i)" class="btn btn-danger">
+        <span><i class="bi bi-dash"></i></span>
+      </button>
+      <button (click)="onAddImage()" class="btn btn-success" type="button">
+        <span><i class="bi bi-plus"></i></span>
+      </button>
+    </div>
+  </div>
+
+  <!--  Category Selector -->
+  <div class="row g-3">
+    <div class="col">
+      <div class="form-floating">
+        <select class="form-select" formControlName="category" id="category">
+          <option *ngFor="let category of categories"
+                  [ngValue]="category">{{category}}</option>
+        </select>
+        <label for="category">Category</label>
+      </div>
+    </div>
+
+    <!--  Price Input -->
+    <div class="col">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          formControlName="price"
+          id="price"
+          type="number"
+        >
+        <label for="price">Price</label>
+      </div>
+    </div>
+  </div>
+
+  <!--  Stock Checkbox-->
+  <div class="form-check">
+    <input class="form-check-input" formControlName="stock" id="stock"
+           type="checkbox">
+    <label class="form-check-label" for="stock">
+      Stock
+    </label>
+  </div>
+
+  <!--  Status Checkbox ->> Disabled -->
+  <div class="form-check">
+    <input class="form-check-input" formControlName="disabled" id="disabled"
+           type="checkbox">
+    <label class="form-check-label" for="disabled">
+      Disabled
+    </label>
+  </div>
+  <!--  Form actions -->
+  <div class="row d-flex">
+    <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-sm-center">
+      <div class="btn-group w-100">
+
+        <!-- Button text based on edit or new product form with loader -->
+        <button
+          [disabled]="editProductForm.invalid || (loading.update || loading.del)"
+          class="btn btn-success"
+          title="Update Product" type="submit">
+          <span
+            *ngIf="!loading.update">{{productData ? 'Update' : 'Add'}}</span>
+          <span *ngIf="loading.update"
+                class="spinner-border spinner-border-sm"></span>
+        </button>
+        <!--  Delete Button with loader -->
+        <button (click)="onDelete()"
+                *ngIf="productData"
+                [disabled]="(loading.update || loading.del)"
+                class="btn btn-outline-danger"
+                title="Delete Product" type="button">
+          <span *ngIf="!loading.del">Delete</span>
+          <span *ngIf="loading.del"
+                class="spinner-border spinner-border-sm"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

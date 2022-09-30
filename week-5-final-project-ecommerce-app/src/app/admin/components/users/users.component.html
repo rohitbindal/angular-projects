@@ -1,0 +1,139 @@
+<app-loader *ngIf="pageProps.loading && !users"></app-loader>
+
+<div *ngIf="users && currentUser" class="mb-5">
+
+  <!--  Filters -->
+  <div class="filters d-flex flex-row justify-content-between">
+    <div class="buttons d-flex flex-row gap-3">
+      <button aria-controls="offcanvasFilters" class="btn"
+              data-bs-target="#offcanvasFilters"
+              data-bs-toggle="offcanvas" type="button">
+       <span>
+          <i class="bi bi-funnel"></i>
+            </span>
+        Filters
+      </button>
+      <button (click)="clearFilters()" *ngIf="filtersActive"
+              class="btn btn-outline-danger">
+      <span>Clear Filters
+              <span><i class="bi bi-x"></i></span>
+            </span></button>
+    </div>
+
+    <!--  Filters Body -->
+    <div aria-labelledby="offcanvasFilters" class="offcanvas offcanvas-start"
+         id="offcanvasFilters"
+         tabindex="-1">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasFiltersTitle">Filters</h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas"
+                type="button"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form (ngSubmit)="onFilterSubmit()" [formGroup]="filtersForm">
+          <!-- Sort By Name -->
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+              <div class="name-asc form-check">
+                <input
+                  class="form-check-input"
+                  formControlName="name"
+                  id="nameAscending"
+                  type="radio"
+                  value="0">
+                <label class="form-check-label" for="nameAscending">
+                    <span>
+                      <small>Name Asc (<i
+                        class="bi bi-sort-alpha-up-alt"></i>)</small>
+                    </span>
+                </label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="name-desc form-check">
+                <input
+                  class="form-check-input"
+                  formControlName="name"
+                  id="nameDescending"
+                  type="radio"
+                  value="1">
+                <label class="form-check-label" for="nameDescending">
+                    <span>
+                      <small>Name Desc (<i
+                        class="bi bi-sort-alpha-down-alt"></i>)</small>
+                    </span>
+                </label>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Filter by status -->
+          <div class="status form-check mb-3">
+            <input
+              [value]="true"
+              class="form-check-input"
+              formControlName="status"
+              id="status"
+              type="checkbox">
+            <label class="form-check-label" for="status">
+              <small>Disabled</small>
+            </label>
+          </div>
+
+          <hr>
+          <button class="btn btn-primary w-100" data-bs-dismiss="offcanvas">
+            Apply
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <!--  Users List -->
+  <div *ngFor="let user of users; let i = index" class="card mb-3 shadow">
+    <div
+      class="card-header d-flex flex-row justify-content-between align-items-center ">
+
+      <span>{{user.roles.admin ? 'Admin' : 'Customer'}}</span>
+      <div class="btn-group">
+        <button (click)="getUserOrders(user.uid)"
+                *ngIf="user.uid !== currentUser.uid"
+                [disabled]="pageProps.ordersLoading"
+                class="btn btn-secondary"
+        >
+          Get Orders
+        </button>
+
+        <button (click)="onDisableClicked(user,i)"
+                *ngIf="!user.disabled"
+                [disabled]="user.uid == currentUser.uid"
+                class="btn btn-danger"
+                title="Deactivate Account">
+          <span><i class="bi bi-slash-circle"></i></span>
+        </button>
+        <button (click)="onEnableClicked(user,i)"
+                *ngIf="user.disabled"
+                [disabled]="user.uid == currentUser.uid"
+                class="btn btn-success"
+                title="Activate Account">
+          <span><i class="bi bi-slash-circle"></i></span>
+        </button>
+
+      </div>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <span>Username: {{user.username}}</span>
+      <span>E-mail: {{user.email}}</span>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+
+</div>
+
+<!-- Orders Modal -->
+<div #ordersModal aria-hidden="true"
+     aria-labelledby="ordersModal"
+     class="modal fade">
+  <app-orders-modal *ngIf="orders" [orders]="orders"></app-orders-modal>
+</div>
