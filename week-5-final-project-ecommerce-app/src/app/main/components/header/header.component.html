@@ -1,0 +1,108 @@
+<div class="mb-5 sticky-top">
+  <nav class="navbar shadow-sm navbar-expand-lg bg-light mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" data-bs-target=".navbar-collapse.show"
+         data-bs-toggle="collapse"
+         routerLink="/">Store</a>
+
+      <!-- Navbar toggle icon for smaller screens -->
+      <button aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation"
+              class="navbar-toggler"
+              data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse"
+              type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Nav content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item"><a
+            [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.electronics]"
+            class="nav-link"
+            data-bs-target=".navbar-collapse.show"
+            data-bs-toggle="collapse">{{helpers.text.electronics}}</a>
+          </li>
+
+          <li class="nav-item"><a
+            [routerLink]="[helpers.routing.categoryRouteAbsolute,helpers.routing.productCategories.jewelery]"
+            class="nav-link" data-bs-target=".navbar-collapse.show"
+            data-bs-toggle="collapse">{{helpers.text.jewelery}}</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle"
+               data-bs-toggle="dropdown"
+               href="#" role="button">
+              Clothing
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.menClothing]"
+                  class="dropdown-item"
+                  data-bs-target=".navbar-collapse.show"
+                  data-bs-toggle="collapse">{{helpers.text.menClothing}}</a>
+                <a
+                  [routerLink]="[helpers.routing.categoryRouteAbsolute, helpers.routing.productCategories.womenClothing]"
+                  class="dropdown-item"
+                  data-bs-target=".navbar-collapse.show"
+                  data-bs-toggle="collapse">{{helpers.text.womenClothing}}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item">
+            <button [routerLink]="helpers.routing.wishlistRoute"
+                    [title]="helpers.text.wishlist"
+                    aria-expanded="false"
+                    class="nav-link btn"
+                    data-bs-target=".navbar-collapse.show"
+                    data-bs-toggle="collapse"
+            >
+              <i class="bi bi-heart"></i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button [routerLink]="helpers.routing.cartRoute"
+                    [title]="helpers.text.cart"
+                    aria-expanded="false"
+                    class="nav-link btn"
+                    data-bs-target=".navbar-collapse.show"
+                    data-bs-toggle="collapse"
+            >
+              <i class="bi bi-cart position-relative">
+                <span
+                  class="badge rounded-pill text-bg-dark position-absolute top-0 start-100 translate-middle"
+                  style="font-size: .6em">{{cart}}</span>
+              </i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <a (click)="onLogIn()" *ngIf="!authenticated"
+               [title]="helpers.text.login"
+               aria-expanded="false"
+               class="nav-link btn"
+               data-bs-target=".navbar-collapse.show"
+               data-bs-toggle="collapse"
+               role="button">
+              {{helpers.text.login}}
+            </a>
+            <a (click)="onLogOut()" *ngIf="authenticated"
+               [title]="helpers.text.logout"
+               aria-expanded="false"
+               class="nav-link btn"
+               data-bs-target=".navbar-collapse.show"
+               data-bs-toggle="collapse"
+               role="button">
+              {{helpers.text.logout}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

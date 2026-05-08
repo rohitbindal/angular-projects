@@ -1,0 +1,16 @@
+.category-button:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.175);
+  transition: .1s;
+  border-radius: 10px;
+}
+
+.category-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.banner {
+  max-height: 400px;
+  object-fit: cover
+}

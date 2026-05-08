@@ -1,0 +1,35 @@
+<div
+  class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="ordersModalTitle">Orders</h5>
+      <button aria-label="Close" class="btn-close"
+              data-bs-dismiss="modal"
+              type="button"></button>
+    </div>
+    <div class="modal-body">
+      <div *ngFor="let order of orders" class="order-wrapper">
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <ul *ngFor="let product of order.products"
+                class="product-wrapper list-group">
+              <li class="list-group-item d-flex justify-content-between">
+                <span [title]="product.title"
+                      class="text-truncate">{{product.title}}</span>
+                <span>Qty: {{product.count}}</span>
+              </li>
+            </ul>
+            <hr>
+            <span>Total: {{order.total}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button aria-label="Close" class="btn btn-secondary"
+              data-bs-dismiss="modal"
+      >Close
+      </button>
+    </div>
+  </div>
+</div>

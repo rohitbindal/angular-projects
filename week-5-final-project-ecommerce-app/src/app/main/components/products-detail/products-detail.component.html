@@ -1,0 +1,128 @@
+<!-- Loader -->
+<app-loader *ngIf="pageProps.pageLoading"></app-loader>
+
+<!-- Content Container -->
+<div *ngIf="product && !pageProps.pageLoading"
+     class="container-fluid col-10 offset-1 mb-5">
+  <div class="details-header">
+    <div
+      class="row d-flex flex-md-row flex-lg-row flex-column gap-4 ">
+
+      <!-- Details Header - Image Carousel Container  -->
+      <div
+        class="col-12 col-md-4 col-lg-4 d-flex justify-content-center flex-column"
+      >
+        <div class="carousel slide carousel-fade" data-bs-ride="carousel"
+             id="productImageCarousel">
+          <div class="carousel-inner">
+
+            <!--  First image is active -->
+            <div class="carousel-item active" data-bs-interval="5000">
+              <img [alt]="product.title" [src]="product.image[0]"
+                   class="d-block w-100 carousel-image">
+            </div>
+
+            <!-- Rest of the images -->
+            <div *ngFor="let image of carouselImages"
+                 class="carousel-item"
+                 data-bs-interval="2000">
+              <img [alt]="product.title" [src]="image"
+                   class="d-block w-100 carousel-image">
+            </div>
+
+          </div>
+
+          <!--  Carousel Actions -->
+          <button class="carousel-control-prev" data-bs-slide="prev"
+                  data-bs-target="#productImageCarousel" type="button">
+            <span aria-hidden="true"
+                  class="carousel-control-prev-icon text-bg-dark"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" data-bs-slide="next"
+                  data-bs-target="#productImageCarousel" type="button">
+            <span aria-hidden="true"
+                  class="carousel-control-next-icon text-bg-dark"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          <div class="carousel-indicators">
+            <img
+              *ngFor="let image of product.image; let i = index"
+              [alt]="product.title"
+              [attr.aria-label]=" 'Image '+ i+1"
+              [attr.data-bs-slide-to]="i"
+              [src]="image"
+              class="carousel-image-indicator d-block w-100 active"
+              data-bs-target="#productImageCarousel">
+          </div>
+        </div>
+
+      </div>
+
+      <!--  Details Header - Description Container  -->
+      <div
+        class="col-12 col-md-7 col-lg-7 d-flex flex-column justify-content-center"
+      >
+        <!--   Product Name     -->
+        <h3 class="display-6" title="Title">{{product.title}}</h3>
+        <!--   Description - truncated     -->
+        <div class="lead text-truncate text-truncate-2" title="Description">
+          {{product.description}}
+        </div>
+        <div class="row d-flex flex-column">
+          <!--     Price and Delivery info     -->
+          <div class="price col mt-3">
+            <div class="display-6 price">
+              &#8377;<strong>{{product.price}}/-</strong>
+            </div>
+            <div>
+              <small class="small lead">Inclusive of all taxes</small>
+            </div>
+            <div *ngIf="product.stock">
+              <small class="small lead">Free Delivery by <strong>Tomorrow
+                7pm </strong></small>
+            </div>
+          </div>
+
+          <!--     Actions     -->
+          <div
+            class="d-flex flex-column justify-content-evenly gap-2 col-sm-6 col-md-8 col-lg-6 mt-3">
+            <div class="btn-group">
+              <button (click)="onAddToCartClicked()"
+                      [disabled]="!product.stock || pageProps.cartUpdateLoading"
+                      class="btn btn-outline-info"
+                      title="Add to Cart">Add
+                to
+                Cart
+              </button>
+              <button (click)="onWishlistClicked()"
+                      class="btn btn-danger"
+                      title="Add to Wishlist"><i class="bi bi-heart-fill"></i>
+              </button>
+            </div>
+            <button (click)="onBuyNowClicked()"
+                    [disabled]="!product.stock || pageProps.cartUpdateLoading"
+                    class="btn btn-dark"
+                    title="Buy Now">{{product.stock ? 'Buy Now' : 'Out of Stock'}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Description -->
+  <div class="details-container mt-3">
+    <div class="lead fs-6" title="Description">
+      {{product.description}}
+    </div>
+  </div>
+  <hr>
+
+  <!--  Similar Products -->
+  <div class="lead">Similar Products</div>
+  <app-products-slider (productClicked)="onProductClicked()"
+                       [relatedProducts]="relatedProducts"
+                       [screenBreakpoint]="screenBreakpoint"
+                       [sliderProducts]="sliderProducts"></app-products-slider>
+</div>

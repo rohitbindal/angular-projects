@@ -1,0 +1,349 @@
+<div class="container container-fluid">
+  <div *ngIf="loading && !products" class="loader">
+    <app-loader></app-loader>
+  </div>
+  <div *ngIf="products" class="products">
+    <div class="row d-flex justify-content-between">
+
+      <!-- FILTERS -->
+      <div class="filters col-xs-4 col-sm-4 col-md-4 col-lg-3 mb-3 gap-5">
+        <p class="lead">
+        <span>
+          <i class="bi bi-funnel"></i>
+            </span>
+          Filters
+        </p>
+
+        <div class="container container-fluid small row gap-3">
+
+          <!--  SORT By -->
+          <div class="sort-by">
+            <a aria-controls="sortCollapse" aria-expanded="true"
+               class="btn w-100 filter-button"
+               data-bs-toggle="collapse"
+               href="#sortCollapse">
+             <span><i
+               class="bi bi-sort-up-alt"></i></span>
+              Sort
+            </a>
+            <!-- Sort By Radio buttons List -->
+            <div class="sort-by collapse" id="sortCollapse">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="name-asc form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.sort"
+                           [value]="['name', 0]"
+                           class="form-check-input"
+                           id="nameAscending"
+                           name="nameAscending"
+                           type="radio">
+                    <label class="form-check-label" for="nameAscending">
+                    <span>
+                      <small>Name Asc (<i
+                        class="bi bi-sort-alpha-up-alt"></i>)</small>
+                    </span>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="name-desc form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.sort"
+                           [value]="['name', 1]" class="form-check-input"
+                           id="nameDescending"
+                           name="nameDescending"
+                           type="radio">
+                    <label class="form-check-label" for="nameDescending">
+                    <span>
+                      <small>Name Desc (<i
+                        class="bi bi-sort-alpha-down-alt"></i>)</small>
+                    </span>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="price-asc form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.sort"
+                           [value]="['price', 0]"
+                           class="form-check-input"
+                           id="priceAscending"
+                           name="priceAscending"
+                           type="radio">
+                    <label class="form-check-label" for="priceAscending">
+                    <span>
+                      <small>Price Asc (<i
+                        class="bi bi-sort-numeric-up-alt"></i>)</small>
+                    </span>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="price-desc form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.sort"
+                           [value]="['price', 1]"
+                           class="form-check-input"
+                           id="priceDescending"
+                           name="priceDescending"
+                           type="radio">
+                    <label class="form-check-label" for="priceDescending">
+                    <span>
+                      <small>Price Desc (<i
+                        class="bi bi-sort-numeric-down-alt"></i>)</small>
+                    </span>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="rate-asc form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.sort"
+                           [value]="['rating', 0]"
+                           class="form-check-input"
+                           id="rateAscending"
+                           name="rateAscending"
+                           type="radio">
+                    <label class="form-check-label" for="rateAscending">
+                    <span>
+                      <small>Rate Asc (<i
+                        class="bi bi-sort-numeric-up-alt"></i>)</small>
+                    </span>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="rate-desc form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.sort"
+                           [value]="['rating', 1]"
+                           class="form-check-input"
+                           id="rateDescending"
+                           name="rateDescending"
+                           type="radio">
+                    <label class="form-check-label" for="rateDescending">
+                    <span>
+                      <small>Rate Desc (<i
+                        class="bi bi-sort-numeric-down-alt"></i>)</small>
+                    </span>
+                    </label>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+          <!-- Price Selectors -->
+          <div class="price-range">
+            <a aria-controls="priceCollapse" aria-expanded="true"
+               class="btn w-100 filter-button"
+               data-bs-toggle="collapse"
+               href="#priceCollapse">
+             <span><i
+               class="bi bi-tag"></i></span>
+              Price
+            </a>
+
+            <!-- Price range radio buttons List -->
+            <div class="price collapse" id="priceCollapse">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="bracket-1 form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.price"
+                           [value]="[0,99]"
+                           class="form-check-input"
+                           id="bracket-1"
+                           name="bracket-1"
+                           type="radio">
+                    <label class="form-check-label" for="bracket-1">
+                      <small>
+                        &#8377;99 and below
+                      </small>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="bracket-2 form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.price"
+                           [value]="[99,499]"
+                           class="form-check-input"
+                           id="bracket-2"
+                           name="bracket-2"
+                           type="radio">
+                    <label class="form-check-label"
+                           for="bracket-2">
+                      <small>
+                        &#8377;100 to &#8377;499
+                      </small>
+                    </label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="bracket-3 form-check">
+                    <input (change)="onChange()"
+                           [(ngModel)]="filters.price"
+                           [value]="[500, 1000]"
+                           class="form-check-input" id="bracket-3"
+                           name="bracket-3"
+                           type="radio">
+                    <label class="form-check-label" for="bracket-3">
+                      <small>
+                        &#8377;499 and above
+                      </small>
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Rating Selectors -->
+          <div class="rating-selector">
+            <a aria-controls="rateCollapse" aria-expanded="true"
+               class="btn w-100 filter-button"
+               data-bs-toggle="collapse"
+               href="#rateCollapse">
+             <span><i
+               class="bi bi-star"></i></span>
+              Rating
+            </a>
+            <!-- Rating Radio buttons List -->
+            <div class="rate collapse" id="rateCollapse">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="rate-1 form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.rating"
+                           [value]="1"
+                           class="form-check-input"
+                           id="rate-1"
+                           name="rate-1"
+                           type="radio">
+                    <label class="form-check-label" for="rate-1">
+                      <small>1 Star</small>
+                    </label>
+                  </div>
+                </li>
+
+                <li class="list-group-item">
+                  <div class="rate-2 form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.rating"
+                           [value]="2"
+                           class="form-check-input"
+                           id="rate-2"
+                           name="rate-2"
+                           type="radio">
+                    <label class="form-check-label" for="rate-2">
+                      <small>2 Stars</small>
+                    </label>
+                  </div>
+                </li>
+
+                <li class="list-group-item">
+                  <div class="rate-3 form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.rating"
+                           [value]="3"
+                           class="form-check-input"
+                           id="rate-3"
+                           name="rate-3"
+                           type="radio">
+                    <label class="form-check-label" for="rate-3">
+                      <small>3 Stars</small>
+                    </label>
+                  </div>
+                </li>
+
+                <li class="list-group-item">
+                  <div class="rate-4 form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.rating"
+                           [value]="4"
+                           class="form-check-input"
+                           id="rate-4"
+                           name="rate-4"
+                           type="radio">
+                    <label class="form-check-label" for="rate-4">
+                      <small>4 Stars</small>
+                    </label>
+                  </div>
+                </li>
+
+                <li class="list-group-item">
+                  <div class="rate-5 form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.rating"
+                           [value]="5"
+                           class="form-check-input"
+                           id="rate-5"
+                           name="rate-5"
+                           type="radio">
+                    <label class="form-check-label" for="rate-5">
+                      <small>5 Stars</small>
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Stock Selectors -->
+          <div class="stock-selector">
+            <a aria-controls="stockCollapse" aria-expanded="true"
+               class="btn w-100 filter-button"
+               data-bs-toggle="collapse"
+               href="#stockCollapse">
+             <span><i
+               class="bi bi-box-seam"></i></span>
+              Stock
+            </a>
+            <!-- Stock Radio buttons List -->
+            <div class="stock collapse" id="stockCollapse">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="in-stock form-check">
+                    <input (change)="onChange()" [(ngModel)]="filters.stock"
+                           [value]="true"
+                           class="form-check-input"
+                           id="in-stock"
+                           name="in-stock"
+                           type="checkbox">
+                    <label class="form-check-label" for="in-stock">
+                      <small>In Stock</small>
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <button (click)="clearFilters()"
+                  *ngIf="filters.active"
+                  class="btn clear-filters-button w-100">
+            <span>Clear Filters
+              <span><i class="bi bi-x"></i></span>
+            </span>
+          </button>
+
+        </div>
+      </div>
+
+      <!--  PRODUCT LIST -->
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-9 mb-5">
+
+        <app-loader *ngIf="loading"></app-loader>
+
+        <div *ngIf="!loading"
+             class="row row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
+          <div *ngFor="let product of products; let i = index"
+               class="products-list-container col mb-4">
+            <app-product-item
+              [product]="product"
+              [routerLink]="[helpers.routing.detailsRouteAbsolute, product.id]"></app-product-item>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

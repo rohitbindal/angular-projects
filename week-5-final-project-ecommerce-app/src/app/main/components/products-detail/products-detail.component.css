@@ -1,0 +1,32 @@
+.text-truncate.text-truncate-2 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.small {
+  font-size: smaller;;
+}
+
+.details-container {
+  font-size: medium
+}
+
+.carousel-image {
+  object-fit: contain;
+}
+
+.carousel-image-indicator {
+  width: 2rem !important;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.carousel-indicators {
+  border-radius: 5px;
+  margin: 0;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
